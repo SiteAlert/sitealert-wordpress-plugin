@@ -76,9 +76,14 @@ class MLWWpHealthCheck
 		load_plugin_textdomain( 'wp-health-check', false, dirname( plugin_basename( __FILE__ ) ) . "/languages/" );
 	}
 
+  /**
+   * Function to display the settings page
+   *
+   * @since 0.1.0
+   */
   public function settings_page()
   {
-
+    
   }
 }
 
