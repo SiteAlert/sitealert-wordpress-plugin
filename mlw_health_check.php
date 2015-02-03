@@ -89,8 +89,6 @@ class MLWWpHealthCheck
   	   <h2>WordPress Health Check</h2>
        <hr />
        <h3>Server Check</h3>
-       <p>Using an unsupported version of PHP or MySQL means that you are using a version that no longer receives important security updates and fixes.
-         If your version is unsupported, consider updating right away or contacting your host.</p>
        <?php
        $version = explode('.', PHP_VERSION);
        $php_check_health = 'good';
@@ -98,29 +96,29 @@ class MLWWpHealthCheck
        switch (intval($version[0])) {
          case 4:
            $php_check_health = 'bad';
-           $message = "You server is running PHP version ".PHP_VERSION." which has not been supported in over 5 years and is below the required 5.2. You must update your PHP or contact your host immediately!";
+           $message = "You server is running PHP version ".PHP_VERSION." which has not been supported in over 5 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!";
            break;
 
          case 5:
            switch (intval($version[1])) {
              case 0:
                $php_check_health = 'bad';
-               $message = "You server is running PHP version ".PHP_VERSION." which has not been supported in almost 10 years and is below the required 5.2. You must update your PHP or contact your host immediately!";
+               $message = "You server is running PHP version ".PHP_VERSION." which has not been supported in almost 10 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!";
                break;
 
              case 1:
                $php_check_health = 'bad';
-               $message = "You server is running PHP version ".PHP_VERSION." which has not been supported in almost 10 years and is below the required 5.2. You must update your PHP or contact your host immediately!";
+               $message = "You server is running PHP version ".PHP_VERSION." which has not been supported in almost 10 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!";
                break;
 
              case 2:
                $php_check_health = 'okay';
-               $message = "You server is running PHP version ".PHP_VERSION.". This is the bare minimum requirement of WordPress. However, this version has not been supported in almost 5 years and is below the recommended 5.4. You should consider updating your PHP or contact your host.";
+               $message = "You server is running PHP version ".PHP_VERSION.". This is the bare minimum requirement of WordPress. However, this version has not been supported in almost 5 years and is below the recommended 5.4. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
                break;
 
              case 3:
                $php_check_health = 'okay';
-               $message = "You server is running PHP version ".PHP_VERSION.". This is the above the bare minimum requirement of WordPress. However, this version has not been supported in almost 6 months and is below the recommended 5.4. You should consider updating your PHP or contact your host.";
+               $message = "You server is running PHP version ".PHP_VERSION.". This is the above the bare minimum requirement of WordPress. However, this version has not been supported in almost 6 months and is below the recommended 5.4. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
                break;
 
              case 4:
@@ -177,19 +175,19 @@ class MLWWpHealthCheck
        switch (intval($version[0])) {
          case 4:
            $sql_check_health = 'bad';
-           $message = "You server is running MySQL version ".$wpdb->db_version()." which has not been supported in over 5 years and is below the required 5.0. You must update your MySQL or contact your host immediately!";
+           $message = "You server is running MySQL version ".$wpdb->db_version()." which has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!";
            break;
 
          case 5:
            switch (intval($version[1])) {
              case 0:
                $sql_check_health = 'okay';
-               $message = "You server is running MySQL version ".$wpdb->db_version().". This is the bare minimum that WordPress requires. However, this version has not been supported in 2 years and is below the recommended 5.5. You should consider updating your MySQL or contacting your host.";
+               $message = "You server is running MySQL version ".$wpdb->db_version().". This is the bare minimum that WordPress requires. However, this version has not been supported in 2 years and is below the recommended 5.5. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
                break;
 
              case 1:
                $sql_check_health = 'okay';
-               $message = "You server is running MySQL version ".$wpdb->db_version().". This is above the bare minimum that WordPress requires. However, this version is not longer supported and below the recommended 5.5. You should consider updating your MySQL or contacting your host.";
+               $message = "You server is running MySQL version ".$wpdb->db_version().". This is above the bare minimum that WordPress requires. However, this version is not longer supported and below the recommended 5.5. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
                break;
 
              case 5:
@@ -239,7 +237,6 @@ class MLWWpHealthCheck
        }
        ?>
        <h3>WordPress Check</h3>
-       <p>The latest version of WordPress is always the most secure. If you are using an older version, your site is less secure from hackers.
        <?php
        //Check for WordPress
        if (get_bloginfo( 'version' ) == '4.1')
@@ -248,7 +245,7 @@ class MLWWpHealthCheck
        }
        else
        {
-         echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>You WordPress is not up to date. Please consider updating.</div>";
+         echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.</div>";
        }
        ?>
     </div>
