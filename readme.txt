@@ -13,6 +13,12 @@ This plugin checks the health of your WordPress installation.
 
 WordPress Health Check will check your WordPress installation to ensure that it is healthy, up to date, and secure.
 
+= Currently Checks =
+
+* WordPress Version
+* MySQL Version
+* PHP Version
+
 = Make Suggestions Or Contribute =
 WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
@@ -30,11 +36,11 @@ WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-healt
 
 == Screenshots ==
 
-1. Quiz Admin Page (With Advertisement Be Gone Add-On)
+1. Admin Page
 
 == Changelog ==
 
-= 0.1.0 (February 3, 2015) =
+= 0.1.0 (February 8, 2015) =
 * Begun Development
 
 == Upgrade Notice ==
