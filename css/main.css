@@ -1,0 +1,24 @@
+.wp-hc-good-box {
+	color:#555;
+	border-radius:10px;
+	padding:10px 36px;
+	margin:10px;
+	border:1px solid #81F79F;
+  background-color: #81F79F;
+}
+.wp-hc-okay-box {
+	color:#555;
+	border-radius:10px;
+	padding:10px 36px;
+	margin:10px;
+	border:1px solid #f2c779;
+  background-color: #fff8c4;
+}
+.wp-hc-bad-box {
+	color:#555;
+	border-radius:10px;
+	padding:10px 36px;
+	margin:10px;
+	border:1px solid #F5A9A9;
+  background-color: #F5A9A9;
+}
