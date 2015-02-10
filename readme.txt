@@ -1,7 +1,7 @@
-=== WordPress Health Check ===
+=== My WordPress Health Check ===
 Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
-Tags: php, mysql, version, recommended, requirement, safety
+Tags: php, mysql, version, recommended, requirement, safety, security
 Requires at least: 3.8.1
 Tested up to: 4.1
 Stable tag: 0.1.0
@@ -11,7 +11,7 @@ This plugin checks the health of your WordPress installation.
 
 == Description ==
 
-WordPress Health Check will check your WordPress installation to ensure that it is healthy, up to date, and secure.
+My WordPress Health Check will check your WordPress installation to ensure that it is healthy, up to date, and secure.
 
 = Currently Checks =
 
@@ -20,7 +20,7 @@ WordPress Health Check will check your WordPress installation to ensure that it 
 * PHP Version
 
 = Make Suggestions Or Contribute =
-WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-health-check)!
+My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Installation ==
 
@@ -40,7 +40,7 @@ WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-healt
 
 == Changelog ==
 
-= 0.1.0 (February 8, 2015) =
+= 0.1.0 (February 11, 2015) =
 * Begun Development
 
 == Upgrade Notice ==
