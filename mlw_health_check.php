@@ -2,7 +2,7 @@
 /**
 * Plugin Name: My WordPress Health Check
 * Description: This plugin checks the health of your WordPress installation.
-* Version: 0.1.0
+* Version: 0.2.0
 * Author: Frank Corso
 * Author URI: http://www.mylocalwebstop.com/
 * Plugin URI: http://www.mylocalwebstop.com/
@@ -16,7 +16,7 @@
 * You understand that you install, operate, and unistall the plugin at your own discretion and risk.
 *
 * @author Frank Corso
-* @version 0.1.0
+* @version 0.2.0
 */
 
 /**

@@ -62,6 +62,11 @@ class MLWWpHcAdmin
     <?php
   }
 
+  /**
+   * Checks if using latest version of WordPress
+   *
+   * @since 0.1.0
+   */
   public function wordpress_version_check()
   {
     $core_update = get_core_updates();
@@ -75,6 +80,11 @@ class MLWWpHcAdmin
     }
   }
 
+  /**
+   * Checks if using latest version of plugins
+   *
+   * @since 0.2.0
+   */
   public function plugins_check()
   {
     $plugin_updates = get_plugin_updates();
@@ -94,6 +104,11 @@ class MLWWpHcAdmin
     }
   }
 
+  /**
+   * Checks if using latest version of themes
+   *
+   * @since 0.2.0
+   */
   public function themes_check()
   {
     $theme_updates = get_theme_updates();
@@ -108,6 +123,11 @@ class MLWWpHcAdmin
     }
   }
 
+  /**
+   * Checks if using latest version of mysql
+   *
+   * @since 0.1.0
+   */
   public function mysql_check()
   {
     //Check for MySQL
@@ -180,6 +200,11 @@ class MLWWpHcAdmin
     }
   }
 
+  /**
+   * Checks if using latest version of php
+   *
+   * @since 0.1.0
+   */
   public function php_check()
   {
     $version = explode('.', PHP_VERSION);
