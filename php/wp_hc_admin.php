@@ -55,6 +55,8 @@ class MLWWpHcAdmin
        <h3>WordPress Check</h3>
        <?php
        MLWWpHcAdmin::wordpress_version_check();
+       MLWWpHcAdmin::plugins_check();
+       MLWWpHcAdmin::themes_check();
        ?>
     </div>
     <?php
@@ -62,13 +64,47 @@ class MLWWpHcAdmin
 
   public function wordpress_version_check()
   {
-    if (get_bloginfo( 'version' ) == '4.1')
+    $core_update = get_core_updates();
+    if (empty($core_update))
     {
       echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>Your WordPress is up to date. Great Job!</div>";
     }
     else
     {
       echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.</div>";
+    }
+  }
+
+  public function plugins_check()
+  {
+    $plugin_updates = get_plugin_updates();
+    if(!empty($plugin_updates))
+    {
+      $plugins = array();
+      foreach ($plugin_updates as $plugin)
+      {
+        $plugins[] = $plugin->Name;
+      }
+      $plugin_list = implode(",", $plugins);
+      echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.</div>";
+    }
+    else
+    {
+      echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>All of your WordPress plugins are up to date. Great Job!</div>";
+    }
+  }
+
+  public function themes_check()
+  {
+    $theme_updates = get_theme_updates();
+    if(!empty($theme_updates))
+    {
+      $themes = array();
+      echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>One or more of your themes have updates available. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.</div>";
+    }
+    else
+    {
+      echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>All of your WordPress themes are up to date. Great Job!</div>";
     }
   }
 
