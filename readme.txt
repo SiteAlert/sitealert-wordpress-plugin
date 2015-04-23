@@ -3,8 +3,8 @@ Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, version, recommended, requirement, safety, security
 Requires at least: 3.8.1
-Tested up to: 4.1.1
-Stable tag: 0.2.0
+Tested up to: 4.2
+Stable tag: 0.2.1
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -41,6 +41,8 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+= 0.2.1 (April 22, 2015)
+* Updated version number to reflect compatibility with Wordpress version 4.2
 
 = 0.2.0 (February 26, 2015) =
 * Added Ability To Check If Plugins Need Updates [Issue #2](https://github.com/fpcorso/wordpress-health-check/issues/2)
@@ -51,6 +53,8 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Begun Development
 
 == Upgrade Notice ==
+= 0.2.1 =
+Updated the version number to reflect compatibility with Wordpress 4.2
 
 = 0.2.0 =
 Added checks for themes and plugins to ensure that they are up to date.
