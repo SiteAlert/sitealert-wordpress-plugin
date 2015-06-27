@@ -32,7 +32,17 @@ class MLWWpHcAdmin
    */
   private function load_hooks()
   {
-    ///None
+    add_action('admin_menu', array($this, 'setup_admin_page'));
+  }
+
+  /**
+   * Creates the menu for the plugin
+   *
+   * @since 0.1.0
+   */
+  public function setup_admin_page()
+  {
+    add_management_page('WordPress Health Check', __('Health Check', 'my-wp-health-check'), 'moderate_comments', 'wp-health-check', array($this, 'settings_page'));
   }
 
   /**
@@ -46,18 +56,19 @@ class MLWWpHcAdmin
     ?>
     <div class="wrap">
   	   <h2>WordPress Health Check</h2>
+       <p>If you feel that your website has benefited from this plugin, please help other users find this plugin by <a href="https://wordpress.org/support/view/plugin-reviews/my-wp-health-check">leaving a review</a>.</p>
        <hr />
        <h3>Server Check</h3>
        <?php
-       MLWWpHcAdmin::php_check();
-       MLWWpHcAdmin::mysql_check();
+       $this->php_check();
+       $this->mysql_check();
        ?>
        <h3>WordPress Check</h3>
        <?php
-       MLWWpHcAdmin::wordpress_version_check();
-       MLWWpHcAdmin::plugins_check();
-       MLWWpHcAdmin::supported_plugin_check();
-       MLWWpHcAdmin::themes_check();
+       $this->wordpress_version_check();
+       $this->plugins_check();
+       $this->supported_plugin_check();
+       $this->themes_check();
        ?>
     </div>
     <?php
@@ -323,4 +334,6 @@ class MLWWpHcAdmin
     }
   }
 }
+
+$mlw_wp_hc_admin = new MLWWpHcAdmin();
 ?>
