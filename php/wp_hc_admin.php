@@ -70,7 +70,7 @@ class MLWWpHcAdmin
   public function wordpress_version_check()
   {
     $core_update = get_core_updates();
-    if (empty($core_update))
+    if ( !isset($updates[0]->response) || 'latest' == $updates[0]->response )
     {
       echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>Your WordPress is up to date. Great Job!</div>";
     }
