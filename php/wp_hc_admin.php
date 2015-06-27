@@ -32,7 +32,17 @@ class MLWWpHcAdmin
    */
   private function load_hooks()
   {
-    ///None
+    add_action('admin_menu', array($this, 'setup_admin_page'));
+  }
+
+  /**
+   * Creates the menu for the plugin
+   *
+   * @since 0.1.0
+   */
+  public function setup_admin_page()
+  {
+    add_management_page('WordPress Health Check', __('Health Check', 'my-wp-health-check'), 'moderate_comments', 'wp-health-check', array($this, 'settings_page'));
   }
 
   /**
@@ -46,17 +56,19 @@ class MLWWpHcAdmin
     ?>
     <div class="wrap">
   	   <h2>WordPress Health Check</h2>
+       <p>If you feel that your website has benefited from this plugin, please help other users find this plugin by <a href="https://wordpress.org/support/view/plugin-reviews/my-wp-health-check">leaving a review</a>.</p>
        <hr />
        <h3>Server Check</h3>
        <?php
-       MLWWpHcAdmin::php_check();
-       MLWWpHcAdmin::mysql_check();
+       $this->php_check();
+       $this->mysql_check();
        ?>
        <h3>WordPress Check</h3>
        <?php
-       MLWWpHcAdmin::wordpress_version_check();
-       MLWWpHcAdmin::plugins_check();
-       MLWWpHcAdmin::themes_check();
+       $this->wordpress_version_check();
+       $this->plugins_check();
+       $this->supported_plugin_check();
+       $this->themes_check();
        ?>
     </div>
     <?php
@@ -70,7 +82,7 @@ class MLWWpHcAdmin
   public function wordpress_version_check()
   {
     $core_update = get_core_updates();
-    if (empty($core_update))
+    if ( !isset($updates[0]->response) || 'latest' == $updates[0]->response )
     {
       echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>Your WordPress is up to date. Great Job!</div>";
     }
@@ -101,6 +113,44 @@ class MLWWpHcAdmin
     else
     {
       echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>All of your WordPress plugins are up to date. Great Job!</div>";
+    }
+  }
+
+  /**
+   * Checks For Unsupported Plugins
+   *
+   * Checks the installed plugins to see there is a plugin that hasn't been updated in over 2 years
+   *
+   * @since 1.0.0
+   */
+  public function supported_plugin_check() {
+    $slugs = array();
+    $unsupported_plugins = array();
+    $plugin_info = get_site_transient( 'update_plugins' );
+    if ( isset( $plugin_info->no_update ) ) {
+      foreach ( $plugin_info->no_update as $plugin ) {
+        $slugs[] = $plugin->slug;
+      }
+    }
+
+    if ( isset( $plugin_info->response ) ) {
+      foreach ( $plugin_info->response as $plugin ) {
+        $slugs[] = $plugin->slug;
+      }
+    }
+    foreach ($slugs as $plugin) {
+      $response = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
+      $plugin_info = unserialize( $response['body'] );
+      if ( time() - ( 60*60*24*365*2 ) > strtotime($plugin_info->last_updated) ) {
+        $unsupported_plugins[] = $plugin_info->name;
+      }
+    }
+
+    $plugin_list = implode(",", $unsupported_plugins);
+    if ( empty( $unsupported_plugins ) ) {
+      echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>All of your plugins are currently supported. Great Job!</div>";
+    } else {
+      echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>The following plugins are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please look for alternatives and uninstall these plugins.</div>";
     }
   }
 
@@ -230,17 +280,17 @@ class MLWWpHcAdmin
 
           case 2:
             $php_check_health = 'okay';
-            $message = "You server is running PHP version ".PHP_VERSION.". This is the bare minimum requirement of WordPress. However, this version has not been supported in almost 5 years and is below the recommended 5.4. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
+            $message = "You server is running PHP version ".PHP_VERSION.". This is the bare minimum requirement of WordPress. However, this version has not been supported in almost 5 years and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
             break;
 
           case 3:
             $php_check_health = 'okay';
-            $message = "You server is running PHP version ".PHP_VERSION.". This is the above the bare minimum requirement of WordPress. However, this version has not been supported in almost 6 months and is below the recommended 5.4. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
+            $message = "You server is running PHP version ".PHP_VERSION.". This is the above the bare minimum requirement of WordPress. However, this version has not been supported in almost 12 months and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
             break;
 
           case 4:
             $php_check_health = 'okay';
-            $message = "You server is running PHP version ".PHP_VERSION.". This is the minimum recommended version. Check with your host to ensure they plan on updating before this version is no longer supported in September 2015.";
+            $message = "You server is running PHP version ".PHP_VERSION.". This is the above the bare minimum requirement of WordPress. However, this version will no longer be supported as of September 2015. Check with your host to ensure they plan on updating before this version is no longer supported.";
             break;
 
           case 5:
@@ -284,4 +334,6 @@ class MLWWpHcAdmin
     }
   }
 }
+
+$mlw_wp_hc_admin = new MLWWpHcAdmin();
 ?>
