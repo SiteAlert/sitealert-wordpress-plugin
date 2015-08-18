@@ -3,8 +3,8 @@ Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security
 Requires at least: 3.8.1
-Tested up to: 4.2.2
-Stable tag: 1.0.0
+Tested up to: 4.3
+Stable tag: 1.0.1
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -41,13 +41,8 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 == Installation ==
 
 * Navigate to Add New Plugin page within your WordPress
-* Search for Quiz Master Next
+* Search for My WordPress Health Check
 * Click Install Now link on the plugin and follow the prompts
-* Activate the plugin through the 'Plugins' menu in WordPress
-
-**Or**
-
-* Upload plugin dir to the `/wp-content/plugins/` directory
 * Activate the plugin through the 'Plugins' menu in WordPress
 
 == Screenshots ==
@@ -55,6 +50,11 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.0.1 (August 19, 2015) =
+ * Ensure compatibility with 4.3
+ * Minor design changes
+
 = 1.0.0 (June 29, 2015) =
 * Out of Beta!
 * Adds check to see if installed plugins are still supported by their developer [GitHub Issue #3](https://github.com/fpcorso/wordpress-health-check/issues/3)
@@ -73,6 +73,10 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Begun Development
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Ensures plugin is compatible with WordPress 4.3 and minor design changes
+
 = 1.0.0 =
 Upgrade for the ability to check if all of your plugins are still being supported by their developers.
 
