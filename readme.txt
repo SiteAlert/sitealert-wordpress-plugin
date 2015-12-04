@@ -3,8 +3,8 @@ Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security
 Requires at least: 3.8.1
-Tested up to: 4.3
-Stable tag: 1.0.1
+Tested up to: 4.3.1
+Stable tag: 1.1.1
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -26,6 +26,12 @@ This plugin checks to ensure that your server is running a version of PHP that i
 
 **Plugin Updates**
 This plugin checks to make sure all your plugins are up to date.
+
+**Inactive Plugins**
+This will check to ensure that you do not have any inactive plugins.
+
+**Admin Username**
+This check ensures that you do not have a user with the username of "admin" on your site.
 
 **Plugins No Longer Being Supported**
 This plugin checks to see if you have any plugins installed that are no longer supported by the developer.
@@ -51,6 +57,13 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Changelog ==
 
+= 1.1.1 (December 5, 2015) =
+ * Adds check for inactive plugins
+ * Adds check for 'admin' username
+ * Added dev hooks for adding checks
+ * Minor style changes
+ * Minor text changes
+
 = 1.0.1 (August 19, 2015) =
  * Ensure compatibility with 4.3
  * Minor design changes
@@ -73,6 +86,9 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Begun Development
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Upgrade for inactive plugin checks, admin user checks, and smaller text/style changes
 
 = 1.0.1 =
 Ensures plugin is compatible with WordPress 4.3 and minor design changes
