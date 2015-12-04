@@ -66,9 +66,13 @@ class MLWWpHcAdmin
        <h3>WordPress Check</h3>
        <?php
        $this->wordpress_version_check();
-       $this->plugins_check();
-       $this->supported_plugin_check();
        $this->themes_check();
+       ?>
+       <h3>Plugin Check</h3>
+       <?php
+       $this->update_plugins_check();
+       $this->inactive_plugins_check();
+       $this->supported_plugin_check();
        ?>
     </div>
     <?php
@@ -97,7 +101,7 @@ class MLWWpHcAdmin
    *
    * @since 0.2.0
    */
-  public function plugins_check()
+  public function update_plugins_check()
   {
     $plugin_updates = get_plugin_updates();
     if(!empty($plugin_updates))
@@ -114,6 +118,35 @@ class MLWWpHcAdmin
     {
       echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>All of your WordPress plugins are up to date. Great Job!</div>";
     }
+  }
+
+  /**
+   * Checks for inactive plugins
+   *
+   * @since 1.1.0
+   */
+  public function inactive_plugins_check() {
+
+    // Gets all the plugins
+    $plugins = get_plugins();
+    $inactive_plugins = array();
+
+    // Looks for any inactive plugins
+    if ( ! empty( $plugins ) ) {
+      foreach ( $plugins as $key => $plugin ) {
+        if ( is_plugin_inactive( $key ) ) {
+          $inactive_plugins[] = $plugin['Name'];
+        }
+      }
+    }
+
+    // If any plugins are inactive, display error message. If not, display success message
+    if ( ! empty( $inactive_plugins ) ) {
+      echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>These plugins are not active: " . implode( ', ', $inactive_plugins ) . ". Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.</div>";
+    } else {
+      echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>All of your plugins installed on the site are in use. Great job!</div>";
+    }
+
   }
 
   /**
