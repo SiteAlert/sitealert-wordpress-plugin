@@ -66,6 +66,7 @@ class MLWWpHcAdmin
        <h3>WordPress Check</h3>
        <?php
        $this->wordpress_version_check();
+       $this->admin_user_check();
        $this->themes_check();
        ?>
        <h3>Plugin Check</h3>
@@ -184,6 +185,20 @@ class MLWWpHcAdmin
       echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>All of your plugins are currently supported. Great Job!</div>";
     } else {
       echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>The following plugins are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please look for alternatives and uninstall these plugins.</div>";
+    }
+  }
+
+  /**
+   * Checks if there is a user called admin
+   *
+   * @since 1.0.0
+   */
+  public function admin_user_check() {
+    $user = get_user_by( 'login', 'admin' );
+    if ( false === $user ) {
+      echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>Your site does not have a user 'admin'. Great job!</div>";
+    } else {
+      echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.</div>";
     }
   }
 
