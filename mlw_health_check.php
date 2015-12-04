@@ -13,6 +13,9 @@
 * @version 1.0.1
 */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Main class of plugin
  *
@@ -38,7 +41,7 @@ class MLWWpHealthCheck
    */
   private function load_dependencies()
   {
-    include("php/wp_hc_admin.php");
+    include( "php/wp_hc_admin.php" );
   }
 
   /**
@@ -46,7 +49,7 @@ class MLWWpHealthCheck
    */
   private function load_hooks()
   {
-    add_action('plugins_loaded',  array( $this, 'setup_translations'));
+    add_action( 'plugins_loaded',  array( $this, 'setup_translations') );
   }
 
   /**
