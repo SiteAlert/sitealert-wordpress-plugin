@@ -2,7 +2,7 @@
 /**
 * Plugin Name: My WordPress Health Check
 * Description: This plugin checks the health of your WordPress installation.
-* Version: 1.0.1
+* Version: 1.1.0
 * Author: Frank Corso
 * Author URI: http://www.mylocalwebstop.com/
 * Plugin URI: http://www.mylocalwebstop.com/
@@ -10,7 +10,7 @@
 * Domain Path: /languages
 *
 * @author Frank Corso
-* @version 1.0.1
+* @version 1.1.0
 */
 
 // Exit if accessed directly
@@ -21,15 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 0.1.0
  */
-class MLWWpHealthCheck
-{
+class My_WP_Health_Check {
   /**
    * Main construct
    *
    * @since 0.1.0
    */
-  function __construct()
-  {
+  function __construct() {
     $this->load_dependencies();
     $this->load_hooks();
   }
@@ -39,16 +37,14 @@ class MLWWpHealthCheck
    *
    * @since 0.1.0
    */
-  private function load_dependencies()
-  {
+  private function load_dependencies() {
     include( "php/wp_hc_admin.php" );
   }
 
   /**
    * Adds Plugin's Functions To WordPress Hooks
    */
-  private function load_hooks()
-  {
+  private function load_hooks() {
     add_action( 'plugins_loaded',  array( $this, 'setup_translations') );
   }
 
@@ -57,10 +53,9 @@ class MLWWpHealthCheck
 	  *
 	  * @since 0.1.0
 	  */
-	public function setup_translations()
-	{
+	public function setup_translations() {
 		load_plugin_textdomain( 'my-wp-health-check', false, dirname( plugin_basename( __FILE__ ) ) . "/languages/" );
 	}
 }
-$mlwWPHealthCheck = new MLWWpHealthCheck();
+$my_wp_health_check = new My_WP_Health_Check();
 ?>

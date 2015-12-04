@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 0.1.0
  */
-class MLWWpHcAdmin {
+class WPHC_Admin {
   /**
    * Main construct
    *
@@ -60,18 +60,21 @@ class MLWWpHcAdmin {
        <?php
        $this->php_check();
        $this->mysql_check();
+       do_action( 'wphc_server_check' );
        ?>
        <h3>WordPress Check</h3>
        <?php
        $this->wordpress_version_check();
        $this->admin_user_check();
        $this->themes_check();
+       do_action( 'wphc_wordpress_check' );
        ?>
        <h3>Plugin Check</h3>
        <?php
        $this->update_plugins_check();
        $this->inactive_plugins_check();
        $this->supported_plugin_check();
+       do_action( 'wphc_plugin_check' );
        ?>
     </div>
     <?php
@@ -371,5 +374,5 @@ class MLWWpHcAdmin {
   }
 }
 
-$mlw_wp_hc_admin = new MLWWpHcAdmin();
+$wp_hc_admin = new WPHC_Admin();
 ?>
