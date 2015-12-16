@@ -2,8 +2,8 @@
 Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security
-Requires at least: 3.8.1
-Tested up to: 4.3.1
+Requires at least: 4.0.1
+Tested up to: 4.4
 Stable tag: 1.1.1
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
