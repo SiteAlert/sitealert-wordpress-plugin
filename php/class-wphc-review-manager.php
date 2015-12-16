@@ -40,7 +40,6 @@ class WPHC_Review_Manager {
 			if ( ! empty( $this->trigger ) && $this->trigger < strtotime( '-1 week' ) ) {
 				add_action( 'admin_notices', array( $this, 'display_admin_message' ) );
 			}
-			update_option( 'wphc_review_message_trigger', time() );
 		}
 	}
 
@@ -53,7 +52,7 @@ class WPHC_Review_Manager {
 	 */
 	public function check_message_trigger() {
 		$trigger = get_option( 'wphc_review_message_trigger' );
-		if ( empty( $trigger ) || is_null( $trigger ) ) {
+		if ( empty( $trigger ) || is_null( $trigger ) || false === $trigger ) {
 			add_option('wphc_review_message_trigger', time() );
 			return time();
 		}
@@ -88,10 +87,10 @@ class WPHC_Review_Manager {
 	 * @since 1.1.0
 	 */
 	public function admin_notice_check() {
-		if ( isset( $_GET["wphc_review_notice_check"] ) && $_GET["wphc_review_notice_check"] == 'remove_message' ) {
+		if ( isset( $_GET["wphc_review_notice_check"] ) && 'remove_message' == $_GET["wphc_review_notice_check"] ) {
 			update_option( 'wphc_review_message_trigger', -1 );
 		}
-		if ( isset( $_GET["wphc_review_notice_check"] ) && $_GET["wphc_review_notice_check"] == 'already_did' ) {
+		if ( isset( $_GET["wphc_review_notice_check"] ) && 'already_did' == $_GET["wphc_review_notice_check"] ) {
 			update_option( 'wphc_review_message_trigger', -1 );
 		}
 	}
