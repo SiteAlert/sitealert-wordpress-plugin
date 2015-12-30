@@ -84,19 +84,19 @@ class WPHC_Admin {
   public function print_message( $message, $type = 'good' ) {
     switch ( $type ) {
       case 'good':
-        echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>$message</div>";
+        echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span> $message</div>";
         break;
 
       case 'okay':
-        echo "<div class='wp-hc-okay-box'><span class='dashicons dashicons-lightbulb'></span>$message</div>";
+        echo "<div class='wp-hc-okay-box'><span class='dashicons dashicons-lightbulb'></span> $message</div>";
         break;
 
       case 'bad':
-        echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>$message</div>";
+        echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span> $message</div>";
         break;
 
       default:
-        echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>$message</div>";
+        echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span> $message</div>";
         break;
     }
   }
