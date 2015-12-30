@@ -74,10 +74,31 @@ class WPHC_Admin {
        $this->update_plugins_check();
        $this->inactive_plugins_check();
        $this->supported_plugin_check();
+       $this->vulnerable_plugins_check();
        do_action( 'wphc_plugin_check' );
        ?>
     </div>
     <?php
+  }
+
+  public function print_message( $message, $type = 'good' ) {
+    switch ( $type ) {
+      case 'good':
+        echo "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span>$message</div>";
+        break;
+
+      case 'okay':
+        echo "<div class='wp-hc-okay-box'><span class='dashicons dashicons-lightbulb'></span>$message</div>";
+        break;
+
+      case 'bad':
+        echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>$message</div>";
+        break;
+
+      default:
+        echo "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span>$message</div>";
+        break;
+    }
   }
 
   /**
@@ -180,6 +201,48 @@ class WPHC_Admin {
     }
   }
 
+  public function vulnerable_plugins_check() {
+    $vulnerable_plugins = array();
+    if( ! function_exists( 'get_plugins' ) ) {
+			include ABSPATH . '/wp-admin/includes/plugin.php';
+		}
+		$plugins = array_keys( get_plugins() );
+    foreach ( $plugins as $key => $plugin ) {
+      $slug = explode( '/', $plugin );
+      $plugin_data = get_transient( 'wphc_vunlerability_check_' . $slug[0] );
+      if ( false === $plugin_data ) {
+        $response = wp_remote_get( "https://wpvulndb.com/api/v2/plugins/" . $slug[0] );
+        if ( ! is_wp_error( $response ) ) {
+          $data = wp_remote_retrieve_body( $response );
+          if ( ! is_wp_error( $data ) ) {
+            $plugin_data = $data;
+            set_transient( 'wphc_vunlerability_check_'  .$slug[0], $plugin_data, 1 * DAY_IN_SECONDS );
+          }
+        }
+      }
+      if ( false !== $plugin_data ) {
+        $plugin_data = json_decode( $plugin_data, true );
+        if ( is_array( $plugin_data ) ) {
+          foreach ( $plugin_data as $plugin_name => $plugin_info ) {
+            if ( ! empty( $plugin_info["vulnerabilities"] ) ) {
+              foreach ( $plugin_info["vulnerabilities"] as $vulnerability ) {
+                if ( NULL === $vulnerability["fixed_in"] ) {
+                  $vunlerable_plugins[] = $plugin_name;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if ( ! empty( $vulnerable_plugins ) ) {
+      $plugin_list = implode(",", $vulnerable_plugins);
+      $this->print_message("The following plugins have known security vulnerabilities that have not been fixed in an update: $plugin_list. Please reach out to the developer immediately to ensure these vulnerabilities are being patched. If not, you must find alternatives to these plugins.", 'bad');
+    } else {
+      $this->print_message("Great! None of your plugins have known security vulnerabilities!", 'good');
+    }
+  }
+
   /**
    * Checks if there is a user called admin
    *
@@ -229,23 +292,23 @@ class WPHC_Admin {
       case 5:
         switch ( intval( $version[1] ) ) {
           case 0:
-            $sql_check_health = 'okay';
-            $message = "You server is running MySQL version " . $wpdb->db_version() . ". This is the bare minimum that WordPress requires. However, this version has not been supported in 2 years and is below the recommended 5.5. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
+            $sql_check_health = 'bad';
+            $message = "You server is running MySQL version " . $wpdb->db_version() . ". This is the bare minimum that WordPress requires. However, this version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
             break;
 
           case 1:
-            $sql_check_health = 'okay';
-            $message = "You server is running MySQL version " . $wpdb->db_version() . ". This is above the bare minimum that WordPress requires. However, this version is not longer supported and below the recommended 5.5. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
+            $sql_check_health = 'bad';
+            $message = "You server is running MySQL version " . $wpdb->db_version() . ". This is above the bare minimum that WordPress requires. However, this version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
             break;
 
           case 5:
-            $sql_check_health = 'good';
-            $message = "You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is the recommended version.";
+            $sql_check_health = 'okay';
+            $message = "You server is running MySQL version " . $wpdb->db_version() . ". This is above the bare minimum that WordPress requires. However, this version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.";
             break;
 
           case 6:
             $sql_check_health = 'good';
-            $message = "You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is above the recommended version.";
+            $message = "You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is the recommended version.";
             break;
 
           case 7:
@@ -313,28 +376,28 @@ class WPHC_Admin {
             break;
 
           case 2:
-            $php_check_health = 'okay';
+            $php_check_health = 'bad';
             $message = "You server is running PHP version " . PHP_VERSION . ". This is the bare minimum requirement of WordPress. However, this version has not been supported in almost 5 years and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
             break;
 
           case 3:
-            $php_check_health = 'okay';
-            $message = "You server is running PHP version " . PHP_VERSION . ". This is the above the bare minimum requirement of WordPress. However, this version has not been supported in almost 12 months and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
+            $php_check_health = 'bad';
+            $message = "You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported in almost 12 months and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
             break;
 
           case 4:
-            $php_check_health = 'okay';
-            $message = "You server is running PHP version " . PHP_VERSION . ". This is the above the bare minimum requirement of WordPress. However, this version will no longer be supported as of September 2015. Check with your host to ensure they plan on updating before this version is no longer supported.";
+            $php_check_health = 'bad';
+            $message = "You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported for almost 6 months and is below the recommeded 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.";
             break;
 
           case 5:
-            $php_check_health = 'good';
-            $message = "You server is running PHP version " . PHP_VERSION . ". Good job! This is the recommended version.";
+            $php_check_health = 'okay';
+            $message = "You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not had active support for 5 months and the security support will stop in July 2016. Check with your host to ensure they plan on updating before this version is no longer supported.";
             break;
 
           case 6:
             $php_check_health = 'good';
-            $message = "You server is running PHP version " . PHP_VERSION . ". Good job! This is above the recommended version.";
+            $message = "You server is running PHP version " . PHP_VERSION . ". Good job! This is the recommended version.";
             break;
 
           default:
