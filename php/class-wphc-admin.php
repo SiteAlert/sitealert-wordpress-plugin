@@ -81,6 +81,14 @@ class WPHC_Admin {
     <?php
   }
 
+  /**
+   * Echos out a message in the pre-defined template
+   *
+   * @since 1.2.0
+   * @param string $message The message to be displayed in the message box
+   * @param string $type The type of message box to be displayed. Available types are 'good', 'okay', and 'bad'
+   * @return void
+   */
   public function print_message( $message, $type = 'good' ) {
     switch ( $type ) {
       case 'good':
@@ -205,15 +213,29 @@ class WPHC_Admin {
     }
   }
 
+  /**
+   * Checks for vunlerable plugins using wpvulndb.com's api
+   *
+   * @since 1.2.0
+   * @return void
+   */
   public function vulnerable_plugins_check() {
     $vulnerable_plugins = array();
+
+    // Makes sure the plugin functions are active
     if( ! function_exists( 'get_plugins' ) ) {
 			include ABSPATH . '/wp-admin/includes/plugin.php';
 		}
+
+    // Gets our list of plugins
 		$plugins = array_keys( get_plugins() );
+
+    // Cycles through the plugins
     foreach ( $plugins as $key => $plugin ) {
       $slug = explode( '/', $plugin );
       $plugin_data = get_transient( 'wphc_vunlerability_check_' . $slug[0] );
+
+      // Checks if our transient existed already. If not, get data from the API and store it in a transient
       if ( false === $plugin_data ) {
         $response = wp_remote_get( "https://wpvulndb.com/api/v2/plugins/" . $slug[0] );
         if ( ! is_wp_error( $response ) ) {
@@ -224,11 +246,15 @@ class WPHC_Admin {
           }
         }
       }
+
+      // Checks to make sure the data has been retreived from transient or the api. Then, decodes the JSON data
       if ( false !== $plugin_data ) {
         $plugin_data = json_decode( $plugin_data, true );
         if ( is_array( $plugin_data ) ) {
           foreach ( $plugin_data as $plugin_name => $plugin_info ) {
             if ( ! empty( $plugin_info["vulnerabilities"] ) ) {
+
+              // Cycles through the vulnerabilities checking to see if the vulnerability has not been fixed yet
               foreach ( $plugin_info["vulnerabilities"] as $vulnerability ) {
                 if ( NULL === $vulnerability["fixed_in"] ) {
                   $vunlerable_plugins[] = $plugin_name;
