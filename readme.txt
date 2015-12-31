@@ -1,10 +1,10 @@
 === My WordPress Health Check ===
 Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
-Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security
+Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security, vulnerable, vulnerability, support, supported, inactive, update
 Requires at least: 4.0.1
 Tested up to: 4.4
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -36,6 +36,9 @@ This check ensures that you do not have a user with the username of "admin" on y
 **Plugins No Longer Being Supported**
 This plugin checks to see if you have any plugins installed that are no longer supported by the developer.
 
+**Plugins With Known Vulnerabilities**
+This will check your plugins to see if you have a plugin installed with a known vulnerability that has not been fixed.
+
 **Theme Updates**
 This plugin checks to make sure all of your themes are up to date.
 
@@ -56,6 +59,13 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.2.0 (December 31, 2015) =
+ * Adds new check for vulnerable plugins
+ * Updates text for PHP and MySQL checks
+ * Abstracts messages to own function
+ * Adds transient for supported plugin check
+ * Minor design changes
 
 = 1.1.2 (December 17, 2015) =
  * Minor design changes
@@ -91,5 +101,5 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Upgrade Notice ==
 
-= 1.1.2 =
-Upgrade for minor design changes
+= 1.2.0 =
+Upgrade for new vulnerable plugin check as well as several minor changes
