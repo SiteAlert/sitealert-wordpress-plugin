@@ -171,30 +171,34 @@ class WPHC_Admin {
    * @since 1.0.0
    */
   public function supported_plugin_check() {
-    $slugs = array();
-    $unsupported_plugins = array();
-    $plugin_info = get_site_transient( 'update_plugins' );
-    if ( isset( $plugin_info->no_update ) ) {
-      foreach ( $plugin_info->no_update as $plugin ) {
-        $slugs[] = $plugin->slug;
-      }
-    }
+    $plugin_list = get_transient( 'wphc_supported_plugin_check' );
+    if ( false === $plugin_list ) {
+      $slugs = array();
+      $unsupported_plugins = array();
 
-    if ( isset( $plugin_info->response ) ) {
-      foreach ( $plugin_info->response as $plugin ) {
-        $slugs[] = $plugin->slug;
+      $plugin_info = get_site_transient( 'update_plugins' );
+      if ( isset( $plugin_info->no_update ) ) {
+        foreach ( $plugin_info->no_update as $plugin ) {
+          $slugs[] = $plugin->slug;
+        }
       }
-    }
-    foreach ($slugs as $plugin) {
-      $response = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
-      $plugin_info = unserialize( $response['body'] );
-      if ( time() - ( 60 * 60 * 24 * 365 * 2 ) > strtotime( $plugin_info->last_updated ) ) {
-        $unsupported_plugins[] = $plugin_info->name;
-      }
-    }
 
-    $plugin_list = implode(",", $unsupported_plugins);
-    if ( empty( $unsupported_plugins ) ) {
+      if ( isset( $plugin_info->response ) ) {
+        foreach ( $plugin_info->response as $plugin ) {
+          $slugs[] = $plugin->slug;
+        }
+      }
+      foreach ($slugs as $plugin) {
+        $response = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
+        $plugin_info = unserialize( $response['body'] );
+        if ( time() - ( 60 * 60 * 24 * 365 * 2 ) > strtotime( $plugin_info->last_updated ) ) {
+          $unsupported_plugins[] = $plugin_info->name;
+        }
+      }
+      $plugin_list = implode(",", $unsupported_plugins);
+      set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * DAY_IN_SECONDS );
+    }
+    if ( empty( $plugin_list ) ) {
       $this->print_message('All of your plugins are currently supported. Great Job!', 'good');
     } else {
       $this->print_message("The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins.", 'bad');
