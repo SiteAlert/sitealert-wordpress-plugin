@@ -5,7 +5,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 /**
  * Class To Send Tracking Information Back To My Website
  *
- * @since 1.3.0
+ * @since 1.2.1
  */
 class WPHC_Tracking {
 
@@ -13,7 +13,7 @@ class WPHC_Tracking {
 	 * Date To Send Home
 	 *
 	 * @var array
-	 * @since 1.3.0
+	 * @since 1.2.1
 	 */
   private $data;
 
@@ -22,7 +22,7 @@ class WPHC_Tracking {
 	  *
 	  * Call functions within class
 	  *
-	  * @since 1.3.0
+	  * @since 1.2.1
 	  * @uses WPHC_Tracking::add_hooks() Adds actions to hooks and filters
 	  * @return void
 	  */
@@ -36,7 +36,7 @@ class WPHC_Tracking {
 	  *
 	  * Adds functions to relavent hooks and filters
 	  *
-	  * @since 1.3.0
+	  * @since 1.2.1
 	  * @return void
 	  */
   private function add_hooks() {
@@ -49,7 +49,7 @@ class WPHC_Tracking {
    *
    * Determines if the plugin has been authorized to send the data home in the settings page. Then checks if it has been at least a week since the last send.
    *
-   * @since 1.3.0
+   * @since 1.2.1
    * @uses WPHC_Tracking::load_data()
    * @uses WPHC_Tracking::send_data()
    * @return void
@@ -71,7 +71,7 @@ class WPHC_Tracking {
   /**
    * Sends The Data Home
    *
-   * @since 1.3.0
+   * @since 1.2.1
    * @return void
    */
   private function send_data() {
@@ -93,7 +93,7 @@ class WPHC_Tracking {
   /**
    * Prepares The Data To Be Sent
    *
-   * @since 1.3.0
+   * @since 1.2.1
    * @return void
    */
   private function load_data() {
@@ -126,8 +126,8 @@ class WPHC_Tracking {
     $data['theme']  = $theme_data->Name;
     $data['theme_version'] = $theme_data->Version;
 
-    $data['original_version'] = '1.3.0';
-    $data['current_version'] = '1.3.0';
+    $data['original_version'] = '1.2.1';
+    $data['current_version'] = '1.2.1';
 
     $this->data = $data;
   }
@@ -137,7 +137,7 @@ class WPHC_Tracking {
    *
    * Adds an admin notice asking for authorization to send data home
    *
-   * @since 1.3.0
+   * @since 1.2.1
    * @return void
    */
   public function admin_notice() {
@@ -172,7 +172,7 @@ class WPHC_Tracking {
   /**
    * Checks If User Has Clicked On Notice
    *
-   * @since 1.3.0
+   * @since 1.2.1
    * @return void
    */
   public function admin_notice_check() {
