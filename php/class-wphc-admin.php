@@ -55,7 +55,8 @@ class WPHC_Admin {
   	}
     wp_enqueue_style( 'wp-hc-style', plugins_url( "../css/main.css", __FILE__ ) );
     ?>
-    <div class="wrap">
+    <div class="wrap wphc-wrap">
+      <div class="wphc-main-content">
   	   <h2>WordPress Health Check</h2>
        <p>If you feel that your website has benefited from this plugin, please help other users find this plugin by <a href="https://wordpress.org/support/view/plugin-reviews/my-wp-health-check">leaving a review</a>.</p>
        <hr />
@@ -80,6 +81,15 @@ class WPHC_Admin {
        $this->vulnerable_plugins_check();
        do_action( 'wphc_plugin_check' );
        ?>
+     </div>
+     <div class="wphc-news-ads">
+       <h3 class="wphc-news-ads-title">My WordPress Health Check</h3>
+       <div class="wphc-news-ads-widget">
+         <h3>Sign up for our FREE WordPress security email course.</h3>
+         <p>Sign up to our free 6 day WordPress security course to learn the basics of WordPress security.</p>
+         <a target="_blank" href="http://mylocalwebstop.com/sign-up-for-our-free-security-course/" class="button-primary">Sign up Now</a>
+       </div>
+     </div>
     </div>
     <?php
   }
