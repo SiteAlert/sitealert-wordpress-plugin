@@ -3,8 +3,8 @@ Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security, vulnerable, vulnerability, support, supported, inactive, update
 Requires at least: 4.0.1
-Tested up to: 4.4
-Stable tag: 1.2.0
+Tested up to: 4.4.1
+Stable tag: 1.2.1
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -60,6 +60,11 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Changelog ==
 
+= 1.2.1 (January 30, 2016) =
+ * Minor design changes
+ * Adds new data tracking
+ * Adds new security email course optin
+
 = 1.2.0 (December 31, 2015) =
  * Adds new check for vulnerable plugins
  * Updates text for PHP and MySQL checks
@@ -101,5 +106,5 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Upgrade Notice ==
 
-= 1.2.0 =
-Upgrade for new vulnerable plugin check as well as several minor changes
+= 1.2.1 =
+Upgrade for minor design changes
