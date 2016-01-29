@@ -126,6 +126,9 @@ class WPHC_Tracking {
     $data['theme']  = $theme_data->Name;
     $data['theme_version'] = $theme_data->Version;
 
+    $data['original_version'] = '1.3.0';
+    $data['current_version'] = '1.3.0';
+
     $this->data = $data;
   }
 
