@@ -50,6 +50,9 @@ class WPHC_Admin {
    * @since 0.1.0
    */
   public function settings_page() {
+    if ( ! current_user_can('moderate_comments') ) {
+  		return;
+  	}
     wp_enqueue_style( 'wp-hc-style', plugins_url( "../css/main.css", __FILE__ ) );
     ?>
     <div class="wrap">
