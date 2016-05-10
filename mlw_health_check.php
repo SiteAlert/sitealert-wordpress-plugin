@@ -39,9 +39,12 @@ class My_WP_Health_Check {
    */
   private function load_dependencies() {
     if ( is_admin() ) {
+      include( "php/class-wphc-checks.php" );
       include( "php/class-wphc-admin.php" );
       include( "php/class-wphc-review-manager.php" );
       include( "php/class-wphc-tracking.php" );
+      include( "php/functions.php" );
+      include( "php/ajax.php" );
     }
   }
 
@@ -52,6 +55,7 @@ class My_WP_Health_Check {
    */
   private function load_hooks() {
     add_action( 'plugins_loaded',  array( $this, 'setup_translations') );
+    add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 65 ); // Between Updates, Comments and New Content menu
   }
 
   /**
@@ -62,6 +66,18 @@ class My_WP_Health_Check {
 	public function setup_translations() {
 		load_plugin_textdomain( 'my-wp-health-check', false, dirname( plugin_basename( __FILE__ ) ) . "/languages/" );
 	}
+
+  public function admin_bar( $wp_admin_bar ) {
+    $total = wphc_get_total_checks();
+    if( ! empty( $total ) and $total > 0) {
+			$args = array(
+				'id' => 'wphc_admin_node',
+				'title' => '<span class="dashicons dashicons-shield"></span>' . $total,
+				'href' => admin_url( 'tools.php?page=wp-health-check' )
+			);
+			$wp_admin_bar->add_node( $args );
+		}
+  }
 }
 $my_wp_health_check = new My_WP_Health_Check();
 ?>
