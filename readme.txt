@@ -2,16 +2,18 @@
 Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security, vulnerable, vulnerability, support, supported, inactive, update
-Requires at least: 4.0.1
-Tested up to: 4.4.1
-Stable tag: 1.2.1
+Requires at least: 4.1
+Tested up to: 4.5.2
+Stable tag: 1.3.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
 
 == Description ==
 
-My WordPress Health Check will check your WordPress installation to ensure that it is healthy, up to date, and secure.
+My WordPress Health Check will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the Health Check page to quickly see the results of these checks using the simple color-coded sections.
+
+My WordPress Health Check will add an icon to your admin bar if the results of these checks need attention.
 
 = Currently Checks =
 
@@ -60,6 +62,13 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Changelog ==
 
+= 1.3.0 (May 25, 2016) =
+  * Adds new icon to admin bar when there are failed checks
+  * Moves the checks into their own class
+  * Moves the call for checks into AJAX to speed up the Health Check page
+  * Adds new filters for extending the plugin with your own checks
+  * Adds uninstall.php file for uninstall routine
+
 = 1.2.1 (January 30, 2016) =
  * Minor design changes
  * Adds new data tracking
@@ -106,5 +115,5 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Upgrade Notice ==
 
-= 1.2.1 =
-Upgrade for minor design changes
+= 1.3.0 =
+Upgrade for minor design changes and new admin bar icon
