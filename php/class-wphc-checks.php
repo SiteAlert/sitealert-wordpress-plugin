@@ -37,10 +37,10 @@ class WPHC_Checks {
 
   public function plugins_checks() {
     $checks = array();
-    $checks = $this->update_plugins_check();
-    $checks = $this->inactive_plugins_check();
-    $checks = $this->supported_plugin_check();
-    $checks = $this->vulnerable_plugins_check();
+    $checks[] = $this->update_plugins_check();
+    $checks[] = $this->inactive_plugins_check();
+    $checks[] = $this->supported_plugin_check();
+    $checks[] = $this->vulnerable_plugins_check();
     return apply_filters( 'wphc_plugins_checks', $checks );
   }
 

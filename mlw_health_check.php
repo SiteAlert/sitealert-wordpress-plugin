@@ -72,7 +72,7 @@ class My_WP_Health_Check {
     if( ! empty( $total ) and $total > 0) {
 			$args = array(
 				'id' => 'wphc_admin_node',
-				'title' => '<span class="dashicons dashicons-shield"></span>' . $total,
+				'title' => '<span class="ab-icon dashicons dashicons-shield"></span>' . $total,
 				'href' => admin_url( 'tools.php?page=wp-health-check' )
 			);
 			$wp_admin_bar->add_node( $args );
