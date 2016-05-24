@@ -67,6 +67,7 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
   * Moves the checks into their own class
   * Moves the call for checks into AJAX to speed up the Health Check page
   * Adds new filters for extending the plugin with your own checks
+  * Adds uninstall.php file for uninstall routine
 
 = 1.2.1 (January 30, 2016) =
  * Minor design changes
