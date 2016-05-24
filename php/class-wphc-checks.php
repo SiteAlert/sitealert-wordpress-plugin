@@ -4,14 +4,18 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * The main class of the plugin. This handles all the checks
  *
+ * @since 1.3.0
  */
 class WPHC_Checks {
 
-  function __construct() {
-    # code...
-  }
-
+  /**
+   * Runs all of the checks
+   *
+   * @since 1.3.0
+   * @return array The results of all the checks
+   */
   public function all_checks() {
     $checks = array();
     $wp_checks = $this->wp_checks();
@@ -20,6 +24,12 @@ class WPHC_Checks {
     return array_merge( $checks, $wp_checks, $server_checks, $plugins_checks );
   }
 
+  /**
+   * Runs all the server checks
+   *
+   * @since 1.3.0
+   * @return array The results of all the checks
+   */
   public function server_checks() {
     $checks = array();
     $checks[] = $this->php_check();
@@ -27,6 +37,12 @@ class WPHC_Checks {
     return apply_filters( 'wphc_server_checks', $checks );
   }
 
+  /**
+   * Returns all the WP checks
+   *
+   * @since 1.3.0
+   * @return array The results of all the checks
+   */
   public function wp_checks() {
     $checks = array();
     $checks[] = $this->wordpress_version_check();
@@ -35,6 +51,12 @@ class WPHC_Checks {
     return apply_filters( 'wphc_wp_checks', $checks );
   }
 
+  /**
+   * Returns all the plugin checks
+   *
+   * @since 1.3.0
+   * @return array The results of all the checks
+   */
   public function plugins_checks() {
     $checks = array();
     $checks[] = $this->update_plugins_check();
@@ -44,6 +66,14 @@ class WPHC_Checks {
     return apply_filters( 'wphc_plugins_checks', $checks );
   }
 
+  /**
+   * Prepares the JSON array
+   *
+   * @since 1.3.0
+   * @param string $message The message to be displayed
+   * @param string $type The results of the check. Options are 'good', 'okay', or 'bad'
+   * @return array The array of the message and type
+   */
   public function prepare_array( $message, $type ) {
     return array(
       'message' => $message,
@@ -138,14 +168,14 @@ class WPHC_Checks {
           $slugs[] = $plugin->slug;
         }
       }
-      foreach ($slugs as $plugin) {
+      foreach ( $slugs as $plugin ) {
         $response = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
         $plugin_info = unserialize( $response['body'] );
         if ( time() - ( 60 * 60 * 24 * 365 * 2 ) > strtotime( $plugin_info->last_updated ) ) {
           $unsupported_plugins[] = $plugin_info->name;
         }
       }
-      $plugin_list = implode(",", $unsupported_plugins);
+      $plugin_list = implode( ",", $unsupported_plugins );
       set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * DAY_IN_SECONDS );
     }
     if ( empty( $plugin_list ) ) {
@@ -208,10 +238,10 @@ class WPHC_Checks {
       }
     }
     if ( ! empty( $vulnerable_plugins ) ) {
-      $plugin_list = implode(",", $vulnerable_plugins);
-      return $this->prepare_array("The following plugins have known security vulnerabilities that have not been fixed in an update: $plugin_list. Please reach out to the developer immediately to ensure these vulnerabilities are being patched. If not, you must find alternatives to these plugins.", 'bad');
+      $plugin_list = implode( ",", $vulnerable_plugins );
+      return $this->prepare_array( "The following plugins have known security vulnerabilities that have not been fixed in an update: $plugin_list. Please reach out to the developer immediately to ensure these vulnerabilities are being patched. If not, you must find alternatives to these plugins.", 'bad' );
     } else {
-      return $this->prepare_array("Great! None of your plugins have known security vulnerabilities!", 'good');
+      return $this->prepare_array( "Great! None of your plugins have known security vulnerabilities!", 'good' );
     }
   }
 

@@ -3,6 +3,12 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Returns the total amount of checks that failed
+ *
+ * @since 1.3.0
+ * @return int The amount of checks that failed
+ */
 function wphc_get_total_checks() {
   $totals = get_transient( 'wphc_total_checks' );
   if ( false === $totals ) {
