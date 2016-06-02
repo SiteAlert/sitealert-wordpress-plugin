@@ -2,7 +2,7 @@
 /**
 * Plugin Name: My WordPress Health Check
 * Description: This plugin checks the health of your WordPress installation.
-* Version: 1.3.0
+* Version: 1.3.1
 * Author: Frank Corso
 * Author URI: http://www.mylocalwebstop.com/
 * Plugin URI: http://www.mylocalwebstop.com/
@@ -10,7 +10,7 @@
 * Domain Path: /languages
 *
 * @author Frank Corso
-* @version 1.3.0
+* @version 1.3.1
 */
 
 // Exit if accessed directly
@@ -38,14 +38,12 @@ class My_WP_Health_Check {
    * @since 0.1.0
    */
   private function load_dependencies() {
-    if ( is_admin() ) {
-      include( "php/class-wphc-checks.php" );
-      include( "php/class-wphc-admin.php" );
-      include( "php/class-wphc-review-manager.php" );
-      include( "php/class-wphc-tracking.php" );
-      include( "php/functions.php" );
-      include( "php/ajax.php" );
-    }
+    include( "php/class-wphc-checks.php" );
+    include( "php/class-wphc-admin.php" );
+    include( "php/class-wphc-review-manager.php" );
+    include( "php/class-wphc-tracking.php" );
+    include( "php/functions.php" );
+    include( "php/ajax.php" );
   }
 
   /**
