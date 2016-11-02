@@ -61,8 +61,8 @@ class WPHC_Tracking {
 			$tracking_allowed = $settings['tracking_allowed'];
 		}
     $last_time = get_option( 'wphc_tracker_last_time' );
-    if ( '1' == $tracking_allowed && ( ( $last_time && $last_time < strtotime( '-1 week' ) ) || ! $last_time ) ) {
-      $this->load_data();
+    if ( ( '1' == $tracking_allowed || '2' == $tracking_allowed ) && ( ( $last_time && $last_time < strtotime( '-1 week' ) ) || ! $last_time ) ) {
+      $this->load_data( $tracking_allowed );
       $this->send_data();
       update_option( 'wphc_tracker_last_time', time() );
     }
@@ -96,7 +96,7 @@ class WPHC_Tracking {
    * @since 1.2.1
    * @return void
    */
-  private function load_data() {
+  private function load_data( $tracking ) {
     global $wpdb;
     $data = array();
     $data["plugin"] = "WPHC";
@@ -126,8 +126,13 @@ class WPHC_Tracking {
     $data['theme']  = $theme_data->Name;
     $data['theme_version'] = $theme_data->Version;
 
-    $data['original_version'] = '1.2.1';
-    $data['current_version'] = '1.2.1';
+    $data['original_version'] = get_option( 'wphc_original_version' );
+    $data['current_version'] = get_option( 'wphc_current_version' );
+
+    // Only add email if they opted into the newer optin message that includes joining the mailing list
+    if ( "2" == $tracking ) {
+      $data['email'] = get_bloginfo( 'admin_email' );
+    }
 
     $this->data = $data;
   }
@@ -162,7 +167,7 @@ class WPHC_Tracking {
       $optin_url  = esc_url( add_query_arg( 'wphc_track_check', 'opt_into_tracking' ) );
   		$optout_url = esc_url( add_query_arg( 'wphc_track_check', 'opt_out_of_tracking' ) );
   		echo '<div class="updated"><p>';
-  			echo __( "Allow My WordPress Health Check to anonymously track this plugin's usage and help us make this plugin better? No sensitive data is tracked.", 'my-wp-health-check' );
+  			echo __( "Allow My WordPress Health Check to anonymously track this plugin's usage and help us make this plugin better? Opt-in to our tracking and our newsletter. No sensitive data is tracked.", 'my-wp-health-check' );
   			echo '&nbsp;<a href="' . esc_url( $optin_url ) . '" class="button-secondary">' . __( 'Allow', 'my-wp-health-check' ) . '</a>';
   			echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary">' . __( 'Do not allow', 'my-wp-health-check' ) . '</a>';
   		echo '</p></div>';
@@ -179,7 +184,7 @@ class WPHC_Tracking {
     if ( isset( $_GET["wphc_track_check"] ) ) {
       if ( 'opt_into_tracking' == $_GET["wphc_track_check"] ) {
         $settings = (array) get_option( 'wphc-settings' );
-        $settings['tracking_allowed'] = '1';
+        $settings['tracking_allowed'] = '2';
         update_option( 'wphc-settings', $settings );
       } else {
         $settings = (array) get_option( 'wphc-settings' );
