@@ -22,6 +22,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 0.1.0
  */
 class My_WP_Health_Check {
+
+  /**
+   * The version of the plugin
+   */
+  public $version = '1.3.0';
+
   /**
    * Main construct
    *
