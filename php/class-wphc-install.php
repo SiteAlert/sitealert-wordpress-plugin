@@ -10,7 +10,7 @@ class WPHC_Install {
   /**
    * Main constructor
    *
-   * @since 1.4.0
+   * @since 1.3.2
    * @uses WPHC::add_hooks
    */
   function __construct() {
@@ -20,7 +20,7 @@ class WPHC_Install {
   /**
    * Adds the various functions to hooks and filters
    *
-   * @since 1.4.0
+   * @since 1.3.2
    */
   public function add_hooks() {
     add_action( 'admin_init', array( $this, 'update' ) );
@@ -29,7 +29,7 @@ class WPHC_Install {
   /**
    * Handles the updating of the plugin when updated
    *
-   * @since 1.4.0
+   * @since 1.3.2
    */
   public function update() {
     global $my_wp_health_check;

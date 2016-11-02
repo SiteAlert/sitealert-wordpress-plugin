@@ -2,7 +2,7 @@
 /**
 * Plugin Name: My WordPress Health Check
 * Description: This plugin checks the health of your WordPress installation.
-* Version: 1.3.1
+* Version: 1.3.2
 * Author: Frank Corso
 * Author URI: http://www.mylocalwebstop.com/
 * Plugin URI: http://www.mylocalwebstop.com/
@@ -10,7 +10,7 @@
 * Domain Path: /languages
 *
 * @author Frank Corso
-* @version 1.3.1
+* @version 1.3.2
 */
 
 // Exit if accessed directly
@@ -26,7 +26,7 @@ class My_WP_Health_Check {
   /**
    * The version of the plugin
    */
-  public $version = '1.4.0';
+  public $version = '1.3.2';
 
   /**
    * Main construct

@@ -347,19 +347,19 @@ class WPHC_Checks {
             break;
 
           case 2:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is the bare minimum requirement of WordPress. However, this version has not been supported in almost 5 years and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
+            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is the bare minimum requirement of WordPress. However, this version has not been supported since January 2011 and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
             break;
 
           case 3:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported in almost 12 months and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
+            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported since August 2014 and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
             break;
 
           case 4:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported for almost 6 months and is below the recommeded 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
+            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported since September 2015 and is below the recommeded 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
             break;
 
           case 5:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not had active support for 5 months and the security support will stop in July 2016. Check with your host to ensure they plan on updating before this version is no longer supported.", 'okay');
+            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not had supported since July 2016 and is below the recommended 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'okay');
             break;
 
           case 6:
