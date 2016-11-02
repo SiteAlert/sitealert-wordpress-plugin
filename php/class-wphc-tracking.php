@@ -1,6 +1,6 @@
 <?php
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Class To Send Tracking Information Back To My Website
@@ -128,6 +128,13 @@ class WPHC_Tracking {
 
     $data['original_version'] = get_option( 'wphc_original_version' );
     $data['current_version'] = get_option( 'wphc_current_version' );
+
+    // WPHC specific data
+    $data['failed_tests'] = wphc_get_total_checks();
+    $data['plugin_updates'] = get_plugin_updates();
+    $data['theme_updates'] = get_theme_updates();
+    $data['unsupported_plugins'] = get_transient( 'wphc_supported_plugin_check' );
+    $data['admin_check'] = get_user_by( 'login', 'admin' ) ? 'yes' : 'no';
 
     // Only add email if they opted into the newer optin message that includes joining the mailing list
     if ( "2" == $tracking ) {

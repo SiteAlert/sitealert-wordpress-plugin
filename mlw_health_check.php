@@ -44,6 +44,7 @@ class My_WP_Health_Check {
    * @since 0.1.0
    */
   private function load_dependencies() {
+    include( 'php/class-wphc-install' );
     include( "php/class-wphc-checks.php" );
     include( "php/class-wphc-admin.php" );
     include( "php/class-wphc-review-manager.php" );
