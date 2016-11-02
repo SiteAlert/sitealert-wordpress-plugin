@@ -126,6 +126,11 @@ class WPHC_Tracking {
     $data['theme']  = $theme_data->Name;
     $data['theme_version'] = $theme_data->Version;
 
+    $data['site_title'] = get_bloginfo( 'name' );
+    $data['site_desc'] = get_bloginfo( 'description' );
+    $data['site_charset'] = get_bloginfo( 'charset' );
+    $data['lang'] = get_bloginfo( 'language' );
+
     $data['original_version'] = get_option( 'wphc_original_version' );
     $data['current_version'] = get_option( 'wphc_current_version' );
 
