@@ -82,6 +82,11 @@ class WPHC_Admin {
            <p>Sign up to our free 6 day WordPress security course to learn the basics of WordPress security.</p>
            <a target="_blank" href="http://mylocalwebstop.com/sign-up-for-our-free-security-course/" class="button-primary">Sign up Now</a>
          </div>
+         <div class="wphc-news-ads-widget">
+           <h3>Consider our ad-free version!</h3>
+           <p>If you find this plugin beneficial, please consider purchasing our ad-free version to help support future development.</p>
+           <a target="_blank" href="http://mylocalwebstop.com/downloads/wordpress-health-check-pro/" class="button-primary">Learn More</a>
+         </div>
        </div>
      </div>
     </div>
