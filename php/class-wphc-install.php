@@ -46,5 +46,7 @@ class WPHC_Install {
   }
 }
 
+$wphc_install = new WPHC_Install();
+
 
 ?>
