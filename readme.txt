@@ -1,4 +1,4 @@
-=== My WordPress Health Check ===
+=== My WordPress Health Check Pro ===
 Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security, vulnerable, vulnerability, support, supported, inactive, update
