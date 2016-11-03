@@ -28,7 +28,6 @@ class WPHC_Tracking {
 	  */
   function __construct() {
     $this->add_hooks();
-    $this->track_check();
   }
 
   /**
@@ -42,6 +41,7 @@ class WPHC_Tracking {
   private function add_hooks() {
     add_action( 'admin_notices', array( $this, 'admin_notice' ) );
     add_action( 'admin_init', array( $this, 'admin_notice_check' ) );
+    add_action( 'shutdown', array( $this, 'track_check' ) );
   }
 
   /**
@@ -54,7 +54,7 @@ class WPHC_Tracking {
    * @uses WPHC_Tracking::send_data()
    * @return void
    */
-  private function track_check() {
+  public function track_check() {
     $settings = (array) get_option( 'wphc-settings' );
     $tracking_allowed = '0';
 		if ( isset( $settings['tracking_allowed'] ) ) {
