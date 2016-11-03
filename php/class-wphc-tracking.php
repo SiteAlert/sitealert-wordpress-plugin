@@ -75,7 +75,7 @@ class WPHC_Tracking {
    * @return void
    */
   private function send_data() {
-    $response = wp_remote_post( 'http://mylocalwebstop.com/?usage_track=confirmation', array(
+    $response = wp_remote_post( 'https://mylocalwebstop.com/?usage_track=confirmation', array(
 			'method'      => 'POST',
 			'timeout'     => 45,
 			'redirection' => 5,
