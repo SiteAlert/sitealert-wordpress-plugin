@@ -2,9 +2,9 @@
 Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
 Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security, vulnerable, vulnerability, support, supported, inactive, update
-Requires at least: 4.4
-Tested up to: 4.6.1
-Stable tag: 1.3.2
+Requires at least: 4.5
+Tested up to: 4.7
+Stable tag: 1.3.3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -61,6 +61,9 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.3.3 (December 9, 2016) =
+  * Ensures stability in WordPress 4.7
 
 = 1.3.2 (November 2, 2016) =
   * Updates PHP check information
@@ -122,5 +125,5 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Upgrade Notice ==
 
-= 1.3.2 =
-This update improves the information given when certain checks fail
+= 1.3.3 =
+This update ensures compatibility with WordPress 4.7
