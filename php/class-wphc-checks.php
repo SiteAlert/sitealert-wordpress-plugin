@@ -47,6 +47,7 @@ class WPHC_Checks {
   public function wp_checks() {
     $checks = array();
     $checks[] = $this->wordpress_version_check();
+    $checks[] = $this->file_editor_check();
     $checks[] = $this->admin_user_check();
     $checks[] = $this->themes_check();
     return apply_filters( 'wphc_wp_checks', $checks );
@@ -80,6 +81,19 @@ class WPHC_Checks {
       'message' => $message,
       'type' => $type
     );
+  }
+
+  /**
+   * Checks if the file editor is disabled
+   *
+   * @since 1.4.0
+   */
+  public function file_editor_check() {
+    if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
+      return $this->prepare_array( 'The file editor on this site has been disabled. Great!', 'good' );
+    } else {
+      return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. To do so requires editing the wp-config file as <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">shown here</a>.', 'okay' );
+    }
   }
 
   /**
