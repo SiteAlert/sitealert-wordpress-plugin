@@ -1,10 +1,10 @@
 === My WordPress Health Check ===
-Contributors: fpcorso
+Contributors: fpcorso, mylocalwebstop
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
-Tags: php, mysql, plugin, theme, version, recommended, requirement, safety, security, vulnerable, vulnerability, support, supported, inactive, update
+Tags: php, mysql, plugin, theme, version, recommended, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 1.3.3
+Stable tag: 1.4.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -44,6 +44,12 @@ This will check your plugins to see if you have a plugin installed with a known 
 **Theme Updates**
 This plugin checks to make sure all of your themes are up to date.
 
+**SSL**
+Checks to see if you have SSL on your site.
+
+**File Editor**
+Checks if your site has disabled the file editor.
+
 Once installed, there will be a new **Health Check** page added to the Tools menu.
 
 = Make Suggestions Or Contribute =
@@ -61,6 +67,11 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.4.0 (January 27, 2017) =
+  * Adds SSL check
+  * Adds disabled file editor check
+  * Updates text information for PHP and MySQL checks
 
 = 1.3.3 (December 9, 2016) =
   * Ensures stability in WordPress 4.7
@@ -113,7 +124,7 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Design: Updated PHP check text
 
 = 0.2.1 (April 22, 2015) =
-* Updated version number to reflect compatibility with Wordpress version 4.2
+* Updated version number to reflect compatibility with WordPress version 4.2
 
 = 0.2.0 (February 26, 2015) =
 * Added Ability To Check If Plugins Need Updates [Issue #2](https://github.com/fpcorso/wordpress-health-check/issues/2)
@@ -125,5 +136,5 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Upgrade Notice ==
 
-= 1.3.3 =
-This update ensures compatibility with WordPress 4.7
+= 1.4.0 =
+This update adds two new checks and updates two others
