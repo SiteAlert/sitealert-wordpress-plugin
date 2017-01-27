@@ -34,6 +34,7 @@ class WPHC_Checks {
     $checks = array();
     $checks[] = $this->php_check();
     $checks[] = $this->mysql_check();
+    $checks[] = $this->ssl_check();
     return apply_filters( 'wphc_server_checks', $checks );
   }
 
@@ -46,6 +47,7 @@ class WPHC_Checks {
   public function wp_checks() {
     $checks = array();
     $checks[] = $this->wordpress_version_check();
+    $checks[] = $this->file_editor_check();
     $checks[] = $this->admin_user_check();
     $checks[] = $this->themes_check();
     return apply_filters( 'wphc_wp_checks', $checks );
@@ -82,6 +84,19 @@ class WPHC_Checks {
   }
 
   /**
+   * Checks if the file editor is disabled
+   *
+   * @since 1.4.0
+   */
+  public function file_editor_check() {
+    if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
+      return $this->prepare_array( 'The file editor on this site has been disabled. Great!', 'good' );
+    } else {
+      return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. To do so requires editing the wp-config file as <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">shown here</a>.', 'okay' );
+    }
+  }
+
+  /**
    * Checks if using latest version of WordPress
    *
    * @since 0.1.0
@@ -89,9 +104,9 @@ class WPHC_Checks {
   public function wordpress_version_check() {
     $core_update = get_core_updates();
     if ( ! isset( $updates[0]->response ) || 'latest' == $updates[0]->response ) {
-      return $this->prepare_array('Your WordPress is up to date. Great Job!', 'good');
+      return $this->prepare_array('Your WordPress is up to date. Great Job!', 'good' );
     } else {
-      return $this->prepare_array('Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.', 'bad');
+      return $this->prepare_array('Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.', 'bad' );
     }
   }
 
@@ -108,9 +123,9 @@ class WPHC_Checks {
         $plugins[] = $plugin->Name;
       }
       $plugin_list = implode( ",", $plugins );
-      return $this->prepare_array("You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad');
+      return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
     } else {
-      return $this->prepare_array('All of your WordPress plugins are up to date. Great Job!', 'good');
+      return $this->prepare_array('All of your WordPress plugins are up to date. Great Job!', 'good' );
     }
   }
 
@@ -136,9 +151,9 @@ class WPHC_Checks {
 
     // If any plugins are inactive, display error message. If not, display success message
     if ( ! empty( $inactive_plugins ) ) {
-      return $this->prepare_array("These plugins are not active: " . implode( ', ', $inactive_plugins ) . ". Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.", 'bad');
+      return $this->prepare_array( "These plugins are not active: " . implode( ', ', $inactive_plugins ) . ". Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.", 'bad' );
     } else {
-      return $this->prepare_array('All of your plugins installed on the site are in use. Great job!', 'good');
+      return $this->prepare_array('All of your plugins installed on the site are in use. Great job!', 'good' );
     }
 
   }
@@ -179,9 +194,9 @@ class WPHC_Checks {
       set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * DAY_IN_SECONDS );
     }
     if ( empty( $plugin_list ) ) {
-      return $this->prepare_array('All of your plugins are currently supported. Great Job!', 'good');
+      return $this->prepare_array('All of your plugins are currently supported. Great Job!', 'good' );
     } else {
-      return $this->prepare_array("The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins.", 'bad');
+      return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins.", 'bad' );
     }
   }
 
@@ -253,9 +268,9 @@ class WPHC_Checks {
   public function admin_user_check() {
     $user = get_user_by( 'login', 'admin' );
     if ( false === $user ) {
-      return $this->prepare_array("Your site does not have a user 'admin'. Great job!", 'good');
+      return $this->prepare_array( "Your site does not have a user 'admin'. Great job!", 'good' );
     } else {
-      return $this->prepare_array("There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'good');
+      return $this->prepare_array( "There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'good' );
     }
   }
 
@@ -267,9 +282,9 @@ class WPHC_Checks {
   public function themes_check() {
     $theme_updates = get_theme_updates();
     if( ! empty( $theme_updates ) ) {
-      return $this->prepare_array("One or more of your themes have updates available. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad');
+      return $this->prepare_array( "One or more of your themes have updates available. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
     } else {
-      return $this->prepare_array("All of your WordPress themes are up to date. Great Job!", 'good');
+      return $this->prepare_array( "All of your WordPress themes are up to date. Great Job!", 'good' );
     }
   }
 
@@ -284,41 +299,54 @@ class WPHC_Checks {
     $version = explode( '.', $wpdb->db_version() );
     switch ( intval( $version[0] ) ) {
       case 4:
-        return $this->prepare_array("You server is running MySQL version " . $wpdb->db_version() . " which has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!", 'bad');
+        return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . " which has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!", 'bad' );
         break;
 
       case 5:
         switch ( intval( $version[1] ) ) {
           case 0:
-            return $this->prepare_array("You server is running MySQL version " . $wpdb->db_version() . ". This is the bare minimum that WordPress requires. However, this version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.", 'bad');
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.", 'bad' );
             break;
 
           case 1:
-            return $this->prepare_array("You server is running MySQL version " . $wpdb->db_version() . ". This is above the bare minimum that WordPress requires. However, this version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.", 'bad');
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.", 'bad' );
             break;
 
           case 5:
-            return $this->prepare_array("You server is running MySQL version " . $wpdb->db_version() . ". This is above the bare minimum that WordPress requires. However, this version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.", 'okay');
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.", 'bad' );
             break;
 
           case 6:
-            return $this->prepare_array("You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is the recommended version.", 'good');
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is the recommended version.", 'good' );
             break;
 
           case 7:
-            return $this->prepare_array("You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is the latest version.", 'good');
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is the latest version.", 'good' );
             break;
 
 
           default:
-            return $this->prepare_array("Error checking MySQL health.", 'bad');
+            return $this->prepare_array( "Error checking MySQL health.", 'bad' );
             break;
         }
         break;
 
       default:
-        return $this->prepare_array("Error checking MySQL health.", 'bad');
+        return $this->prepare_array( "Error checking MySQL health.", 'bad' );
         break;
+    }
+  }
+
+  /**
+   * Checks if the site is using SSL
+   *
+   * @since 1.4.0
+   */
+  public function ssl_check() {
+    if ( is_ssl() ) {
+      return $this->prepare_array( "Great! You are using SSL on your site.", 'good' );
+    } else {
+      return $this->prepare_array( "Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Contact your host about SSL.", 'bad' );
     }
   }
 
@@ -331,53 +359,67 @@ class WPHC_Checks {
     $version = explode( '.', PHP_VERSION );
     $php_check_health = 'good';
     $message = '';
+    $your_version_message = "You server is running PHP version " . PHP_VERSION;
+    $unsupported_message = "Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!";
     switch ( intval( $version[0] ) ) {
       case 4:
-        return $this->prepare_array("You server is running PHP version " . PHP_VERSION . " which has not been supported in over 5 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!", 'bad');
+        return $this->prepare_array( "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message", 'bad' );
         break;
 
       case 5:
         switch ( intval( $version[1] ) ) {
           case 0:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . " which has not been supported in almost 10 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!", 'bad');
+            return $this->prepare_array( "$your_version_message which has not been supported since Sep 2005 and is below the required 5.2. $unsupported_message", 'bad' );
             break;
 
           case 1:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . " which has not been supported in almost 10 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!", 'bad');
+            return $this->prepare_array( "$your_version_message which has not been supported since Aug 2006 and is below the required 5.2. $unsupported_message", 'bad' );
             break;
 
           case 2:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is the bare minimum requirement of WordPress. However, this version has not been supported since January 2011 and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
+            return $this->prepare_array( "$your_version_message which has not been supported since Jan 2011 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 3:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported since August 2014 and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
+            return $this->prepare_array( "$your_version_message which has not been supported since Aug 2014 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 4:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported since September 2015 and is below the recommeded 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad');
+            return $this->prepare_array( "$your_version_message which has not been supported since Sep 2015 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 5:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not had supported since July 2016 and is below the recommended 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'okay');
+            return $this->prepare_array( "$your_version_message which has not been supported since Jul 2016 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 6:
-            return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". Good job! This is the recommended version.", 'good');
+            return $this->prepare_array( "$your_version_message. which has not been actively supported since Jan 2017 and is below the recommended 7.0. $unsupported_message", 'okay' );
             break;
 
           default:
-            return $this->prepare_array("Error checking PHP health.", 'bad');
+            return $this->prepare_array( "Error checking PHP health.", 'bad' );
             break;
         }
         break;
 
       case 7:
-        return $this->prepare_array("You server is running PHP version " . PHP_VERSION . ". Good job! This is the latest version.", 'good');
+        switch ( intval( $version[1] ) ) {
+          case 0:
+            return $this->prepare_array( "$your_version_message. Good job! You are using the recommended version!", 'good' );
+            break;
+
+          case 1:
+            return $this->prepare_array( "$your_version_message. Good job! This is the latest version.", 'good' );
+            break;
+
+          default:
+            return $this->prepare_array( "Error checking PHP health.", 'bad' );
+            break;
+        }
         break;
 
       default:
-        return $this->prepare_array("Error checking PHP health.", 'bad');
+        return $this->prepare_array( "Error checking PHP health.", 'bad' );
         break;
     }
   }
