@@ -291,15 +291,15 @@ class WPHC_Checks {
       case 5:
         switch ( intval( $version[1] ) ) {
           case 0:
-            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This is the bare minimum that WordPress requires. However, this version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.", 'bad' );
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.", 'bad' );
             break;
 
           case 1:
-            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This is above the bare minimum that WordPress requires. However, this version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.", 'bad' );
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.", 'bad' );
             break;
 
           case 5:
-            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This is above the bare minimum that WordPress requires. However, this version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.", 'okay' );
+            return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.", 'bad' );
             break;
 
           case 6:
@@ -345,39 +345,41 @@ class WPHC_Checks {
     $version = explode( '.', PHP_VERSION );
     $php_check_health = 'good';
     $message = '';
+    $your_version_message = "You server is running PHP version " . PHP_VERSION;
+    $unsupported_message = "Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!";
     switch ( intval( $version[0] ) ) {
       case 4:
-        return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . " which has not been supported in over 5 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!", 'bad' );
+        return $this->prepare_array( "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message", 'bad' );
         break;
 
       case 5:
         switch ( intval( $version[1] ) ) {
           case 0:
-            return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . " which has not been supported in almost 10 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!", 'bad' );
+            return $this->prepare_array( "$your_version_message which has not been supported since Sep 2005 and is below the required 5.2. $unsupported_message", 'bad' );
             break;
 
           case 1:
-            return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . " which has not been supported in almost 10 years and is below the required 5.2. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You must update your PHP or contact your host immediately!", 'bad' );
+            return $this->prepare_array( "$your_version_message which has not been supported since Aug 2006 and is below the required 5.2. $unsupported_message", 'bad' );
             break;
 
           case 2:
-            return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . ". This is the bare minimum requirement of WordPress. However, this version has not been supported since January 2011 and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad' );
+            return $this->prepare_array( "$your_version_message which has not been supported since Jan 2011 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 3:
-            return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported since August 2014 and is below the recommended 5.5. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad' );
+            return $this->prepare_array( "$your_version_message which has not been supported since Aug 2014 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 4:
-            return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not been supported since September 2015 and is below the recommeded 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'bad' );
+            return $this->prepare_array( "$your_version_message which has not been supported since Sep 2015 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 5:
-            return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . ". This is above the bare minimum requirement of WordPress. However, this version has not had supported since July 2016 and is below the recommended 5.6. Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. You should consider updating your PHP or contact your host.", 'okay' );
+            return $this->prepare_array( "$your_version_message which has not been supported since Jul 2016 and is below the recommended 7.0. $unsupported_message", 'bad' );
             break;
 
           case 6:
-            return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . ". Good job! This is the recommended version.", 'good' );
+            return $this->prepare_array( "$your_version_message. which has not been actively supported since Jan 2017 and is below the recommended 7.0. $unsupported_message", 'okay' );
             break;
 
           default:
@@ -387,7 +389,19 @@ class WPHC_Checks {
         break;
 
       case 7:
-        return $this->prepare_array( "You server is running PHP version " . PHP_VERSION . ". Good job! This is the latest version.", 'good' );
+        switch ( intval( $version[1] ) ) {
+          case 0:
+            return $this->prepare_array( "$your_version_message. Good job! You are using the recommended version!", 'good' );
+            break;
+
+          case 1:
+            return $this->prepare_array( "$your_version_message. Good job! This is the latest version.", 'good' );
+            break;
+
+          default:
+            return $this->prepare_array( "Error checking PHP health.", 'bad' );
+            break;
+        }
         break;
 
       default:
