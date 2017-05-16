@@ -75,7 +75,7 @@ class WPHC_Admin {
            <?php do_action( 'wphc_plugin_check' ); ?>
          </div>
        </div>
-       <div class="wphc-news-ads">
+       <!-- <div class="wphc-news-ads">
          <h3 class="wphc-news-ads-title">My WordPress Health Check</h3>
          <div class="wphc-news-ads-widget">
            <h3>Sign up for our FREE WordPress security email course.</h3>
@@ -87,7 +87,7 @@ class WPHC_Admin {
            <p>If you find this plugin beneficial, please consider purchasing our ad-free version to help support future development.</p>
            <a target="_blank" href="http://mylocalwebstop.com/downloads/wordpress-health-check-pro/" class="button-primary">Learn More</a>
          </div>
-       </div>
+       </div> -->
      </div>
     </div>
     <?php
