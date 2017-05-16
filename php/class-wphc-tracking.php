@@ -75,7 +75,7 @@ class WPHC_Tracking {
    * @return void
    */
   private function send_data() {
-    $response = wp_remote_post( 'https://mylocalwebstop.com/?usage_track=confirmation', array(
+    $response = wp_remote_post( 'https://wphc.frankcorso.me/?usage_track=confirmation', array(
 			'method'      => 'POST',
 			'timeout'     => 45,
 			'redirection' => 5,
@@ -142,9 +142,9 @@ class WPHC_Tracking {
     $data['admin_check'] = get_user_by( 'login', 'admin' ) ? 'yes' : 'no';
 
     // Only add email if they opted into the newer optin message that includes joining the mailing list
-    if ( "2" == $tracking ) {
-      $data['email'] = get_bloginfo( 'admin_email' );
-    }
+    // if ( "2" == $tracking ) {
+    //   $data['email'] = get_bloginfo( 'admin_email' );
+    // }
 
     $this->data = $data;
   }
