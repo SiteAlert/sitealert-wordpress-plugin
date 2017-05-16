@@ -58,7 +58,6 @@ class WPHC_Admin {
     ?>
     <div class="wrap">
       <h2>WordPress Health Check</h2>
-      <p>If you feel that your website has benefited from this plugin, please help other users find this plugin by <a href="https://wordpress.org/support/view/plugin-reviews/my-wp-health-check">leaving a review</a>.</p>
       <hr />
       <div class=" wphc-wrap">
         <div class="wphc-main-content">
