@@ -1,10 +1,9 @@
 === My WordPress Health Check ===
-Contributors: fpcorso, mylocalwebstop
-Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
+Contributors: fpcorso
 Tags: php, mysql, plugin, theme, version, recommended, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -13,7 +12,7 @@ This plugin checks the health of your WordPress installation.
 
 My WordPress Health Check will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the Health Check page to quickly see the results of these checks using the simple color-coded sections.
 
-My WordPress Health Check will add an icon to your admin bar if the results of these checks need attention.
+Once installed, there will be a new **Health Check** page added to the Tools menu and an icon to your admin bar if the results of these checks need attention.
 
 = Currently Checks =
 
@@ -50,8 +49,6 @@ Checks to see if you have SSL on your site.
 **File Editor**
 Checks if your site has disabled the file editor.
 
-Once installed, there will be a new **Health Check** page added to the Tools menu.
-
 = Make Suggestions Or Contribute =
 My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
@@ -67,6 +64,9 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.4.1 (May 7, 2017) =
+	* Minor code changes
 
 = 1.4.0 (January 27, 2017) =
   * Adds SSL check
