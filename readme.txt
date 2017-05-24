@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, theme, version, recommended, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -65,7 +65,7 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Changelog ==
 
-= 1.4.1 (May 7, 2017) =
+= 1.4.2 (May 25, 2017) =
 	* Minor code changes
 
 = 1.4.0 (January 27, 2017) =
