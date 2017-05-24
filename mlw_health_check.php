@@ -1,8 +1,8 @@
 <?php
 /**
-* Plugin Name: My WordPress Health Check Pro
+* Plugin Name: My WordPress Health Check
 * Description: This plugin checks the health of your WordPress installation.
-* Version: 1.4.1
+* Version: 1.4.2
 * Author: Frank Corso
 * Author URI: https://www.frankcorso.me/
 * Plugin URI: https://www.frankcorso.me/
@@ -10,7 +10,7 @@
 * Domain Path: /languages
 *
 * @author Frank Corso
-* @version 1.4.1
+* @version 1.4.2
 */
 
 // Exit if accessed directly
@@ -26,7 +26,7 @@ class My_WP_Health_Check {
   /**
    * The version of the plugin
    */
-  public $version = '1.4.1';
+  public $version = '1.4.2';
 
   /**
    * Main construct
@@ -47,6 +47,7 @@ class My_WP_Health_Check {
     include( 'php/class-wphc-install.php' );
     include( "php/class-wphc-checks.php" );
     include( "php/class-wphc-admin.php" );
+    include( "php/class-wphc-review-manager.php" );
     include( "php/class-wphc-tracking.php" );
     include( "php/functions.php" );
     include( "php/ajax.php" );
