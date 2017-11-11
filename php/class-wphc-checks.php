@@ -102,9 +102,14 @@ class WPHC_Checks {
    * @since 0.1.0
    */
   public function wordpress_version_check() {
-    $core_update = get_core_updates();
-    if ( ! isset( $updates[0]->response ) || 'latest' == $updates[0]->response ) {
+    $core_update = false;
+    if ( function_exists( 'get_core_updates' ) ) {
+      $core_update = get_core_updates();
+    }    
+    if ( $core_update && ( ! isset( $core_update[0]->response ) || 'latest' == $core_update[0]->response ) ) {
       return $this->prepare_array('Your WordPress is up to date. Great Job!', 'good' );
+    } elseif ( ! $core_update ) {
+      return $this->prepare_array( 'Encountered an error. WordPress version not checked. Please check again later.', 'okay' );
     } else {
       return $this->prepare_array('Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.', 'bad' );
     }
@@ -186,8 +191,10 @@ class WPHC_Checks {
       foreach ( $slugs as $plugin ) {
         $response = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
         $plugin_info = unserialize( $response['body'] );
-        if ( time() - ( 60 * 60 * 24 * 365 * 2 ) > strtotime( $plugin_info->last_updated ) ) {
-          $unsupported_plugins[] = $plugin_info->name;
+        if ( is_object( $plugin_info ) ) {
+          if ( time() - ( 60 * 60 * 24 * 365 * 2 ) > strtotime( $plugin_info->last_updated ) ) {
+            $unsupported_plugins[] = $plugin_info->name;
+          }
         }
       }
       $plugin_list = implode( ",", $unsupported_plugins );
