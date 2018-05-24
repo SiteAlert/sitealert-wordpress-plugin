@@ -281,19 +281,37 @@ class WPHC_Checks {
     }
   }
 
-  /**
-   * Checks if using latest version of themes
-   *
-   * @since 0.2.0
-   */
-  public function themes_check() {
-    $theme_updates = get_theme_updates();
-    if( ! empty( $theme_updates ) ) {
-      return $this->prepare_array( "One or more of your themes have updates available. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
-    } else {
-      return $this->prepare_array( "All of your WordPress themes are up to date. Great Job!", 'good' );
-    }
-  }
+	/**
+	 * Checks if using latest version of themes
+	 *
+	 * @since 0.2.0
+	 */
+	public function themes_check() {
+
+		// Load the available theme updates.
+		$theme_updates = array();
+		if ( function_exists( 'get_theme_updates' ) ) {
+			$theme_updates = get_theme_updates();
+		} else {
+			$current = get_site_transient( 'update_themes' );
+			if ( isset( $current->response ) ) {
+				foreach ( $current->response as $stylesheet => $data ) {
+					$theme_updates[ $stylesheet ]         = wp_get_theme( $stylesheet );
+					$theme_updates[ $stylesheet ]->update = $data;
+				}
+			}
+		}
+
+		// Get the themes with available updates.
+		$updates = implode( ',', array_keys( $theme_updates ) );
+
+		// If we have theme updates, show them. If not, say all clear.
+		if( ! empty( $theme_updates ) ) {
+			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
+		} else {
+			return $this->prepare_array( "All of your WordPress themes are up to date. Great Job!", 'good' );
+		}
+	}
 
   /**
    * Checks if using latest version of mysql
