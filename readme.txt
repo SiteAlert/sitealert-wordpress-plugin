@@ -2,8 +2,10 @@
 Contributors: fpcorso
 Tags: php, mysql, plugin, theme, version, recommended, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.5
-Tested up to: 4.8
-Stable tag: 1.4.3
+Tested up to: 4.9
+Stable tag: 1.4.4
+Requires PHP: 5.2
+License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin checks the health of your WordPress installation.
@@ -64,6 +66,9 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.4.4 (May 24, 2018) =
+* Fixes bug causes undefined function errors on the frontend when logged in
 
 = 1.4.3 (October 29, 2017) =
 * Fixes "Call to undefined function get_core_updates()" error
