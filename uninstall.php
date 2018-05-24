@@ -12,5 +12,6 @@ delete_option( 'wphc-tracking-notice' );
 
 // Deletes transients from checks (the ones we can delete). The others will self-delete once expired.
 delete_transient( 'wphc_supported_plugin_check' );
+delete_transient( 'wphc_total_checks' );
 
 ?>
