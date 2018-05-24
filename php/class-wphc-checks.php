@@ -115,53 +115,72 @@ class WPHC_Checks {
     }
   }
 
-  /**
-   * Checks if using latest version of plugins
-   *
-   * @since 0.2.0
-   */
-  public function update_plugins_check() {
-    $plugin_updates = get_plugin_updates();
-    if( ! empty( $plugin_updates ) ) {
-      $plugins = array();
-      foreach ( $plugin_updates as $plugin ) {
-        $plugins[] = $plugin->Name;
-      }
-      $plugin_list = implode( ",", $plugins );
-      return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
-    } else {
-      return $this->prepare_array('All of your WordPress plugins are up to date. Great Job!', 'good' );
-    }
-  }
+	/**
+	 * Checks if using latest version of plugins
+	 *
+	 * @since 0.2.0
+	 */
+	public function update_plugins_check() {
 
-  /**
-   * Checks for inactive plugins
-   *
-   * @since 1.1.0
-   */
-  public function inactive_plugins_check() {
+		// Loads the available plugin updates.
+		$plugin_updates = array();
+		if ( function_exists( 'get_plugin_updates' ) ) {
+			$plugin_updates = get_plugin_updates();
+		} else {
+			$current     = get_site_transient( 'update_plugins' );
+			$all_plugins = $this->get_plugins();
+			foreach ( (array) $all_plugins as $plugin_file => $plugin_data ) {
+				if ( isset( $current->response[ $plugin_file ] ) ) {
+					$plugin_updates[ $plugin_file ]         = (object) $plugin_data;
+					$plugin_updates[ $plugin_file ]->update = $current->response[ $plugin_file ];
+				}
+			}
+		}
 
-    // Gets all the plugins
-    $plugins = get_plugins();
-    $inactive_plugins = array();
+		if ( ! empty( $plugin_updates ) ) {
+			$plugins = array();
+			foreach ( $plugin_updates as $plugin ) {
+				$plugins[] = $plugin->Name;
+			}
+			$plugin_list = implode( ',', $plugins );
+			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
+		} else {
+			return $this->prepare_array( 'All of your WordPress plugins are up to date. Great Job!', 'good' );
+		}
+	}
 
-    // Looks for any inactive plugins
-    if ( ! empty( $plugins ) ) {
-      foreach ( $plugins as $key => $plugin ) {
-        if ( is_plugin_inactive( $key ) ) {
-          $inactive_plugins[] = $plugin['Name'];
-        }
-      }
-    }
+	/**
+	 * Checks for inactive plugins
+	 *
+	 * @since 1.1.0
+	 */
+	public function inactive_plugins_check() {
 
-    // If any plugins are inactive, display error message. If not, display success message
-    if ( ! empty( $inactive_plugins ) ) {
-      return $this->prepare_array( "These plugins are not active: " . implode( ', ', $inactive_plugins ) . ". Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.", 'bad' );
-    } else {
-      return $this->prepare_array('All of your plugins installed on the site are in use. Great job!', 'good' );
-    }
+		// Gets all the plugins.
+		$plugins = array();
+		if ( function_exists( 'get_plugins' ) ) {
+			$plugins = get_plugins();
+		} else {
+			$plugins = $this->get_plugins();
+		}
 
-  }
+		// Looks for any inactive plugins.
+		$inactive_plugins = array();
+		if ( ! empty( $plugins ) ) {
+			foreach ( $plugins as $key => $plugin ) {
+				if ( is_plugin_inactive( $key ) ) {
+					$inactive_plugins[] = $plugin['Name'];
+				}
+			}
+		}
+
+		// If any plugins are inactive, display error message. If not, display success message.
+		if ( ! empty( $inactive_plugins ) ) {
+			return $this->prepare_array( "These plugins are not active: " . implode( ', ', $inactive_plugins ) . ". Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.", 'bad' );
+		} else {
+			return $this->prepare_array('All of your plugins installed on the site are in use. Great job!', 'good' );
+		}
+	}
 
   /**
    * Checks For Unsupported Plugins
@@ -302,12 +321,11 @@ class WPHC_Checks {
 			}
 		}
 
-		// Get the themes with available updates.
-		$updates = implode( ',', array_keys( $theme_updates ) );
-
 		// If we have theme updates, show them. If not, say all clear.
 		if( ! empty( $theme_updates ) ) {
-			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
+			// Get the themes with available updates.
+			$updates = implode( ',', array_keys( $theme_updates ) );
+			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe.", 'bad' );
 		} else {
 			return $this->prepare_array( "All of your WordPress themes are up to date. Great Job!", 'good' );
 		}
@@ -434,6 +452,10 @@ class WPHC_Checks {
             break;
 
           case 1:
+            return $this->prepare_array( "$your_version_message. Good job! This is the previous version.", 'good' );
+            break;
+
+          case 1:
             return $this->prepare_array( "$your_version_message. Good job! This is the latest version.", 'good' );
             break;
 
@@ -448,6 +470,20 @@ class WPHC_Checks {
         break;
     }
   }
+
+
+	/**
+	 * Loads the plugins if we are not in admin
+	 *
+	 * @since 1.4.4
+	 */
+	private function get_plugins() {
+		$cache_plugins = wp_cache_get( 'plugins', 'plugins' );
+		if ( $cache_plugins ) {
+			return $cache_plugins[''];
+		}
+		return array();
+	}
 }
 
 
