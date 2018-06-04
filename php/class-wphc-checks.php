@@ -350,50 +350,93 @@ class WPHC_Checks {
 	 * @since 0.1.0
 	 */
 	public function mysql_check() {
-		// Checks for MySQL.
 		global $wpdb;
-		$version = explode( '.', $wpdb->db_version() );
-		switch ( intval( $version[0] ) ) {
-			case 4:
-				return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . " which has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!", 'bad' );
-				break;
 
-			case 5:
-				switch ( intval( $version[1] ) ) {
-					case 0:
-						return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.", 'bad' );
-						break;
+		// Sets up main variables.
+		$version = '0.0';
+		$maria   = false;
 
-					case 1:
-						return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.", 'bad' );
-						break;
+		// Sets up messages.
+		$error = __( 'Error checking database health.', 'my-wp-health-check' );
+		/* translators: %s: Version of MySQL the server is running */
+		$mysql_version = __( 'Your server is running MySQL version %s.', 'my-wp-health-check' );
+		/* translators: %s: Version of MariaDB the server is running */
+		$maria_version = __( 'Your server is running MariaDB version %s.', 'my-wp-health-check' );
 
-					case 5:
-						return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". This version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.", 'bad' );
-						break;
+		// Learned better way from the Health Check plugin: https://github.com/WordPress/health-check/blob/5ad8b4dcc3806f4be4a4c1a169ed03bdcbd69d4a/src/pages/health-check.php#L21.
+		if ( method_exists( $wpdb, 'db_version' ) ) {
+			if ( $wpdb->use_mysqli ) {
+				// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_get_server_info
+				$mysql_server_type = mysqli_get_server_info( $wpdb->dbh );
+			} else {
+				// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_server_info
+				$mysql_server_type = mysql_get_server_info( $wpdb->dbh );
+			}
+			$version = $wpdb->get_var( 'SELECT VERSION()' );
+		}
 
-					case 6:
-						return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is the recommended version.", 'good' );
-						break;
+		// Tests if database is maria or mysql.
+		if ( stristr( $mysql_server_type, 'mariadb' ) ) {
+			$mariadb = true;
+		}
 
-					case 7:
-						return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . ". Good job! This is a supported version and is above the recommended version.", 'good' );
-						break;
+		$version_array = explode( '.', $version );
 
+		if ( $mariadb ) {
+			switch ( intval( $version_array[0] ) ) {
+				case 5:
+					return $this->prepare_array( sprintf( $maria_version, $version ) . ' This is below the recommended version of 10.0. You should consider updating your MariaDB or contacting your host right away.', 'bad' );
+					break;
+				case 10:
+					return $this->prepare_array( sprintf( $maria_version, $version ) . ' Good job! This is the recommended version.', 'good' );
+					break;
 
-					default:
-						return $this->prepare_array( "Error checking MySQL health.", 'bad' );
-						break;
-					}
-				break;
-		
-			case 8:
-				return $this->prepare_array( "You server is running MySQL version " . $wpdb->db_version() . " which is the latest version!", 'good' );
-				break;
+				default:
+					return $this->prepare_array( $error, 'bad' );
+					break;
+			}
+		} else {
+			switch ( intval( $version_array[0] ) ) {
+				case 4:
+					return $this->prepare_array( sprintf( $mysql_version, $version ) . " This has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!", 'bad' );
+					break;
 
-			default:
-				return $this->prepare_array( "Error checking MySQL health.", 'bad' );
-			break;
+				case 5:
+					switch ( intval( $version_array[1] ) ) {
+						case 0:
+							return $this->prepare_array( sprintf( $mysql_version, $version ) . " This version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.", 'bad' );
+							break;
+
+						case 1:
+							return $this->prepare_array( sprintf( $mysql_version, $version ) . " This version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.", 'bad' );
+							break;
+
+						case 5:
+							return $this->prepare_array( sprintf( $mysql_version, $version ) . " This version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.", 'bad' );
+							break;
+
+						case 6:
+							return $this->prepare_array( sprintf( $mysql_version, $version ) . " Good job! This is the recommended version.", 'good' );
+							break;
+
+						case 7:
+							return $this->prepare_array( sprintf( $mysql_version, $version ) . " Good job! This is a supported version and is above the recommended version.", 'good' );
+							break;
+
+						default:
+							return $this->prepare_array( $error, 'bad' );
+							break;
+						}
+					break;
+
+				case 8:
+					return $this->prepare_array( sprintf( $mysql_version, $version ) . " This is the latest version!", 'good' );
+					break;
+
+				default:
+					return $this->prepare_array( $error, 'bad' );
+					break;
+			}
 		}
 	}
 
