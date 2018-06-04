@@ -85,7 +85,6 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Adds SSL check
 * Adds disabled file editor check
 * Updates text information for PHP and MySQL checks
-
 = 1.3.3 (December 9, 2016) =
 * Ensures stability in WordPress 4.7
 
@@ -149,8 +148,5 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Upgrade Notice ==
 
-= 1.4.0 =
+= 1.5.0 =
 This update adds unsupported plugin notices to the installed plugins page and includes fix for MariaDB checks
-
-= 1.4.0 =
-This update adds two new checks and updates two others
