@@ -59,12 +59,13 @@ class My_WP_Health_Check {
 	 */
 	private function load_hooks() {
 		add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 65 ); // Between Updates, Comments and New Content menu
+		add_action( 'after_plugin_row', array( $this, 'plugin_row_notice' ), 10, 3 );
 	}
 
 	/**
 	 * Adds an icon and number of issues to the admin bar, if issues exist
 	 *
-	 * @param object WP Admin Bar instance
+	 * @param object $wp_admin_bar WP Admin Bar instance.
 	 */
 	public function admin_bar( $wp_admin_bar ) {
 		$total = wphc_get_total_checks();
@@ -76,6 +77,24 @@ class My_WP_Health_Check {
 			);
 			$wp_admin_bar->add_node( $args );
 		}
+	}
+
+	/**
+	 * Adds notices to plugins with issues
+	 *
+	 * @since 1.5.0
+	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
+	 * @param array  $plugin_data An array of plugin data.
+	 * @param string $status Status of the plugin.
+	 */
+	public function plugin_row_notice( $plugin_file, $plugin_data, $status ) {
+		$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
+		$name = $plugin_data['Name'];
+		?>
+		<tr style="background-color: lightyellow;">
+			<td colspan="<?php echo esc_attr( $wp_list_table->get_column_count() ); ?>"><?php echo esc_html( $name ); ?> This is a test!</td>
+		</tr>
+		<?php
 	}
 }
 $my_wp_health_check = new My_WP_Health_Check();
