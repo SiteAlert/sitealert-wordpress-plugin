@@ -1,9 +1,9 @@
 === My WordPress Health Check ===
 Contributors: fpcorso
 Tags: php, mysql, plugin, theme, version, recommended, security, vulnerable, vulnerability, inactive, update
-Requires at least: 4.5
+Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.4.4
+Stable tag: 1.5.0
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,8 +21,8 @@ Once installed, there will be a new **Health Check** page added to the Tools men
 **WordPress Version**
 This plugin checks to make sure that your site is using the latest version of WordPress.
 
-**MySQL Version**
-This plugin checks to make sure that your server is using a recent version of MySQL.
+**MySQL or MariaDB Version**
+This plugin checks to make sure that your server is using a recent version of the database software.
 
 **PHP Version**
 This plugin checks to ensure that your server is running a version of PHP that is still receiving security updates.
@@ -67,6 +67,10 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Changelog ==
 
+= 1.5.0 (June 5, 2018) =
+* Closed enhancement: Add alerts on plugins page ([Issue #26](https://api.github.com/repos/fpcorso/wordpress-health-check/issues/26))
+* Closed bug: Isn't compatible with MariaDB ([Issue #44](https://api.github.com/repos/fpcorso/wordpress-health-check/issues/44))
+
 = 1.4.4 (May 24, 2018) =
 * Fixes bug causes undefined function errors on the frontend when logged in
 
@@ -81,7 +85,6 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Adds SSL check
 * Adds disabled file editor check
 * Updates text information for PHP and MySQL checks
-
 = 1.3.3 (December 9, 2016) =
 * Ensures stability in WordPress 4.7
 
@@ -145,5 +148,5 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Upgrade Notice ==
 
-= 1.4.0 =
-This update adds two new checks and updates two others
+= 1.5.0 =
+This update adds unsupported plugin notices to the installed plugins page and includes fix for MariaDB checks
