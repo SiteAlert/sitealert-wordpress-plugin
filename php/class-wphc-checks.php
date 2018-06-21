@@ -196,7 +196,10 @@ class WPHC_Checks {
 	/**
 	 * Checks For Unsupported Plugins
 	 *
-	 * Checks the installed plugins to see there is a plugin that hasn't been updated in over 2 years
+	 * Checks the installed plugins to see there is a plugin that hasn't been updated in over 2 years.
+	 * For efficiency, we only do the check for up to 2 seconds. So, the main transient is set for every hour
+	 * but the individual plugin checks are set for every day. This way, if the 2 seconds is up, we will scan
+	 * the rest in the next hour but the actual plugins will only be checked once per day
 	 *
 	 * @since 1.0.0
 	 * @return array The array of the message and type
@@ -204,33 +207,47 @@ class WPHC_Checks {
 	public function supported_plugin_check() {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
 		if ( false === $plugin_list ) {
-			$slugs = array();
-
 			$unsupported_plugins = array();
 
-			$plugin_info = get_site_transient( 'update_plugins' );
-			if ( isset( $plugin_info->no_update ) ) {
-				foreach ( $plugin_info->no_update as $plugin ) {
-					$slugs[] = $plugin->slug;
+			// Makes sure the plugin functions are active.
+			if ( ! function_exists( 'get_plugins' ) ) {
+				include ABSPATH . '/wp-admin/includes/plugin.php';
+			}
+
+			// Gets our list of plugins.
+			$plugins = get_plugins();
+
+			// Cycle through all plugins.
+			$now = time();
+			foreach ( $plugins as $plugin => $plugin_data ) {
+				$slug        = explode( '/', $plugin );
+				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
+				if ( false === $plugin_updated ) {
+					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
+					$plugin_info = unserialize( $response['body'] );
+					if ( is_object( $plugin_info ) && isset( $plugin_info->last_updated ) ) {
+						$plugin_updated = $plugin_info->last_updated;
+					} else {
+						// If the plugin isn't from wordpress.org, just add today's date as we have no way of checking when last updated.
+						$plugin_updated = date( 'Y-m-d' );
+					}
+					set_transient( 'wphc_supported_check_' . $slug[0], $plugin_updated, 1 * DAY_IN_SECONDS );
+				}
+
+				// If the plugin hasn't been updated in two years, add to our list.
+				if ( time() - ( 60 * 60 * 24 * 365 * 2 ) > strtotime( $plugin_updated ) ) {
+					$unsupported_plugins[] = $plugin_data['Name'];
+				}
+
+				// If we have been doing this for at least two seconds, move on.
+				if ( time() - $now >= 2 ) {
+					break;
 				}
 			}
 
-			if ( isset( $plugin_info->response ) ) {
-				foreach ( $plugin_info->response as $plugin ) {
-					$slugs[] = $plugin->slug;
-				}
-			}
-			foreach ( $slugs as $plugin ) {
-				$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
-				$plugin_info = unserialize( $response['body'] );
-				if ( is_object( $plugin_info ) ) {
-					if ( time() - ( 60 * 60 * 24 * 365 * 2 ) > strtotime( $plugin_info->last_updated ) ) {
-						$unsupported_plugins[] = $plugin_info->name;
-					}
-				}
-			}
-			$plugin_list = implode( ',', $unsupported_plugins );
-			set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * DAY_IN_SECONDS );
+			// Creates our list and stores as transient.
+			$plugin_list = implode( ', ', $unsupported_plugins );
+			set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * HOUR_IN_SECONDS );
 		}
 		if ( empty( $plugin_list ) ) {
 			return $this->prepare_array( 'All of your plugins are currently supported. Great Job!', 'good' );
@@ -241,6 +258,10 @@ class WPHC_Checks {
 
 	/**
 	 * Checks for vunlerable plugins using wpvulndb.com's api
+	 *
+	 * For efficiency, we only do the check for up to 2 seconds. So, the main transient is set for every hour
+	 * but the individual plugin checks are set for every day. This way, if the 2 seconds is up, we will scan
+	 * the rest in the next hour but the actual plugins will only be checked once per day.
 	 *
 	 * @since 1.2.0
 	 * @return array The array of the message and type
@@ -257,6 +278,7 @@ class WPHC_Checks {
 		$plugins = array_keys( get_plugins() );
 
 		// Cycles through the plugins.
+		$now = time();
 		foreach ( $plugins as $key => $plugin ) {
 			$slug        = explode( '/', $plugin );
 			$plugin_data = get_transient( 'wphc_vunlerability_check_' . $slug[0] );
@@ -289,6 +311,11 @@ class WPHC_Checks {
 						}
 					}
 				}
+			}
+
+			// If we have been doing this for at least two seconds, move on.
+			if ( time() - $now >= 2 ) {
+				break;
 			}
 		}
 		if ( ! empty( $vulnerable_plugins ) ) {
