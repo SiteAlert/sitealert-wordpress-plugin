@@ -1,9 +1,9 @@
 === My WordPress Health Check ===
 Contributors: fpcorso
-Tags: php, mysql, plugin, theme, version, recommended, security, vulnerable, vulnerability, inactive, update
+Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -67,9 +67,12 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 
 == Changelog ==
 
+= 1.5.1 (June 21, 2018) =
+* Makes minor performance changes for sites with many plugins
+
 = 1.5.0 (June 5, 2018) =
-* Closed enhancement: Add alerts on plugins page ([Issue #26](https://api.github.com/repos/fpcorso/wordpress-health-check/issues/26))
-* Closed bug: Isn't compatible with MariaDB ([Issue #44](https://api.github.com/repos/fpcorso/wordpress-health-check/issues/44))
+* Closed enhancement: Add alerts on plugins page ([Issue #26](https://github.com/fpcorso/wordpress-health-check/issues/26))
+* Closed bug: Isn't compatible with MariaDB ([Issue #44](https://github.com/fpcorso/wordpress-health-check/issues/44))
 
 = 1.4.4 (May 24, 2018) =
 * Fixes bug causes undefined function errors on the frontend when logged in
