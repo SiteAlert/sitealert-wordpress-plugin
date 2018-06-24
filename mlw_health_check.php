@@ -91,7 +91,7 @@ class My_WP_Health_Check {
 	public function plugin_row_notice( $plugin_file, $plugin_data, $status ) {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
 		if ( $plugin_list && ! empty( $plugin_list ) ) {
-			$plugins = explode( ',', $plugin_list );
+			$plugins = explode( ', ', $plugin_list );
 			$name    = $plugin_data['Name'];
 			if ( in_array( $name, $plugins ) ) {
 				$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );

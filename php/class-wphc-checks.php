@@ -230,7 +230,7 @@ class WPHC_Checks {
 				$slug        = explode( '/', $plugin );
 				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
 				if ( false === $plugin_updated || $force ) {
-					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
+					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}" );
 					$plugin_info = unserialize( $response['body'] );
 					if ( is_object( $plugin_info ) && isset( $plugin_info->last_updated ) ) {
 						$plugin_updated = $plugin_info->last_updated;
