@@ -5,6 +5,13 @@
 var WPHCAdmin;
 (function ($) {
   WPHCAdmin = {
+    selectTab: function( tab ) {
+      $( '.wphc-tab' ).removeClass( 'nav-tab-active' );
+      $( '.wphc-tab-content' ).hide();
+      tab.addClass( 'nav-tab-active' );
+      tabID = tab.data( 'tab' );
+      $( '#tab-' + tabID ).show();
+    },
     // Loads all checks
     loadAllChecks: function() {
       WPHCAdmin.loadServerChecks();
@@ -84,13 +91,13 @@ var WPHCAdmin;
     printMessage: function( message, type ) {
       switch ( type ) {
         case 'good':
-          return "<div class='wp-hc-good-box'><span class='dashicons dashicons-flag'></span> " + message + "</div>";
+          return "<div class='wphc-alert-box wphc-good-box'><span class='dashicons dashicons-flag'></span> " + message + "</div>";
         case 'okay':
-          return "<div class='wp-hc-okay-box'><span class='dashicons dashicons-lightbulb'></span> " + message + "</div>";
+          return "<div class='wphc-alert-box wphc-okay-box'><span class='dashicons dashicons-lightbulb'></span> " + message + "</div>";
         case 'bad':
-          return "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span> " + message + "</div>";
+          return "<div class='wphc-alert-box wphc-bad-box'><span class='dashicons dashicons-dismiss'></span> " + message + "</div>";
         default:
-          return "<div class='wp-hc-bad-box'><span class='dashicons dashicons-dismiss'></span> " + message + "</div>";
+          return "<div class='wphc-alert-box wphc-bad-box'><span class='dashicons dashicons-dismiss'></span> " + message + "</div>";
       }
     }
   };
@@ -98,5 +105,10 @@ var WPHCAdmin;
   // Code to run after DOM is loaded
   $(function() {
     WPHCAdmin.loadAllChecks();
+    $( '.wphc-tab' ).on( 'click', function( event ) {
+      event.preventDefault();
+      WPHCAdmin.selectTab( $( this ) );
+    });
+    $( '#tab-1' ).show();
   });
 }(jQuery));

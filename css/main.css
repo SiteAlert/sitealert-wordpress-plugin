@@ -1,126 +1,48 @@
-@-moz-keyframes wphc-spinner-loader {
-  0% {
-    -moz-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes wphc-spinner-loader {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes wphc-spinner-loader {
-  0% {
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 /* :not(:required) hides this rule from IE9 and below */
 .wphc-spinner-loader:not(:required) {
-  -moz-animation: wphc-spinner-loader 1500ms infinite linear;
-  -webkit-animation: wphc-spinner-loader 1500ms infinite linear;
-  animation: wphc-spinner-loader 1500ms infinite linear;
-  -moz-border-radius: 0.5em;
-  -webkit-border-radius: 0.5em;
-  border-radius: 0.5em;
-  -moz-box-shadow: rgba(0, 0, 51, 0.3) 1.5em 0 0 0, rgba(0, 0, 51, 0.3) 1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) 0 1.5em 0 0, rgba(0, 0, 51, 0.3) -1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) -1.5em 0 0 0, rgba(0, 0, 51, 0.3) -1.1em -1.1em 0 0, rgba(0, 0, 51, 0.3) 0 -1.5em 0 0, rgba(0, 0, 51, 0.3) 1.1em -1.1em 0 0;
-  -webkit-box-shadow: rgba(0, 0, 51, 0.3) 1.5em 0 0 0, rgba(0, 0, 51, 0.3) 1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) 0 1.5em 0 0, rgba(0, 0, 51, 0.3) -1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) -1.5em 0 0 0, rgba(0, 0, 51, 0.3) -1.1em -1.1em 0 0, rgba(0, 0, 51, 0.3) 0 -1.5em 0 0, rgba(0, 0, 51, 0.3) 1.1em -1.1em 0 0;
-  box-shadow: rgba(0, 0, 51, 0.3) 1.5em 0 0 0, rgba(0, 0, 51, 0.3) 1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) 0 1.5em 0 0, rgba(0, 0, 51, 0.3) -1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) -1.5em 0 0 0, rgba(0, 0, 51, 0.3) -1.1em -1.1em 0 0, rgba(0, 0, 51, 0.3) 0 -1.5em 0 0, rgba(0, 0, 51, 0.3) 1.1em -1.1em 0 0;
-  display: inline-block;
-  font-size: 10px;
-  width: 1em;
-  height: 1em;
-  margin: 1.5em;
-  overflow: hidden;
-  text-indent: 100%;
+	animation: wphc-spinner-loader 1500ms infinite linear;
+	border-radius: 0.5em;
+	box-shadow: rgba(0, 0, 51, 0.3) 1.5em 0 0 0, rgba(0, 0, 51, 0.3) 1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) 0 1.5em 0 0, rgba(0, 0, 51, 0.3) -1.1em 1.1em 0 0, rgba(0, 0, 51, 0.3) -1.5em 0 0 0, rgba(0, 0, 51, 0.3) -1.1em -1.1em 0 0, rgba(0, 0, 51, 0.3) 0 -1.5em 0 0, rgba(0, 0, 51, 0.3) 1.1em -1.1em 0 0;
+	display: inline-block;
+	font-size: 10px;
+	width: 1em;
+	height: 1em;
+	margin: 1.5em;
+	overflow: hidden;
+	text-indent: 100%;
 }
 
-.wphc-wrap {
-	display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.wphc-tab-content {
+	display: none;
 }
 
-.wphc-main-content {
-  flex-grow: 1;
+.wphc-alert-box {
+	color:#111;
+	border-radius: 10px;
+	padding: 12px 36px;
+	margin: 10px;
+	font-size: 15px;
+	border: 1px solid #111;
 }
 
-.wphc-news-ads {
-  flex-grow: 1;
+.wphc-good-box {
+	border-color: green;
+	background-color: #81F79F;
 }
-
-.wphc-news-ads {
-  background-color: white;
+.wphc-okay-box {
+	border-color: #f2c779;
+	background-color: #fff8c4;
 }
-
-.wphc-news-ads-title {
-  text-align: center;
-  border-bottom: 1px solid black;
-}
-
-.wphc-news-ads-widget {
-  text-align: center;
-  border-top: 2px solid black;
-  border-bottom: 5px solid black;
-  margin: 10px 0;
-  background: #ddd;
-  padding: 10px 5px;
-}
-
-@media screen and (min-width: 1200px) {
-  .wphc-wrap {
-    flex-direction: row;
-  }
-
-  .wphc-main-content {
-    margin-right: 10px;
-  }
-
-  .wphc-news-ads {
-    flex-basis: 15%;
-  }
-}
-
-.wp-hc-good-box {
-	color:#555;
-	border-radius:10px;
-	padding:10px 36px;
-	margin:10px;
-	border:1px solid green;
-  background-color: #81F79F;
-}
-.wp-hc-okay-box {
-	color:#555;
-	border-radius:10px;
-	padding:10px 36px;
-	margin:10px;
-	border:1px solid #f2c779;
-  background-color: #fff8c4;
-}
-.wp-hc-bad-box {
-	color:#555;
-	border-radius:10px;
-	padding:10px 36px;
-	margin:10px;
-	border:1px solid red;
-  background-color: #F5A9A9;
+.wphc-bad-box {
+	border-color: red;
+	background-color: #F5A9A9;
 }

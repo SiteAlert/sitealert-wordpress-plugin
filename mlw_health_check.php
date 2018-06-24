@@ -2,14 +2,14 @@
 /**
 * Plugin Name: My WordPress Health Check
 * Description: This plugin checks the health of your WordPress installation.
-* Version: 1.5.1
+* Version: 1.6.0
 * Author: Frank Corso
 * Author URI: https://frankcorso.me/
 * Plugin URI: https://frankcorso.me/
 * Text Domain: my-wp-health-check
 *
 * @author Frank Corso
-* @version 1.5.1
+* @version 1.6.0
 */
 
 // Exit if accessed directly
@@ -25,7 +25,7 @@ class My_WP_Health_Check {
 	/**
 	 * The version of the plugin
 	 */
-	public $version = '1.5.1';
+	public $version = '1.6.0';
 
 	/**
 	 * Main construct
@@ -43,13 +43,17 @@ class My_WP_Health_Check {
 	 * @since 0.1.0
 	 */
 	private function load_dependencies() {
+		if ( is_admin() ) {
+			include 'php/admin/checks-page.php';
+			include 'php/admin/settings-page.php';
+			include 'php/class-wphc-review-manager.php';
+			include 'php/class-wphc-tracking.php';
+		}
 		include 'php/class-wphc-install.php';
 		include 'php/class-wphc-checks.php';
-		include 'php/class-wphc-admin.php';
-		include 'php/class-wphc-review-manager.php';
-		include 'php/class-wphc-tracking.php';
 		include 'php/functions.php';
 		include 'php/ajax.php';
+		include 'php/rest-api.php';
 	}
 
 	/**
@@ -58,8 +62,18 @@ class My_WP_Health_Check {
 	 * @since 0.1.0
 	 */
 	private function load_hooks() {
-		add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 65 ); // Between Updates, Comments and New Content menu
+		add_action( 'admin_menu', array( $this, 'setup_admin_menu' ) );
+		add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 65 );
 		add_action( 'after_plugin_row', array( $this, 'plugin_row_notice' ), 10, 3 );
+	}
+
+	/**
+	 * Sets up the admin pages
+	 *
+	 * @since 1.6.0
+	 */
+	public function setup_admin_menu() {
+		add_management_page( 'WordPress Health Check', __( 'Health Check', 'my-wp-health-check' ), 'moderate_comments', 'wp-health-check', 'wphc_generate_checks_page' );
 	}
 
 	/**
@@ -90,7 +104,7 @@ class My_WP_Health_Check {
 	public function plugin_row_notice( $plugin_file, $plugin_data, $status ) {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
 		if ( $plugin_list && ! empty( $plugin_list ) ) {
-			$plugins = explode( ',', $plugin_list );
+			$plugins = explode( ', ', $plugin_list );
 			$name    = $plugin_data['Name'];
 			if ( in_array( $name, $plugins ) ) {
 				$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );

@@ -64,14 +64,16 @@ class WPHC_Checks {
 	 * Returns all the plugin checks
 	 *
 	 * @since 1.3.0
+	 * @param bool $force If passed true, will ignore all transients.
+	 * @param bool $ignore_limit If passed true, this function will ignore the default 2 seconds limit.
 	 * @return array The results of all the checks
 	 */
-	public function plugins_checks() {
+	public function plugins_checks( $force = false, $ignore_limit = false ) {
 		$checks   = array();
 		$checks[] = $this->update_plugins_check();
 		$checks[] = $this->inactive_plugins_check();
-		$checks[] = $this->supported_plugin_check();
-		$checks[] = $this->vulnerable_plugins_check();
+		$checks[] = $this->supported_plugin_check( $force, $ignore_limit );
+		$checks[] = $this->vulnerable_plugins_check( $force, $ignore_limit );
 		return apply_filters( 'wphc_plugins_checks', $checks );
 	}
 
@@ -81,10 +83,12 @@ class WPHC_Checks {
 	 * @since 1.3.0
 	 * @param string $message The message to be displayed.
 	 * @param string $type The results of the check. Options are 'good', 'okay', or 'bad'.
+	 * @param string $check The check that was performed.
 	 * @return array The array of the message and type
 	 */
-	public function prepare_array( $message, $type ) {
+	public function prepare_array( $message, $type, $check = '' ) {
 		return array(
+			'check'   => $check,
 			'message' => $message,
 			'type'    => $type,
 		);
@@ -98,9 +102,9 @@ class WPHC_Checks {
 	 */
 	public function file_editor_check() {
 		if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
-			return $this->prepare_array( 'The file editor on this site has been disabled. Great!', 'good' );
+			return $this->prepare_array( 'The file editor on this site has been disabled. Great!', 'good', 'file_editor' );
 		} else {
-			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. To do so requires editing the wp-config file as <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">shown here</a>.', 'okay' );
+			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. Many security plugins, such as iThemes Security, has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">shown here</a>.', 'okay', 'file_editor' );
 		}
 	}
 
@@ -116,11 +120,11 @@ class WPHC_Checks {
 			$core_update = get_core_updates();
 		}
 		if ( $core_update && ( ! isset( $core_update[0]->response ) || 'latest' == $core_update[0]->response ) ) {
-			return $this->prepare_array( 'Your WordPress is up to date. Great Job!', 'good' );
+			return $this->prepare_array( 'Your WordPress is up to date. Great Job!', 'good', 'wordpress_version' );
 		} elseif ( ! $core_update ) {
-			return $this->prepare_array( 'Encountered an error. WordPress version not checked. Please check again later.', 'okay' );
+			return $this->prepare_array( 'Encountered an error. WordPress version not checked. Please check again later.', 'okay', 'wordpress_version' );
 		} else {
-			return $this->prepare_array( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.', 'bad' );
+			return $this->prepare_array( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.', 'bad', 'wordpress_version' );
 		}
 	}
 
@@ -153,9 +157,9 @@ class WPHC_Checks {
 				$plugins[] = $plugin->Name;
 			}
 			$plugin_list = implode( ',', $plugins );
-			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad' );
+			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad', 'plugin_updates' );
 		} else {
-			return $this->prepare_array( 'All of your WordPress plugins are up to date. Great Job!', 'good' );
+			return $this->prepare_array( 'All of your WordPress plugins are up to date. Great Job!', 'good', 'plugin_updates' );
 		}
 	}
 
@@ -169,11 +173,12 @@ class WPHC_Checks {
 
 		// Gets all the plugins.
 		$plugins = array();
-		if ( function_exists( 'get_plugins' ) ) {
-			$plugins = get_plugins();
-		} else {
-			$plugins = $this->get_plugins();
+
+		// Makes sure the plugin functions are active.
+		if ( ! function_exists( 'get_plugins' ) ) {
+			include ABSPATH . '/wp-admin/includes/plugin.php';
 		}
+		$plugins = get_plugins();
 
 		// Looks for any inactive plugins.
 		$inactive_plugins = array();
@@ -187,9 +192,9 @@ class WPHC_Checks {
 
 		// If any plugins are inactive, display error message. If not, display success message.
 		if ( ! empty( $inactive_plugins ) ) {
-			return $this->prepare_array( 'These plugins are not active: ' . implode( ', ', $inactive_plugins ) . '. Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.', 'bad' );
+			return $this->prepare_array( 'These plugins are not active: ' . implode( ', ', $inactive_plugins ) . '. Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.', 'bad', 'inactive_plugins' );
 		} else {
-			return $this->prepare_array( 'All of your plugins installed on the site are in use. Great job!', 'good' );
+			return $this->prepare_array( 'All of your plugins installed on the site are in use. Great job!', 'good', 'inactive_plugins' );
 		}
 	}
 
@@ -202,11 +207,13 @@ class WPHC_Checks {
 	 * the rest in the next hour but the actual plugins will only be checked once per day
 	 *
 	 * @since 1.0.0
+	 * @param bool $force If passed true, will ignore all transients.
+	 * @param bool $ignore_limit If passed true, this function will ignore the default 2 seconds limit.
 	 * @return array The array of the message and type
 	 */
-	public function supported_plugin_check() {
+	public function supported_plugin_check( $force = false, $ignore_limit = false ) {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
-		if ( false === $plugin_list ) {
+		if ( false === $plugin_list || $force ) {
 			$unsupported_plugins = array();
 
 			// Makes sure the plugin functions are active.
@@ -222,8 +229,8 @@ class WPHC_Checks {
 			foreach ( $plugins as $plugin => $plugin_data ) {
 				$slug        = explode( '/', $plugin );
 				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
-				if ( false === $plugin_updated ) {
-					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
+				if ( false === $plugin_updated || $force ) {
+					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}" );
 					$plugin_info = unserialize( $response['body'] );
 					if ( is_object( $plugin_info ) && isset( $plugin_info->last_updated ) ) {
 						$plugin_updated = $plugin_info->last_updated;
@@ -240,7 +247,7 @@ class WPHC_Checks {
 				}
 
 				// If we have been doing this for at least two seconds, move on.
-				if ( time() - $now >= 2 ) {
+				if ( time() - $now >= 2 && ! $ignore_limit ) {
 					break;
 				}
 			}
@@ -250,9 +257,9 @@ class WPHC_Checks {
 			set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * HOUR_IN_SECONDS );
 		}
 		if ( empty( $plugin_list ) ) {
-			return $this->prepare_array( 'All of your plugins are currently supported. Great Job!', 'good' );
+			return $this->prepare_array( 'All of your plugins are currently supported. Great Job!', 'good', 'supported_plugins' );
 		} else {
-			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins.", 'bad' );
+			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins.", 'bad', 'supported_plugins' );
 		}
 	}
 
@@ -264,9 +271,11 @@ class WPHC_Checks {
 	 * the rest in the next hour but the actual plugins will only be checked once per day.
 	 *
 	 * @since 1.2.0
+	 * @param bool $force If passed true, will ignore all transients.
+	 * @param bool $ignore_limit If passed true, this function will ignore the default 2 seconds limit.
 	 * @return array The array of the message and type
 	 */
-	public function vulnerable_plugins_check() {
+	public function vulnerable_plugins_check( $force = false, $ignore_limit = false ) {
 		$vulnerable_plugins = array();
 
 		// Makes sure the plugin functions are active.
@@ -284,7 +293,7 @@ class WPHC_Checks {
 			$plugin_data = get_transient( 'wphc_vunlerability_check_' . $slug[0] );
 
 			// Checks if our transient existed already. If not, get data from the API and store it in a transient.
-			if ( false === $plugin_data ) {
+			if ( false === $plugin_data || $force ) {
 				$response = wp_remote_get( 'https://wpvulndb.com/api/v2/plugins/' . $slug[0] );
 				if ( ! is_wp_error( $response ) ) {
 					$data = wp_remote_retrieve_body( $response );
@@ -314,15 +323,15 @@ class WPHC_Checks {
 			}
 
 			// If we have been doing this for at least two seconds, move on.
-			if ( time() - $now >= 2 ) {
+			if ( time() - $now >= 2 && ! $ignore_limit ) {
 				break;
 			}
 		}
 		if ( ! empty( $vulnerable_plugins ) ) {
 			$plugin_list = implode( ',', $vulnerable_plugins );
-			return $this->prepare_array( "The following plugins have known security vulnerabilities that have not been fixed in an update: $plugin_list. Please reach out to the developer immediately to ensure these vulnerabilities are being patched. If not, you must find alternatives to these plugins.", 'bad' );
+			return $this->prepare_array( "The following plugins have known security vulnerabilities that have not been fixed in an update: $plugin_list. Please reach out to the developer immediately to ensure these vulnerabilities are being patched. If not, you must find alternatives to these plugins.", 'bad', 'vulnerable_plugins' );
 		} else {
-			return $this->prepare_array( 'Great! None of your plugins have known security vulnerabilities!', 'good' );
+			return $this->prepare_array( 'Great! None of your plugins have known security vulnerabilities!', 'good', 'vulnerable_plugins' );
 		}
 	}
 
@@ -334,9 +343,9 @@ class WPHC_Checks {
 	public function admin_user_check() {
 		$user = get_user_by( 'login', 'admin' );
 		if ( false === $user ) {
-			return $this->prepare_array( "Your site does not have a user 'admin'. Great job!", 'good' );
+			return $this->prepare_array( "Your site does not have a user 'admin'. Great job!", 'good', 'admin_user' );
 		} else {
-			return $this->prepare_array( "There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'good' );
+			return $this->prepare_array( "There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'good', 'admin_user' );
 		}
 	}
 
@@ -365,9 +374,9 @@ class WPHC_Checks {
 		if ( ! empty( $theme_updates ) ) {
 			// Get the themes with available updates.
 			$updates = implode( ',', array_keys( $theme_updates ) );
-			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe.", 'bad' );
+			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe.", 'bad', 'theme_updates' );
 		} else {
-			return $this->prepare_array( 'All of your WordPress themes are up to date. Great Job!', 'good' );
+			return $this->prepare_array( 'All of your WordPress themes are up to date. Great Job!', 'good', 'theme_updates' );
 		}
 	}
 
@@ -409,62 +418,71 @@ class WPHC_Checks {
 
 		$version_array = explode( '.', $version );
 
+		$msg    = '';
+		$status = 'bad';
+
 		if ( $mariadb ) {
 			switch ( intval( $version_array[0] ) ) {
 				case 5:
-					return $this->prepare_array( sprintf( $maria_version, $version ) . ' This is below the recommended version of 10.0. You should consider updating your MariaDB or contacting your host right away.', 'bad' );
+					$msg = sprintf( $maria_version, $version ) . ' This is below the recommended version of 10.0. You should consider updating your MariaDB or contacting your host right away.';
 					break;
 				case 10:
-					return $this->prepare_array( sprintf( $maria_version, $version ) . ' Good job! This is the recommended version.', 'good' );
+					$msg    = sprintf( $maria_version, $version ) . ' Good job! This is the recommended version.';
+					$status = 'good';
 					break;
 
 				default:
-					return $this->prepare_array( $error, 'bad' );
+					$msg = $error;
 					break;
 			}
 		} else {
 			switch ( intval( $version_array[0] ) ) {
 				case 4:
-					return $this->prepare_array( sprintf( $mysql_version, $version ) . " This has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!", 'bad' );
+					$msg = sprintf( $mysql_version, $version ) . " This has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!";
 					break;
 
 				case 5:
 					switch ( intval( $version_array[1] ) ) {
 						case 0:
-							return $this->prepare_array( sprintf( $mysql_version, $version ) . " This version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.", 'bad' );
+							$msg = sprintf( $mysql_version, $version ) . " This version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.";
 							break;
 
 						case 1:
-							return $this->prepare_array( sprintf( $mysql_version, $version ) . " This version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.", 'bad' );
+							$msg = sprintf( $mysql_version, $version ) . " This version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
 							break;
 
 						case 5:
-							return $this->prepare_array( sprintf( $mysql_version, $version ) . " This version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.", 'bad' );
+							$msg = sprintf( $mysql_version, $version ) . " This version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.";
 							break;
 
 						case 6:
-							return $this->prepare_array( sprintf( $mysql_version, $version ) . " Good job! This is the recommended version.", 'good' );
+							$msg    = sprintf( $mysql_version, $version ) . " Good job! This is the recommended version.";
+							$status = 'good';
 							break;
 
 						case 7:
-							return $this->prepare_array( sprintf( $mysql_version, $version ) . " Good job! This is a supported version and is above the recommended version.", 'good' );
+							$msg    = sprintf( $mysql_version, $version ) . " Good job! This is a supported version and is above the recommended version.";
+							$status = 'good';
 							break;
 
 						default:
-							return $this->prepare_array( $error, 'bad' );
+							$msg = $error;
 							break;
 						}
 					break;
 
 				case 8:
-					return $this->prepare_array( sprintf( $mysql_version, $version ) . " This is the latest version!", 'good' );
+					$msg    = sprintf( $mysql_version, $version ) . " This is the latest version!";
+					$status = 'good';
 					break;
 
 				default:
-					return $this->prepare_array( $error, 'bad' );
+					$msg = $error;
 					break;
 			}
 		}
+
+		return $this->prepare_array( $msg, $status, 'mysql_version' );
 	}
 
 	/**
@@ -474,9 +492,9 @@ class WPHC_Checks {
 	 */
 	public function ssl_check() {
 		if ( is_ssl() ) {
-			return $this->prepare_array( 'Great! You are using SSL on your site.', 'good' );
+			return $this->prepare_array( 'Great! You are using SSL on your site.', 'good', 'ssl' );
 		} else {
-			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Contact your host about SSL.', 'bad' );
+			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Contact your host about SSL.', 'bad', 'ssl' );
 		}
 	}
 
@@ -486,49 +504,53 @@ class WPHC_Checks {
 	 * @since 0.1.0
 	 */
 	public function php_check() {
-		$version          = explode( '.', PHP_VERSION );
-		$php_check_health = 'good';
-		$message          = '';
+		$version = explode( '.', PHP_VERSION );
 
+		$msg    = '';
+		$status = 'bad';
+
+		// Sets up messages.
+		$error                = __( 'Error checking PHP health.', 'my-wp-health-check' );
 		$your_version_message = 'You server is running PHP version ' . PHP_VERSION;
 		$unsupported_message  = 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!';
 		switch ( intval( $version[0] ) ) {
 			case 4:
-				return $this->prepare_array( "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message", 'bad' );
+				$msg = "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message";
 				break;
 
 			case 5:
 				switch ( intval( $version[1] ) ) {
 					case 0:
-						return $this->prepare_array( "$your_version_message which has not been supported since Sep 2005 and is below the required 5.2. $unsupported_message", 'bad' );
+						$msg = "$your_version_message which has not been supported since Sep 2005 and is below the required 5.2. $unsupported_message";
 						break;
 
 					case 1:
-						return $this->prepare_array( "$your_version_message which has not been supported since Aug 2006 and is below the required 5.2. $unsupported_message", 'bad' );
+						$msg = "$your_version_message which has not been supported since Aug 2006 and is below the required 5.2. $unsupported_message";
 						break;
 
 					case 2:
-						return $this->prepare_array( "$your_version_message which has not been supported since Jan 2011 and is below the recommended 7.2. $unsupported_message", 'bad' );
+						$msg = "$your_version_message which has not been supported since Jan 2011 and is below the recommended 7.2. $unsupported_message";
 						break;
 
 					case 3:
-						return $this->prepare_array( "$your_version_message which has not been supported since Aug 2014 and is below the recommended 7.2. $unsupported_message", 'bad' );
+						$msg = "$your_version_message which has not been supported since Aug 2014 and is below the recommended 7.2. $unsupported_message";
 						break;
 
 					case 4:
-						return $this->prepare_array( "$your_version_message which has not been supported since Sep 2015 and is below the recommended 7.2. $unsupported_message", 'bad' );
+						$msg = "$your_version_message which has not been supported since Sep 2015 and is below the recommended 7.2. $unsupported_message";
 						break;
 
 					case 5:
-						return $this->prepare_array( "$your_version_message which has not been supported since Jul 2016 and is below the recommended 7.2. $unsupported_message", 'bad' );
+						$msg = "$your_version_message which has not been supported since Jul 2016 and is below the recommended 7.2. $unsupported_message";
 						break;
 
 					case 6:
-						return $this->prepare_array( "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. $unsupported_message", 'okay' );
+						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. $unsupported_message";
+						$status = 'okay';
 						break;
 
 					default:
-						return $this->prepare_array( "Error checking PHP health.", 'bad' );
+						$msg = $error;
 						break;
 				}
 				break;
@@ -536,29 +558,32 @@ class WPHC_Checks {
 			case 7:
 				switch ( intval( $version[1] ) ) {
 					case 0:
-						return $this->prepare_array( "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2", 'okay' );
+						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2";
+						$status = 'okay';
 						break;
 
 					case 1:
-						return $this->prepare_array( "$your_version_message. Good job! While this is not the recommended 7.2, this version is still actively supported until Dec 2018. Be sure to check with your host to make sure they have a plan to update to 7.2.", 'good' );
+						$msg    = "$your_version_message. Good job! While this is not the recommended 7.2, this version is still actively supported until Dec 2018. Be sure to check with your host to make sure they have a plan to update to 7.2.";
+						$status = 'good';
 						break;
 
 					case 2:
-						return $this->prepare_array( "$your_version_message. Good job! This is the latest version.", 'good' );
+						$msg    = "$your_version_message. Good job! This is the latest version.";
+						$status = 'good';
 						break;
 
 					default:
-						return $this->prepare_array( 'Error checking PHP health.', 'bad' );
+						$msg = $error;
 						break;
 				}
 				break;
 
 			default:
-				return $this->prepare_array( 'Error checking PHP health.', 'bad' );
+				$msg = $error;
 				break;
 		}
+		return $this->prepare_array( $msg, $status, 'php_version' );
 	}
-
 
 	/**
 	 * Loads the plugins if we are not in admin
