@@ -49,6 +49,7 @@ class My_WP_Health_Check {
 		include 'php/class-wphc-review-manager.php';
 		include 'php/class-wphc-tracking.php';
 		include 'php/functions.php';
+		include 'php/ajax.php';
 		include 'php/rest-api.php';
 	}
 
