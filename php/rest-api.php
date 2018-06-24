@@ -51,15 +51,15 @@ function wphc_rest_get_check( WP_REST_Request $request ) {
 	$wphc = new WPHC_Checks();
 	switch ( $request['type'] ) {
 		case 'server':
-			$checks = $check->server_checks();
+			$checks = $wphc->server_checks();
 			break;
 
 		case 'wp':
-			$checks = $check->wp_checks();
+			$checks = $wphc->wp_checks();
 			break;
 
 		case 'plugins':
-			$checks = $check->plugins_checks();
+			$checks = $wphc->plugins_checks( true, true );
 			break;
 
 		default:
