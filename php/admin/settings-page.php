@@ -52,7 +52,7 @@ class WPHC_Settings_Page {
 	 * @since 1.6.0
 	 * @return void
 	 */
-	public function usage_tracker_field() {
+	public static function usage_tracker_field() {
 		$settings = (array) get_option( 'wphc-settings' );
 		$tracking_allowed = '0';
 		if ( isset( $settings['tracking_allowed'] ) ) {
@@ -99,3 +99,5 @@ class WPHC_Settings_Page {
 		<?php
 	}
 }
+
+WPHC_Settings_Page::init();

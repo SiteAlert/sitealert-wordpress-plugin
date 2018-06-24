@@ -45,6 +45,7 @@ class My_WP_Health_Check {
 	private function load_dependencies() {
 		if ( is_admin() ) {
 			include 'php/admin/checks-page.php';
+			include 'php/admin/settings-page.php';
 			include 'php/class-wphc-review-manager.php';
 			include 'php/class-wphc-tracking.php';
 		}
@@ -64,7 +65,6 @@ class My_WP_Health_Check {
 		add_action( 'admin_menu', array( $this, 'setup_admin_menu' ) );
 		add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 65 );
 		add_action( 'after_plugin_row', array( $this, 'plugin_row_notice' ), 10, 3 );
-		
 	}
 
 	/**

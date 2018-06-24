@@ -10,7 +10,7 @@ var WPHCAdmin;
       $( '.wphc-tab-content' ).hide();
       tab.addClass( 'nav-tab-active' );
       tabID = tab.data( 'tab' );
-      $( '.tab-' + tabID ).show();
+      $( '#tab-' + tabID ).show();
     },
     // Loads all checks
     loadAllChecks: function() {
@@ -109,5 +109,6 @@ var WPHCAdmin;
       event.preventDefault();
       WPHCAdmin.selectTab( $( this ) );
     });
+    $( '#tab-1' ).show();
   });
 }(jQuery));

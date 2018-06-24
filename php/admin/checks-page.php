@@ -16,8 +16,8 @@ function wphc_generate_checks_page() {
 	if ( ! current_user_can( 'moderate_comments' ) ) {
 		return;
 	}
-	wp_enqueue_style( 'wp-hc-style', plugins_url( '../css/main.css', __FILE__ ) );
-	wp_enqueue_script( 'wphc-admin-script', plugins_url( '../js/wphc-admin.js', __FILE__ ) );
+	wp_enqueue_style( 'wp-hc-style', plugins_url( '../../css/main.css', __FILE__ ) );
+	wp_enqueue_script( 'wphc-admin-script', plugins_url( '../../js/wphc-admin.js', __FILE__ ) );
 	?>
 	<div class="wrap">
 		<h2>WordPress Health Check</h2>
