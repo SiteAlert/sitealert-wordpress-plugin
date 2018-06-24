@@ -43,11 +43,13 @@ class My_WP_Health_Check {
 	 * @since 0.1.0
 	 */
 	private function load_dependencies() {
+		if ( is_admin() ) {
+			include 'php/admin/checks-page.php';
+			include 'php/class-wphc-review-manager.php';
+			include 'php/class-wphc-tracking.php';
+		}
 		include 'php/class-wphc-install.php';
 		include 'php/class-wphc-checks.php';
-		include 'php/class-wphc-admin.php';
-		include 'php/class-wphc-review-manager.php';
-		include 'php/class-wphc-tracking.php';
 		include 'php/functions.php';
 		include 'php/ajax.php';
 		include 'php/rest-api.php';
@@ -59,8 +61,19 @@ class My_WP_Health_Check {
 	 * @since 0.1.0
 	 */
 	private function load_hooks() {
-		add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 65 ); // Between Updates, Comments and New Content menu
+		add_action( 'admin_menu', array( $this, 'setup_admin_menu' ) );
+		add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 65 );
 		add_action( 'after_plugin_row', array( $this, 'plugin_row_notice' ), 10, 3 );
+		
+	}
+
+	/**
+	 * Sets up the admin pages
+	 *
+	 * @since 1.6.0
+	 */
+	public function setup_admin_menu() {
+		add_management_page( 'WordPress Health Check', __( 'Health Check', 'my-wp-health-check' ), 'moderate_comments', 'wp-health-check', 'wphc_generate_checks_page' );
 	}
 
 	/**
