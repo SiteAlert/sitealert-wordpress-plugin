@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.5.1
+Stable tag: 1.6.0
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,6 +66,10 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.6.0 (June 24, 2018) =
+* Closed Bug: Plugin page not showing all unsupported plugins ([Issue #59](https://github.com/fpcorso/wordpress-health-check/issues/59))
+* Closed Enhancement: External endpoint to run check ([Issue #50](https://github.com/fpcorso/wordpress-health-check/issues/50))
 
 = 1.5.1 (June 21, 2018) =
 * Makes minor performance changes for sites with many plugins
@@ -150,6 +154,9 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Begun Development
 
 == Upgrade Notice ==
+
+= 1.6.0 =
+This update fixes a few bugs and adds an optional REST API endpoint
 
 = 1.5.0 =
 This update adds unsupported plugin notices to the installed plugins page and includes fix for MariaDB checks
