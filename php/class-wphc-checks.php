@@ -64,14 +64,16 @@ class WPHC_Checks {
 	 * Returns all the plugin checks
 	 *
 	 * @since 1.3.0
+	 * @param bool $force If passed true, will ignore all transients.
+	 * @param bool $ignore_limit If passed true, this function will ignore the default 2 seconds limit.
 	 * @return array The results of all the checks
 	 */
-	public function plugins_checks() {
+	public function plugins_checks( $force = false, $ignore_limit = false ) {
 		$checks   = array();
 		$checks[] = $this->update_plugins_check();
 		$checks[] = $this->inactive_plugins_check();
-		$checks[] = $this->supported_plugin_check();
-		$checks[] = $this->vulnerable_plugins_check();
+		$checks[] = $this->supported_plugin_check( $force, $ignore_limit );
+		$checks[] = $this->vulnerable_plugins_check( $force, $ignore_limit );
 		return apply_filters( 'wphc_plugins_checks', $checks );
 	}
 
@@ -202,11 +204,13 @@ class WPHC_Checks {
 	 * the rest in the next hour but the actual plugins will only be checked once per day
 	 *
 	 * @since 1.0.0
+	 * @param bool $force If passed true, will ignore all transients.
+	 * @param bool $ignore_limit If passed true, this function will ignore the default 2 seconds limit.
 	 * @return array The array of the message and type
 	 */
-	public function supported_plugin_check() {
+	public function supported_plugin_check( $force = false, $ignore_limit = false ) {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
-		if ( false === $plugin_list ) {
+		if ( false === $plugin_list || $force ) {
 			$unsupported_plugins = array();
 
 			// Makes sure the plugin functions are active.
@@ -222,7 +226,7 @@ class WPHC_Checks {
 			foreach ( $plugins as $plugin => $plugin_data ) {
 				$slug        = explode( '/', $plugin );
 				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
-				if ( false === $plugin_updated ) {
+				if ( false === $plugin_updated || $force ) {
 					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/$plugin" );
 					$plugin_info = unserialize( $response['body'] );
 					if ( is_object( $plugin_info ) && isset( $plugin_info->last_updated ) ) {
@@ -240,7 +244,7 @@ class WPHC_Checks {
 				}
 
 				// If we have been doing this for at least two seconds, move on.
-				if ( time() - $now >= 2 ) {
+				if ( time() - $now >= 2 && ! $ignore_limit ) {
 					break;
 				}
 			}
@@ -264,9 +268,11 @@ class WPHC_Checks {
 	 * the rest in the next hour but the actual plugins will only be checked once per day.
 	 *
 	 * @since 1.2.0
+	 * @param bool $force If passed true, will ignore all transients.
+	 * @param bool $ignore_limit If passed true, this function will ignore the default 2 seconds limit.
 	 * @return array The array of the message and type
 	 */
-	public function vulnerable_plugins_check() {
+	public function vulnerable_plugins_check( $force = false, $ignore_limit = false ) {
 		$vulnerable_plugins = array();
 
 		// Makes sure the plugin functions are active.
@@ -284,7 +290,7 @@ class WPHC_Checks {
 			$plugin_data = get_transient( 'wphc_vunlerability_check_' . $slug[0] );
 
 			// Checks if our transient existed already. If not, get data from the API and store it in a transient.
-			if ( false === $plugin_data ) {
+			if ( false === $plugin_data || $force ) {
 				$response = wp_remote_get( 'https://wpvulndb.com/api/v2/plugins/' . $slug[0] );
 				if ( ! is_wp_error( $response ) ) {
 					$data = wp_remote_retrieve_body( $response );
@@ -314,7 +320,7 @@ class WPHC_Checks {
 			}
 
 			// If we have been doing this for at least two seconds, move on.
-			if ( time() - $now >= 2 ) {
+			if ( time() - $now >= 2 && ! $ignore_limit ) {
 				break;
 			}
 		}
