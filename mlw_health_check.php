@@ -1,19 +1,22 @@
 <?php
 /**
-* Plugin Name: My WordPress Health Check
-* Description: This plugin checks the health of your WordPress installation.
-* Version: 1.6.0
-* Author: Frank Corso
-* Author URI: https://frankcorso.me/
-* Plugin URI: https://frankcorso.me/
-* Text Domain: my-wp-health-check
-*
-* @author Frank Corso
-* @version 1.6.0
-*/
+ * Plugin Name: My WordPress Health Check
+ * Description: This plugin checks the health of your WordPress installation.
+ * Version: 1.6.1
+ * Author: Frank Corso
+ * Author URI: https://frankcorso.me/
+ * Plugin URI: https://frankcorso.me/
+ * Text Domain: my-wp-health-check
+ *
+ * @author Frank Corso
+ * @version 1.6.1
+ * @package WPHC
+ */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exits if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Main class of plugin
@@ -24,8 +27,11 @@ class My_WP_Health_Check {
 
 	/**
 	 * The version of the plugin
+	 *
+	 * @var string
+	 * @since 1.6.0
 	 */
-	public $version = '1.6.0';
+	public $version = '1.6.1';
 
 	/**
 	 * Main construct
@@ -120,5 +126,6 @@ class My_WP_Health_Check {
 		}
 	}
 }
+global $my_wp_health_check;
 $my_wp_health_check = new My_WP_Health_Check();
 ?>
