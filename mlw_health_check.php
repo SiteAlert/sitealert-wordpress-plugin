@@ -2,14 +2,14 @@
 /**
  * Plugin Name: My WordPress Health Check
  * Description: This plugin checks the health of your WordPress installation.
- * Version: 1.6.0
+ * Version: 1.6.1
  * Author: Frank Corso
  * Author URI: https://frankcorso.me/
  * Plugin URI: https://frankcorso.me/
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso
- * @version 1.6.0
+ * @version 1.6.1
  * @package WPHC
  */
 
@@ -31,7 +31,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.6.0';
+	public $version = '1.6.1';
 
 	/**
 	 * Main construct
