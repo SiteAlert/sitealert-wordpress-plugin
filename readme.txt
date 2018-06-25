@@ -8,7 +8,7 @@ Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin checks the health of your WordPress installation.
+Monitor the health and security of your WordPress site!
 
 == Description ==
 
@@ -52,7 +52,7 @@ Checks to see if you have SSL on your site.
 Checks if your site has disabled the file editor.
 
 = Make Suggestions Or Contribute =
-My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-health-check)!
+My WordPress Health Check [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Installation ==
 
@@ -81,7 +81,7 @@ My WordPress Health Check is on [GitHub](https://github.com/fpcorso/wordpress-he
 * Closed enhancement: Add alerts on plugins page ([Issue #26](https://github.com/fpcorso/wordpress-health-check/issues/26))
 * Closed bug: Isn't compatible with MariaDB ([Issue #44](https://github.com/fpcorso/wordpress-health-check/issues/44))
 
-For the rest of the changelog, ([review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD))!
+For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
