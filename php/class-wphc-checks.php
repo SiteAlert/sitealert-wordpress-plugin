@@ -494,7 +494,7 @@ class WPHC_Checks {
 		if ( is_ssl() ) {
 			return $this->prepare_array( 'Great! You are using SSL on your site.', 'good', 'ssl' );
 		} else {
-			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Contact your host about SSL.', 'bad', 'ssl' );
+			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secture" which may cause users to not trust your site. Contact your host about SSL.', 'bad', 'ssl' );
 		}
 	}
 
