@@ -231,7 +231,7 @@ class WPHC_Checks {
 				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
 				if ( false === $plugin_updated || $force ) {
 					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}" );
-					$plugin_info = unserialize( $response['body'] );
+					$plugin_info = @unserialize( $response['body'] );
 					if ( is_object( $plugin_info ) && isset( $plugin_info->last_updated ) ) {
 						$plugin_updated = $plugin_info->last_updated;
 					} else {
@@ -494,7 +494,7 @@ class WPHC_Checks {
 		if ( is_ssl() ) {
 			return $this->prepare_array( 'Great! You are using SSL on your site.', 'good', 'ssl' );
 		} else {
-			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Contact your host about SSL.', 'bad', 'ssl' );
+			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'bad', 'ssl' );
 		}
 	}
 
@@ -513,39 +513,40 @@ class WPHC_Checks {
 		$error                = __( 'Error checking PHP health.', 'my-wp-health-check' );
 		$your_version_message = 'You server is running PHP version ' . PHP_VERSION;
 		$unsupported_message  = 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!';
+		$learn_more           = '<a href="http://bit.ly/2KJs1b6" target="_blank">' . __( 'Learn more about what PHP is.', 'my-wp-health-check' ) . '</a>';
 		switch ( intval( $version[0] ) ) {
 			case 4:
-				$msg = "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message";
+				$msg = "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message $learn_more";
 				break;
 
 			case 5:
 				switch ( intval( $version[1] ) ) {
 					case 0:
-						$msg = "$your_version_message which has not been supported since Sep 2005 and is below the required 5.2. $unsupported_message";
+						$msg = "$your_version_message which has not been supported since Sep 2005 and is below the required 5.2. $unsupported_message $learn_more";
 						break;
 
 					case 1:
-						$msg = "$your_version_message which has not been supported since Aug 2006 and is below the required 5.2. $unsupported_message";
+						$msg = "$your_version_message which has not been supported since Aug 2006 and is below the required 5.2. $unsupported_message $learn_more";
 						break;
 
 					case 2:
-						$msg = "$your_version_message which has not been supported since Jan 2011 and is below the recommended 7.2. $unsupported_message";
+						$msg = "$your_version_message which has not been supported since Jan 2011 and is below the recommended 7.2. $unsupported_message $learn_more";
 						break;
 
 					case 3:
-						$msg = "$your_version_message which has not been supported since Aug 2014 and is below the recommended 7.2. $unsupported_message";
+						$msg = "$your_version_message which has not been supported since Aug 2014 and is below the recommended 7.2. $unsupported_message $learn_more";
 						break;
 
 					case 4:
-						$msg = "$your_version_message which has not been supported since Sep 2015 and is below the recommended 7.2. $unsupported_message";
+						$msg = "$your_version_message which has not been supported since Sep 2015 and is below the recommended 7.2. $unsupported_message $learn_more";
 						break;
 
 					case 5:
-						$msg = "$your_version_message which has not been supported since Jul 2016 and is below the recommended 7.2. $unsupported_message";
+						$msg = "$your_version_message which has not been supported since Jul 2016 and is below the recommended 7.2. $unsupported_message $learn_more";
 						break;
 
 					case 6:
-						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. $unsupported_message";
+						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. $unsupported_message $learn_more";
 						$status = 'okay';
 						break;
 
@@ -558,17 +559,17 @@ class WPHC_Checks {
 			case 7:
 				switch ( intval( $version[1] ) ) {
 					case 0:
-						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2";
+						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2 $learn_more";
 						$status = 'okay';
 						break;
 
 					case 1:
-						$msg    = "$your_version_message. Good job! While this is not the recommended 7.2, this version is still actively supported until Dec 2018. Be sure to check with your host to make sure they have a plan to update to 7.2.";
+						$msg    = "$your_version_message. Good job! While this is not the recommended 7.2, this version is still actively supported until Dec 2018. Be sure to check with your host to make sure they have a plan to update to 7.2. $learn_more";
 						$status = 'good';
 						break;
 
 					case 2:
-						$msg    = "$your_version_message. Good job! This is the latest version.";
+						$msg    = "$your_version_message. Good job! This is the latest version. $learn_more";
 						$status = 'good';
 						break;
 

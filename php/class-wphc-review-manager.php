@@ -70,7 +70,7 @@ class WPHC_Review_Manager {
 		$already_url  = esc_url( add_query_arg( 'wphc_review_notice_check', 'already_did' ) );
 		$nope_url  = esc_url( add_query_arg( 'wphc_review_notice_check', 'remove_message' ) );
 		echo "<div class='updated'><br />";
-		echo sprintf( __('Greetings! I just noticed that you have been using the My WordPress Health Check plugin for over a week now. That is
+		echo sprintf( __('Greetings! I just noticed that you have been using the WP Health plugin for over a week now. That is
 		awesome! Could you please help me out by giving this plugin a 5-star rating on WordPress? This
 		will help me by helping other users discover this plugin. %s', 'my-wp-health-check'),
 			'<br /><strong><em>~ Frank Corso</em></strong><br /><br />'

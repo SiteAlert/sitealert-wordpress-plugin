@@ -1,9 +1,9 @@
-=== My WordPress Health Check ===
+=== WP Health (Formerly My WP Health Check) ===
 Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,9 +12,9 @@ Monitor the health and security of your WordPress site!
 
 == Description ==
 
-My WordPress Health Check will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the Health Check page to quickly see the results of these checks using the simple color-coded sections.
+WP Health will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the WP Health page to quickly see the results of these checks using the simple color-coded sections.
 
-Once installed, there will be a new **Health Check** page added to the Tools menu and an icon to your admin bar if the results of these checks need attention.
+Once installed, there will be a new **WP Health** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention.
 
 = Currently Checks =
 
@@ -51,13 +51,16 @@ Checks to see if you have SSL on your site.
 **File Editor**
 Checks if your site has disabled the file editor.
 
+**Optional REST API**
+If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "WP Health" page in the tools menu.
+
 = Make Suggestions Or Contribute =
-My WordPress Health Check [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
+WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Installation ==
 
 * Navigate to Add New Plugin page within your WordPress
-* Search for My WordPress Health Check
+* Search for WP Health
 * Click Install Now link on the plugin and follow the prompts
 * Activate the plugin through the 'Plugins' menu in WordPress
 
@@ -66,6 +69,11 @@ My WordPress Health Check [is on GitHub](https://github.com/fpcorso/wordpress-he
 1. Admin Page
 
 == Changelog ==
+
+= 1.6.2 (July 2, 2018) =
+* Changes name of plugin to WP Health
+* Fixes incorrect offest error
+* Makes minor design and text changes
 
 = 1.6.1 (June 25, 2018) =
 * Fixes style issue with new settings tab

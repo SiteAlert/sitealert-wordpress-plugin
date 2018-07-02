@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: My WordPress Health Check
- * Description: This plugin checks the health of your WordPress installation.
- * Version: 1.6.1
+ * Plugin Name: WP Health (Formerly My WP Health Check) 
+ * Description: Check the health of your WordPress installation!
+ * Version: 1.6.2
  * Author: Frank Corso
- * Author URI: https://frankcorso.me/
- * Plugin URI: https://frankcorso.me/
+ * Author URI: https://wphealth.app/
+ * Plugin URI: https://wphealth.app/
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso
- * @version 1.6.1
+ * @version 1.6.2
  * @package WPHC
  */
 
@@ -31,7 +31,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.6.1';
+	public $version = '1.6.2';
 
 	/**
 	 * Main construct
@@ -79,7 +79,7 @@ class My_WP_Health_Check {
 	 * @since 1.6.0
 	 */
 	public function setup_admin_menu() {
-		add_management_page( 'WordPress Health Check', __( 'Health Check', 'my-wp-health-check' ), 'moderate_comments', 'wp-health-check', 'wphc_generate_checks_page' );
+		add_management_page( 'WP Health', __( 'WP Health', 'my-wp-health-check' ), 'moderate_comments', 'wp-health-check', 'wphc_generate_checks_page' );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class My_WP_Health_Check {
 		if ( ! empty( $total ) && $total > 0 ) {
 			$args = array(
 				'id'    => 'wphc_admin_node',
-				'title' => '<span class="ab-icon dashicons dashicons-shield"></span>' . $total,
+				'title' => '<span class="ab-icon dashicons dashicons-heart"></span>' . $total,
 				'href'  => admin_url( 'tools.php?page=wp-health-check' ),
 			);
 			$wp_admin_bar->add_node( $args );
