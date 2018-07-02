@@ -494,7 +494,7 @@ class WPHC_Checks {
 		if ( is_ssl() ) {
 			return $this->prepare_array( 'Great! You are using SSL on your site.', 'good', 'ssl' );
 		} else {
-			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secture" which may cause users to not trust your site. Contact your host about SSL.', 'bad', 'ssl' );
+			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'bad', 'ssl' );
 		}
 	}
 
@@ -513,7 +513,7 @@ class WPHC_Checks {
 		$error                = __( 'Error checking PHP health.', 'my-wp-health-check' );
 		$your_version_message = 'You server is running PHP version ' . PHP_VERSION;
 		$unsupported_message  = 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!';
-		$learn_more           = '<a href="http://bit.ly/2KJs1b6" target="_blank">' . __( 'Learn more about what PHP is', 'my-wp-health-check' ) . '</a>';
+		$learn_more           = '<a href="http://bit.ly/2KJs1b6" target="_blank">' . __( 'Learn more about what PHP is.', 'my-wp-health-check' ) . '</a>';
 		switch ( intval( $version[0] ) ) {
 			case 4:
 				$msg = "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message $learn_more";
