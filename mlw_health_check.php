@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Health
+ * Plugin Name: WP Health (Formerly My WP Health Check) 
  * Description: Check the health of your WordPress installation!
  * Version: 1.6.2
  * Author: Frank Corso

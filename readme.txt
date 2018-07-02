@@ -1,4 +1,4 @@
-=== WP Health ===
+=== WP Health (Formerly My WP Health Check) ===
 Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.6
@@ -71,6 +71,8 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 == Changelog ==
 
 = 1.6.2 (July 2, 2018) =
+* Changes name of plugin to WP Health
+* Fixes incorrect offest error
 * Makes minor design and text changes
 
 = 1.6.1 (June 25, 2018) =
