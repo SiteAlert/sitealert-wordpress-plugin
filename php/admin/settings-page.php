@@ -63,7 +63,7 @@ class WPHC_Settings_Page {
 			$checked = " checked='checked'";
 		}
 		echo "<input type='checkbox' name='wphc-settings[tracking_allowed]' id='wphc-settings[tracking_allowed]' value='2'$checked />";
-		echo "<label for='wphc-settings[tracking_allowed]'>" . esc_html__( "Allows My WordPress Health Check to anonymously track this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ) . '</label>';
+		echo "<label for='wphc-settings[tracking_allowed]'>" . esc_html__( "Allows WP Health to anonymously track this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ) . '</label>';
 	}
 
 	/**
