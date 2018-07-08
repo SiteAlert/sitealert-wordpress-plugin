@@ -34,6 +34,17 @@
 	border: 1px solid #111;
 }
 
+.wphc-alert-box a {
+	color: #173F9C;
+	display: inline-block;
+	transition-duration: 0.2s;
+}
+
+.wphc-alert-box a:hover {
+	color: #082360;
+	transform: skewX(-10deg);
+}
+
 .wphc-good-box {
 	border-color: green;
 	background-color: #81F79F;
