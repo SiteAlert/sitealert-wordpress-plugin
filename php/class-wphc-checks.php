@@ -104,7 +104,7 @@ class WPHC_Checks {
 		if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
 			return $this->prepare_array( 'The file editor on this site has been disabled. Great!', 'good', 'file_editor' );
 		} else {
-			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. Many security plugins, such as iThemes Security, has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">shown here</a>.', 'okay', 'file_editor' );
+			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. Many security plugins, such as iThemes Security, has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor' );
 		}
 	}
 
@@ -491,10 +491,13 @@ class WPHC_Checks {
 	 * @since 1.4.0
 	 */
 	public function ssl_check() {
+		$learn_more = '<a href="http://bit.ly/2J323Oc" target="_blank">' . __( 'Learn more about what SSL is.', 'my-wp-health-check' ) . '</a>';
+		$success    = __( 'Great! You are using SSL on your site.', 'my-wp-health-check' );
+		$fail       = __( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'my-wp-health-check' );
 		if ( is_ssl() ) {
-			return $this->prepare_array( 'Great! You are using SSL on your site.', 'good', 'ssl' );
+			return $this->prepare_array( "$success $learn_more", 'good', 'ssl' );
 		} else {
-			return $this->prepare_array( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'bad', 'ssl' );
+			return $this->prepare_array( "$fail $learn_more", 'bad', 'ssl' );
 		}
 	}
 

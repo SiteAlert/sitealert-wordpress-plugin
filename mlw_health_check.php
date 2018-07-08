@@ -2,14 +2,14 @@
 /**
  * Plugin Name: WP Health (Formerly My WP Health Check) 
  * Description: Check the health of your WordPress installation!
- * Version: 1.6.2
+ * Version: 1.6.3
  * Author: Frank Corso
  * Author URI: https://wphealth.app/
  * Plugin URI: https://wphealth.app/
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso
- * @version 1.6.2
+ * @version 1.6.3
  * @package WPHC
  */
 
@@ -31,7 +31,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.6.2';
+	public $version = '1.6.3';
 
 	/**
 	 * Main construct
@@ -79,7 +79,7 @@ class My_WP_Health_Check {
 	 * @since 1.6.0
 	 */
 	public function setup_admin_menu() {
-		add_management_page( 'WP Health', __( 'WP Health', 'my-wp-health-check' ), 'moderate_comments', 'wp-health-check', 'wphc_generate_checks_page' );
+		add_management_page( 'WP Health', 'WP Health', 'moderate_comments', 'wp-health-check', 'wphc_generate_checks_page' );
 	}
 
 	/**
@@ -88,6 +88,9 @@ class My_WP_Health_Check {
 	 * @param object $wp_admin_bar WP Admin Bar instance.
 	 */
 	public function admin_bar( $wp_admin_bar ) {
+		if ( ! current_user_can( 'moderate_comments' ) ) {
+			return;
+		}
 		$total = wphc_get_total_checks();
 		if ( ! empty( $total ) && $total > 0 ) {
 			$args = array(
