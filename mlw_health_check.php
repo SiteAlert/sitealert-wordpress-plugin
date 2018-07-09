@@ -92,7 +92,7 @@ class My_WP_Health_Check {
 			return;
 		}
 		$total = wphc_get_total_checks();
-		if ( ! empty( $total ) && $total > 0 ) {
+		if ( $total > 0 ) {
 			$args = array(
 				'id'    => 'wphc_admin_node',
 				'title' => '<span class="ab-icon dashicons dashicons-heart"></span>' . $total,

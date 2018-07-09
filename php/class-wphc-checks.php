@@ -119,7 +119,7 @@ class WPHC_Checks {
 		if ( function_exists( 'get_core_updates' ) ) {
 			$core_update = get_core_updates();
 		}
-		if ( $core_update && ( ! isset( $core_update[0]->response ) || 'latest' == $core_update[0]->response ) ) {
+		if ( $this->is_wp_current( $core_update ) ) {
 			return $this->prepare_array( 'Your WordPress is up to date. Great Job!', 'good', 'wordpress_version' );
 		} elseif ( ! $core_update ) {
 			return $this->prepare_array( 'Encountered an error. WordPress version not checked. Please check again later.', 'okay', 'wordpress_version' );
@@ -601,7 +601,15 @@ class WPHC_Checks {
 		}
 		return array();
 	}
+
+	/**
+	 * Determines if WordPress version is current
+	 *
+	 * @since X.X.X
+	 * @param array $updates The updates available, if any.
+	 * @return bool True if the version is current
+	 */
+	private function is_wp_current( $updates ) {
+		return $updates && ( ! isset( $updates[0]->response ) || 'latest' == $updates[0]->response );
+	}
 }
-
-
-?>

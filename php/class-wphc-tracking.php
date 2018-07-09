@@ -44,29 +44,29 @@ class WPHC_Tracking {
     add_action( 'shutdown', array( $this, 'track_check' ) );
   }
 
-  /**
-   * Determines If Ready To Send Data Home
-   *
-   * Determines if the plugin has been authorized to send the data home in the settings page. Then checks if it has been at least a week since the last send.
-   *
-   * @since 1.2.1
-   * @uses WPHC_Tracking::load_data()
-   * @uses WPHC_Tracking::send_data()
-   * @return void
-   */
-  public function track_check() {
-    $settings = (array) get_option( 'wphc-settings' );
-    $tracking_allowed = '0';
+	/**
+	 * Determines If Ready To Send Data Home
+	 *
+	 * Determines if the plugin has been authorized to send the data home in the settings page. Then checks if it has been at least a week since the last send.
+	 *
+	 * @since 1.2.1
+	 * @uses WPHC_Tracking::load_data()
+	 * @uses WPHC_Tracking::send_data()
+	 * @return void
+	 */
+	public function track_check() {
+		$settings = (array) get_option( 'wphc-settings' );
+		$tracking_allowed = '0';
 		if ( isset( $settings['tracking_allowed'] ) ) {
 			$tracking_allowed = $settings['tracking_allowed'];
 		}
-    $last_time = get_option( 'wphc_tracker_last_time' );
-    if ( ( '1' == $tracking_allowed || '2' == $tracking_allowed ) && ( ( $last_time && $last_time < strtotime( '-1 week' ) ) || ! $last_time ) ) {
-      $this->load_data( $tracking_allowed );
-      $this->send_data();
-      update_option( 'wphc_tracker_last_time', time() );
-    }
-  }
+		$last_time = get_option( 'wphc_tracker_last_time' );
+		if ( $this->is_time_to_send( $tracking_allowed, $last_time ) ) {
+			$this->load_data( $tracking_allowed );
+			$this->send_data();
+			update_option( 'wphc_tracker_last_time', time() );
+		}
+	}
 
   /**
    * Sends The Data Home
@@ -186,26 +186,38 @@ class WPHC_Tracking {
     }
   }
 
-  /**
-   * Checks If User Has Clicked On Notice
-   *
-   * @since 1.2.1
-   * @return void
-   */
-  public function admin_notice_check() {
-    if ( isset( $_GET["wphc_track_check"] ) ) {
-      if ( 'opt_into_tracking' == $_GET["wphc_track_check"] ) {
-        $settings = (array) get_option( 'wphc-settings' );
-        $settings['tracking_allowed'] = '2';
-        update_option( 'wphc-settings', $settings );
-      } else {
-        $settings = (array) get_option( 'wphc-settings' );
-        $settings['tracking_allowed'] = '0';
-        update_option( 'wphc-settings', $settings );
-      }
-      update_option( 'wphc-tracking-notice', '1' );
-    }
-  }
+	/**
+	 * Checks If User Has Clicked On Notice
+	 *
+	 * @since 1.2.1
+	 * @return void
+	 */
+	public function admin_notice_check() {
+		if ( isset( $_GET["wphc_track_check"] ) ) {
+			if ( 'opt_into_tracking' == $_GET["wphc_track_check"] ) {
+				$settings = (array) get_option( 'wphc-settings' );
+				$settings['tracking_allowed'] = '2';
+				update_option( 'wphc-settings', $settings );
+			} else {
+				$settings = (array) get_option( 'wphc-settings' );
+				$settings['tracking_allowed'] = '0';
+				update_option( 'wphc-settings', $settings );
+			}
+			update_option( 'wphc-tracking-notice', '1' );
+		}
+	}
+
+	/**
+	 * Determines if it is time to send data
+	 *
+	 * @since X.X.X
+	 * @param string $allowed 1 or 2 if allowed.
+	 * @param string $last_time The last time the data was sent.
+	 * @return bool True if it is time
+	 */
+	private function is_time_to_send( $allowed, $last_time ) {
+		return ( '1' == $allowed || '2' == $allowed ) && ( ( $last_time && $last_time < strtotime( '-1 week' ) ) || ! $last_time );
+	}
 }
 $wphc_tracking = new WPHC_Tracking();
 
