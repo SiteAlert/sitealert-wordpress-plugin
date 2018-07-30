@@ -33,23 +33,22 @@ function wphc_save_settings() {
 			'api_key'   => substr( $api_key, 5 ),
 		);
 		$response = wp_remote_post( 'https://api.wphealth.app/api/v1/sites', array(
-			'method'      => 'POST',
 			'timeout'     => 45,
-			'redirection' => 5,
-			'httpversion' => '1.0',
-			'blocking'    => true,
-			'body'        => $body_json,
-			'user-agent'  => 'WPHC Usage Tracker'
-		) );
+			'body'        => json_encode( $body_json ),
+			'user-agent'  => 'WPHC Usage Tracker',
+			'headers'     => array(
+				'Content-type' => 'application/json',
+			),
+		));
 		if ( is_wp_error( $response ) ) {
 			$json['success'] = false;
 			$error_message   = $response->get_error_message();
 			$json['msg']     = "Something went wrong when sending data to WP Health API: $error_message";
 		} else {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( false === $body['success'] ) {
+			if ( false === $body->success ) {
 				$json['success'] = false;
-				$json['msg']     = "Something went wrong when sending data to WP Health API: {$body["msg"]}";
+				$json['msg']     = "Something went wrong when sending data to WP Health API: {$body->msg}";
 			}
 		}
 	}

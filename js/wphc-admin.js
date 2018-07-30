@@ -22,6 +22,7 @@ var WPHCAdmin;
 				api_key: $( '#api_key' ).val(),
 			};
 			jQuery.post( ajaxurl, data, function( response ) {
+				response =  JSON.parse( response );
 				if ( response.success ) {
 					WPHCAdmin.displayAlert( 'Settings have been saved!', 'success' );
 				} else {

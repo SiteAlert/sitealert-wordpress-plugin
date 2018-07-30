@@ -20,7 +20,7 @@ function wphc_generate_checks_page() {
 	}
 	global $my_wp_health_check;
 	wp_enqueue_style( 'wphc-style', plugins_url( '../../css/main.css', __FILE__ ), array(), $my_wp_health_check->version );
-	wp_enqueue_script( 'wphc-admin-script', plugins_url( '../../js/wphc-admin.js', __FILE__ ), array(), $my_wp_health_check->version );
+	wp_enqueue_script( 'wphc-admin-script', plugins_url( '../../js/wphc-admin.js', __FILE__ ), array( 'backbone', 'underscore', 'wp-util' ), $my_wp_health_check->version );
 	?>
 	<div class="wrap">
 		<h2>WP Health</h2>
