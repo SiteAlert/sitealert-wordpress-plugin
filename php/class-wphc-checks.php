@@ -102,9 +102,9 @@ class WPHC_Checks {
 	 */
 	public function file_editor_check() {
 		if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
-			return $this->prepare_array( 'The file editor on this site has been disabled. Great!', 'good', 'file_editor' );
+			return $this->prepare_array( __( 'The file editor on this site has been disabled. Great!', 'my-wp-health-check' ), 'good', 'file_editor' );
 		} else {
-			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. Many security plugins, such as iThemes Security, has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor' );
+			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. The recommended solution is using a security plugin, such as iThemes Security, that has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor' );
 		}
 	}
 
