@@ -52,8 +52,8 @@ class WPHC_Review_Manager {
 	 */
 	public function check_message_trigger() {
 		$trigger = get_option( 'wphc_review_message_trigger' );
-		if ( empty( $trigger ) || is_null( $trigger ) || false === $trigger ) {
-			add_option('wphc_review_message_trigger', time() );
+		if ( empty( $trigger ) ) {
+			add_option( 'wphc_review_message_trigger', time() );
 			return time();
 		}
 		return intval( $trigger );

@@ -102,9 +102,9 @@ class WPHC_Checks {
 	 */
 	public function file_editor_check() {
 		if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
-			return $this->prepare_array( 'The file editor on this site has been disabled. Great!', 'good', 'file_editor' );
+			return $this->prepare_array( __( 'The file editor on this site has been disabled. Great!', 'my-wp-health-check' ), 'good', 'file_editor' );
 		} else {
-			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. Many security plugins, such as iThemes Security, has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor' );
+			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. The recommended solution is using a security plugin, such as iThemes Security, that has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor' );
 		}
 	}
 
@@ -119,7 +119,7 @@ class WPHC_Checks {
 		if ( function_exists( 'get_core_updates' ) ) {
 			$core_update = get_core_updates();
 		}
-		if ( $core_update && ( ! isset( $core_update[0]->response ) || 'latest' == $core_update[0]->response ) ) {
+		if ( $this->is_wp_current( $core_update ) ) {
 			return $this->prepare_array( 'Your WordPress is up to date. Great Job!', 'good', 'wordpress_version' );
 		} elseif ( ! $core_update ) {
 			return $this->prepare_array( 'Encountered an error. WordPress version not checked. Please check again later.', 'okay', 'wordpress_version' );
@@ -601,7 +601,15 @@ class WPHC_Checks {
 		}
 		return array();
 	}
+
+	/**
+	 * Determines if WordPress version is current
+	 *
+	 * @since X.X.X
+	 * @param array $updates The updates available, if any.
+	 * @return bool True if the version is current
+	 */
+	private function is_wp_current( $updates ) {
+		return $updates && ( ! isset( $updates[0]->response ) || 'latest' == $updates[0]->response );
+	}
 }
-
-
-?>

@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: WP Health (Formerly My WP Health Check) 
+ * Plugin Name: WP Health (Formerly My WP Health Check)
  * Description: Check the health of your WordPress installation!
- * Version: 1.6.3
+ * Version: 1.6.4
  * Author: Frank Corso
  * Author URI: https://wphealth.app/
  * Plugin URI: https://wphealth.app/
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso
- * @version 1.6.3
+ * @version 1.6.4
  * @package WPHC
  */
 
@@ -31,7 +31,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.6.3';
+	public $version = '1.6.4';
 
 	/**
 	 * Main construct
@@ -51,7 +51,6 @@ class My_WP_Health_Check {
 	private function load_dependencies() {
 		if ( is_admin() ) {
 			include 'php/admin/checks-page.php';
-			include 'php/admin/settings-page.php';
 			include 'php/class-wphc-review-manager.php';
 			include 'php/class-wphc-tracking.php';
 		}
@@ -92,7 +91,7 @@ class My_WP_Health_Check {
 			return;
 		}
 		$total = wphc_get_total_checks();
-		if ( ! empty( $total ) && $total > 0 ) {
+		if ( $total > 0 ) {
 			$args = array(
 				'id'    => 'wphc_admin_node',
 				'title' => '<span class="ab-icon dashicons dashicons-heart"></span>' . $total,

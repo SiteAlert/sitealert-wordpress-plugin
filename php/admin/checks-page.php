@@ -20,10 +20,11 @@ function wphc_generate_checks_page() {
 	}
 	global $my_wp_health_check;
 	wp_enqueue_style( 'wphc-style', plugins_url( '../../css/main.css', __FILE__ ), array(), $my_wp_health_check->version );
-	wp_enqueue_script( 'wphc-admin-script', plugins_url( '../../js/wphc-admin.js', __FILE__ ), array(), $my_wp_health_check->version );
+	wp_enqueue_script( 'wphc-admin-script', plugins_url( '../../js/wphc-admin.js', __FILE__ ), array( 'backbone', 'underscore', 'wp-util' ), $my_wp_health_check->version );
 	?>
 	<div class="wrap">
 		<h2>WP Health</h2>
+		<div class="admin-messages"></div>
 		<hr />
 		<h2 class="nav-tab-wrapper">
 			<a href="#" data-tab='1' class="nav-tab nav-tab-active wphc-tab"><?php esc_html_e( 'Checks', 'my-wp-health-check' ); ?></a>
@@ -87,9 +88,53 @@ function wphc_generate_checks_page() {
 				</div>
 			</div>
 			<div id="tab-2" class="wphc-tab-content">
-				<?php WPHC_Settings_Page::display_page(); ?>
+				<?php
+				$settings = (array) get_option( 'wphc-settings' );
+				?>
+				<h2><?php esc_html_e( 'Main Settings', 'my-wp-health-check' ); ?></h2>
+				<table class="form-table">
+					<tbody>
+						<tr>
+							<th scope="row">
+								<?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?>
+								<p><?php esc_html_e( "Allows WP Health to anonymously track this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
+							</th>
+							<td>
+								<?php
+								$tracking_allowed = '0';
+								if ( isset( $settings['tracking_allowed'] ) ) {
+									$tracking_allowed = esc_attr( $settings['tracking_allowed'] );
+								}
+								?>
+								<input type='checkbox' name='tracking_allowed' id='tracking_allowed' value='2' <?php checked( '2', $tracking_allowed, true ); ?>>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">
+								<?php esc_html_e( 'API Key', 'my-wp-health-check' ); ?>
+								<p><?php esc_html_e( 'By default the REST API is disabled for this plugin. Enter in an API Key to enable it so you can build custom scripts around the REST API.', 'my-wp-health-check' ); ?></p>
+							</th>
+							<td>
+								<?php
+								$api_key  = '';
+								if ( isset( $settings['api_key'] ) ) {
+									$api_key = $settings['api_key'];
+								}
+								?>
+								<input type='text' name='api_key' id='api_key' value='<?php echo esc_attr( $api_key ); ?>' />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn button" id="wphc-settings-save"><?php esc_html_e( 'Save Changes', 'my-wp-health-check' ); ?></button>
 			</div>
 		</main>
 	</div>
+	<!-- View for Notices -->
+	<script type="text/template" id="tmpl-notice">
+		<div class="notice notice-{{data.type}}">
+			<p>{{data.message}}</p>
+		</div>
+	</script>
 	<?php
 }

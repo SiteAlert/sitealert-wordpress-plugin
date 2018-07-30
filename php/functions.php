@@ -1,7 +1,14 @@
 <?php
+/**
+ * Our misc. functions
+ *
+ * @package WPHC
+ */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exits if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Returns the total amount of checks that failed
@@ -10,19 +17,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return int The amount of checks that failed
  */
 function wphc_get_total_checks() {
-  $totals = get_transient( 'wphc_total_checks' );
-  if ( false === $totals ) {
-    $totals = 0;
-    $wphc = new WPHC_Checks();
-    $checks = $wphc->all_checks();
-    foreach ( $checks as $check ) {
-      if ( 'good' !== $check["type"] ) {
-        $totals += 1;
-      }
-    }
-    set_transient( 'wphc_total_checks', $totals, HOUR_IN_SECONDS );
-  }
-  return $totals;
+	$totals = get_transient( 'wphc_total_checks' );
+	if ( false === $totals ) {
+		$totals = 0;
+		$wphc = new WPHC_Checks();
+		$checks = $wphc->all_checks();
+		foreach ( $checks as $check ) {
+			if ( 'good' !== $check['type'] ) {
+				$totals++;
+			}
+		}
+		set_transient( 'wphc_total_checks', $totals, HOUR_IN_SECONDS );
+	}
+	return intval( $totals );
 }
-
-?>
