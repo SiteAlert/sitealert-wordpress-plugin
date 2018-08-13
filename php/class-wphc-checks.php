@@ -514,7 +514,7 @@ class WPHC_Checks {
 
 		// Sets up messages.
 		$error                = __( 'Error checking PHP health.', 'my-wp-health-check' );
-		$your_version_message = 'You server is running PHP version ' . PHP_VERSION;
+		$your_version_message = 'Your server is running PHP version ' . PHP_VERSION;
 		$unsupported_message  = 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!';
 		$learn_more           = '<a href="http://bit.ly/2KJs1b6" target="_blank">' . __( 'Learn more about what PHP is.', 'my-wp-health-check' ) . '</a>';
 		switch ( intval( $version[0] ) ) {
