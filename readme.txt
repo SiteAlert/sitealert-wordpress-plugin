@@ -72,6 +72,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 = 1.6.5 (August 13, 2018) =
 * Makes minor text changes
+* Changes permission level to administrator instead of editor to see the checks
 
 = 1.6.4 (July 30, 2018) =
 * Makes minor text changes

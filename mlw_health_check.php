@@ -78,7 +78,7 @@ class My_WP_Health_Check {
 	 * @since 1.6.0
 	 */
 	public function setup_admin_menu() {
-		add_management_page( 'WP Health', 'WP Health', 'moderate_comments', 'wp-health-check', 'wphc_generate_checks_page' );
+		add_management_page( 'WP Health', 'WP Health', 'manage_options', 'wp-health-check', 'wphc_generate_checks_page' );
 	}
 
 	/**
@@ -87,7 +87,7 @@ class My_WP_Health_Check {
 	 * @param object $wp_admin_bar WP Admin Bar instance.
 	 */
 	public function admin_bar( $wp_admin_bar ) {
-		if ( ! current_user_can( 'moderate_comments' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 		$total = wphc_get_total_checks();
