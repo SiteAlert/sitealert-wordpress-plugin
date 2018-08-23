@@ -390,7 +390,7 @@ class WPHC_Checks {
 
 		// Sets up main variables.
 		$version = '0.0';
-		$maria   = false;
+		$mariadb = false;
 
 		// Sets up messages.
 		$error = __( 'Error checking database health.', 'my-wp-health-check' );
