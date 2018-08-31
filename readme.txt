@@ -54,6 +54,18 @@ Checks if your site has disabled the file editor.
 **Optional REST API**
 If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "WP Health" page in the tools menu.
 
+= Need more? =
+Check out our premium plans that includes:
+
+**Central Dashboard**
+See all of your checks from all of your sites in one place!
+
+**Uptime Monitoring**
+Get notified immediately if your site goes down.
+
+**Email Notifications**
+Get notified when a vulnerability is found in a plugin you have installed. Receive weekly summaries for all of your sites.
+
 = Make Suggestions Or Contribute =
 WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
