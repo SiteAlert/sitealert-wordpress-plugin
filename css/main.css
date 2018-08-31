@@ -25,6 +25,30 @@
 	display: none;
 }
 
+.wphc-ad {
+	display: block;
+	text-align: center;
+	background: #fff;
+	border: 5px solid #173F9C;
+	border-radius: 10px;
+	padding: 12px 36px;
+	margin: 10px;
+	font-size: 14px;
+	color: #000;
+	font-weight: bold;
+}
+
+.wphc-ad a {
+	color: #173F9C;
+	display: inline-block;
+	transition-duration: 0.2s;
+}
+
+.wphc-ad a:hover {
+	color: #082360;
+	transform: skewX(-10deg);
+}
+
 .wphc-alert-box {
 	color:#111;
 	border-radius: 10px;

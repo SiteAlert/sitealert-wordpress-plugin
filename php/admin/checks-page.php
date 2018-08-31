@@ -21,10 +21,22 @@ function wphc_generate_checks_page() {
 	global $my_wp_health_check;
 	wp_enqueue_style( 'wphc-style', plugins_url( '../../css/main.css', __FILE__ ), array(), $my_wp_health_check->version );
 	wp_enqueue_script( 'wphc-admin-script', plugins_url( '../../js/wphc-admin.js', __FILE__ ), array( 'backbone', 'underscore', 'wp-util' ), $my_wp_health_check->version );
+
+	$settings = (array) get_option( 'wphc-settings' );
 	?>
 	<div class="wrap">
 		<h2>WP Health</h2>
-		<div class="admin-messages"></div>
+		<div class="admin-messages">
+		<?php
+		if ( ! isset( $settings['api_key'] ) || empty( $settings['api_key'] ) ) {
+			?>
+			<div class="wphc-ad">
+				Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard! <a target="_blank" href="http://bit.ly/2oqLaoR">Learn more!</a>
+			</div>
+			<?php
+		}
+		?>
+		</div>
 		<hr />
 		<h2 class="nav-tab-wrapper">
 			<a href="#" data-tab='1' class="nav-tab nav-tab-active wphc-tab"><?php esc_html_e( 'Checks', 'my-wp-health-check' ); ?></a>
@@ -88,9 +100,6 @@ function wphc_generate_checks_page() {
 				</div>
 			</div>
 			<div id="tab-2" class="wphc-tab-content">
-				<?php
-				$settings = (array) get_option( 'wphc-settings' );
-				?>
 				<h2><?php esc_html_e( 'Main Settings', 'my-wp-health-check' ); ?></h2>
 				<table class="form-table">
 					<tbody>

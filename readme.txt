@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -54,6 +54,18 @@ Checks if your site has disabled the file editor.
 **Optional REST API**
 If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "WP Health" page in the tools menu.
 
+= Need more? =
+Check out our premium plans that includes:
+
+**Central Dashboard**
+See all of your checks from all of your sites in one place!
+
+**Uptime Monitoring**
+Get notified immediately if your site goes down.
+
+**Email Notifications**
+Get notified when a vulnerability is found in a plugin you have installed. Receive weekly summaries for all of your sites.
+
 = Make Suggestions Or Contribute =
 WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
@@ -69,6 +81,9 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.6.7 (August 31, 2018) =
+* Adds info about new premium features
 
 = 1.6.6 (August 23, 2018) =
 * Fixes undefined variable bug in check for MariaDB
