@@ -29,9 +29,26 @@ function wphc_generate_checks_page() {
 		<div class="admin-messages">
 		<?php
 		if ( ! isset( $settings['api_key'] ) || empty( $settings['api_key'] ) ) {
+			$ad_message = 'Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard! <a target="_blank" href="http://bit.ly/2oqLaoR">Learn more!</a>';
+			$ad_number  = rand( 0, 1 );
+			switch ( $ad_number ) {
+				case 0:
+					// Ad 1.
+					$ad_message = 'Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard! <a target="_blank" href="http://bit.ly/2oqLaoR">Learn more!</a>';
+					break;
+
+				case 1:
+					// Ad 2.
+					$ad_message = 'Do not lost time and money! Be notified as soon as your site goes down with uptime monitoring. Check out our premium plan for more details! <a target="_blank" href="http://bit.ly/2Cwjskt">Learn more!</a>';
+					break;
+
+				default:
+					$ad_message = 'Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard! <a target="_blank" href="http://bit.ly/2oqLaoR">Learn more!</a>';
+					break;
+			}
 			?>
 			<div class="wphc-ad">
-				Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard! <a target="_blank" href="http://bit.ly/2oqLaoR">Learn more!</a>
+				<?php echo $ad_message; ?>
 			</div>
 			<?php
 		}
