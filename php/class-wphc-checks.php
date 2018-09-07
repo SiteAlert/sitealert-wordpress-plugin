@@ -605,7 +605,7 @@ class WPHC_Checks {
 	/**
 	 * Determines if WordPress version is current
 	 *
-	 * @since X.X.X
+	 * @since 1.6.4
 	 * @param array $updates The updates available, if any.
 	 * @return bool True if the version is current
 	 */
