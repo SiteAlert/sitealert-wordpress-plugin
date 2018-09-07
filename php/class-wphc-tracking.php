@@ -186,10 +186,10 @@ class WPHC_Tracking {
 			$optout_url = esc_url( add_query_arg( 'wphc_track_check', 'opt_out_of_tracking' ) );
 			?>
 			<div class="updated">
-				<p><?php esc_html__( "Allow WP Health to anonymously track this plugin's usage and help us make this plugin better? No sensitive data is tracked.", 'my-wp-health-check' ); ?></p>
+				<p><?php esc_html_e( "Allow WP Health to anonymously track this plugin's usage and help us make this plugin better? No sensitive data is tracked.", 'my-wp-health-check' ); ?></p>
 				<p>
-					<a href="<?php echo esc_url( $optin_url ); ?>" class="button-secondary"><?php esc_html__( 'Allow', 'my-wp-health-check' ); ?></a>
-					<a href="<?php echo esc_url( $optout_url ); ?>" class="button-secondary"><?php esc_html__( 'Do not allow', 'my-wp-health-check' ); ?></a>
+					<a href="<?php echo esc_url( $optin_url ); ?>" class="button-secondary"><?php esc_html_e( 'Allow', 'my-wp-health-check' ); ?></a>
+					<a href="<?php echo esc_url( $optout_url ); ?>" class="button-secondary"><?php esc_html_e( 'Do not allow', 'my-wp-health-check' ); ?></a>
 				</p>
 			</div>
 			<?php
