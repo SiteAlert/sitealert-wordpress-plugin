@@ -63,7 +63,7 @@ function wphc_generate_checks_page() {
 						<div class="wphc-info-section">
 							<h3 class="wphc-info-section-title">WP Health News</h3>
 							<div class="wphc-info-box">
-								<h4>Subscribe to our newsletter!</h4>
+								<h4><?php esc_html_e( 'Subscribe to our newsletter!', 'my-wp-health-check' ); ?></h4>
 								<p>Learn about our newest features, receive tips and guides, and more!</p>
 								<a href="http://bit.ly/2KGTxpK" target="_blank" class="button-primary">Subscribe Now!</a>
 							</div>

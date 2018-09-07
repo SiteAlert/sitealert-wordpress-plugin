@@ -116,15 +116,21 @@ class WPHC_Checks {
 	 */
 	public function wordpress_version_check() {
 		$core_update = false;
+
+		// Prepares messages.
+		$good  = esc_html__( 'Your WordPress is up to date. Great Job!' );
+		$error = esc_html__( 'Encountered an error. WordPress version not checked. Please check again later.' );
+		$bad   = esc_html__( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.' );
+
 		if ( function_exists( 'get_core_updates' ) ) {
 			$core_update = get_core_updates();
 		}
 		if ( $this->is_wp_current( $core_update ) ) {
-			return $this->prepare_array( 'Your WordPress is up to date. Great Job!', 'good', 'wordpress_version' );
+			return $this->prepare_array( $good, 'good', 'wordpress_version' );
 		} elseif ( ! $core_update ) {
-			return $this->prepare_array( 'Encountered an error. WordPress version not checked. Please check again later.', 'okay', 'wordpress_version' );
+			return $this->prepare_array( $error, 'okay', 'wordpress_version' );
 		} else {
-			return $this->prepare_array( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.', 'bad', 'wordpress_version' );
+			return $this->prepare_array( $bad, 'bad', 'wordpress_version' );
 		}
 	}
 
