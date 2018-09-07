@@ -213,6 +213,7 @@ class WPHC_Checks {
 	 */
 	public function supported_plugin_check( $force = false, $ignore_limit = false ) {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
+		$learn_more  = '<a href="http://bit.ly/2Cxq1U5" target="_blank">' . __( 'Learn more about finding quality plugins.', 'my-wp-health-check' ) . '</a>';
 		if ( false === $plugin_list || $force ) {
 			$unsupported_plugins = array();
 
@@ -257,9 +258,9 @@ class WPHC_Checks {
 			set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * HOUR_IN_SECONDS );
 		}
 		if ( empty( $plugin_list ) ) {
-			return $this->prepare_array( 'All of your plugins are currently supported. Great Job!', 'good', 'supported_plugins' );
+			return $this->prepare_array( "All of your plugins are currently supported. Great Job! $learn_more", 'good', 'supported_plugins' );
 		} else {
-			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins.", 'bad', 'supported_plugins' );
+			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins. $learn_more", 'bad', 'supported_plugins' );
 		}
 	}
 
@@ -549,7 +550,7 @@ class WPHC_Checks {
 						break;
 
 					case 6:
-						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. $unsupported_message $learn_more";
+						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. Security support ends on December 31, 2018! $unsupported_message $learn_more";
 						$status = 'okay';
 						break;
 
@@ -562,7 +563,7 @@ class WPHC_Checks {
 			case 7:
 				switch ( intval( $version[1] ) ) {
 					case 0:
-						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2 $learn_more";
+						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2. Security support ends for this version on Dec 3, 2018! $learn_more";
 						$status = 'okay';
 						break;
 
