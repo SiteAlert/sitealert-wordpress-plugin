@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Defines plugin constants.
+define( 'WPHC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+
 /**
  * Main class of plugin
  *

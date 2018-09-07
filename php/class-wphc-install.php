@@ -34,6 +34,21 @@ class WPHC_Install {
 	 */
 	public function add_hooks() {
 		add_action( 'admin_init', array( $this, 'update' ) );
+		add_filter( 'plugin_action_links_' . WPHC_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ) );
+	}
+
+	/**
+	 * Adds a link to the checks from the plugins page.
+	 *
+	 * @since 1.6.8
+	 * @param array $links The current links in the action links.
+	 * @see https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+	 */
+	public function plugin_action_links( $links ) {
+		$action_links = array(
+			'<a href="' . admin_url( 'admin.php?page=wp-health-check' ) . '">' . __( 'View Checks', 'my-wp-health-check' ) . '</a>',
+		);
+		return array_merge( $action_links, $links );
 	}
 
 	/**
@@ -48,8 +63,6 @@ class WPHC_Install {
 			add_option( 'wphc_original_version', $version );
 		}
 		if ( get_option( 'wphc_current_version' ) != $version ) {
-			// Performs updates.
-
 			// Updates current version option.
 			update_option( 'wphc_current_version', $version );
 		}
@@ -57,6 +70,3 @@ class WPHC_Install {
 }
 
 $wphc_install = new WPHC_Install();
-
-
-?>

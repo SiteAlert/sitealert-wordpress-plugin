@@ -85,6 +85,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 == Changelog ==
 
 = 1.6.8 (September 7, 2018) =
+* Adds link to checks from plugins page
 * Makes minor text changes
 * Improves internationalization
 
