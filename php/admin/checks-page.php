@@ -39,7 +39,7 @@ function wphc_generate_checks_page() {
 
 				case 1:
 					// Ad 2.
-					$ad_message = 'Do not lost time and money! Be notified as soon as your site goes down with uptime monitoring. Check out our premium plan for more details! <a target="_blank" href="http://bit.ly/2Cwjskt">Learn more!</a>';
+					$ad_message = 'Do not lose time and money! Be notified as soon as your site goes down with uptime monitoring. Check out our premium plan for more details! <a target="_blank" href="http://bit.ly/2Cwjskt">Learn more!</a>';
 					break;
 
 				default:
