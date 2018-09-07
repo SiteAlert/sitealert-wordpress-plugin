@@ -116,15 +116,21 @@ class WPHC_Checks {
 	 */
 	public function wordpress_version_check() {
 		$core_update = false;
+
+		// Prepares messages.
+		$good  = esc_html__( 'Your WordPress is up to date. Great Job!' );
+		$error = esc_html__( 'Encountered an error. WordPress version not checked. Please check again later.' );
+		$bad   = esc_html__( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.' );
+
 		if ( function_exists( 'get_core_updates' ) ) {
 			$core_update = get_core_updates();
 		}
 		if ( $this->is_wp_current( $core_update ) ) {
-			return $this->prepare_array( 'Your WordPress is up to date. Great Job!', 'good', 'wordpress_version' );
+			return $this->prepare_array( $good, 'good', 'wordpress_version' );
 		} elseif ( ! $core_update ) {
-			return $this->prepare_array( 'Encountered an error. WordPress version not checked. Please check again later.', 'okay', 'wordpress_version' );
+			return $this->prepare_array( $error, 'okay', 'wordpress_version' );
 		} else {
-			return $this->prepare_array( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.', 'bad', 'wordpress_version' );
+			return $this->prepare_array( $bad, 'bad', 'wordpress_version' );
 		}
 	}
 
@@ -213,6 +219,7 @@ class WPHC_Checks {
 	 */
 	public function supported_plugin_check( $force = false, $ignore_limit = false ) {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
+		$learn_more  = '<a href="http://bit.ly/2Cxq1U5" target="_blank">' . __( 'Learn more about finding quality plugins.', 'my-wp-health-check' ) . '</a>';
 		if ( false === $plugin_list || $force ) {
 			$unsupported_plugins = array();
 
@@ -257,9 +264,9 @@ class WPHC_Checks {
 			set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * HOUR_IN_SECONDS );
 		}
 		if ( empty( $plugin_list ) ) {
-			return $this->prepare_array( 'All of your plugins are currently supported. Great Job!', 'good', 'supported_plugins' );
+			return $this->prepare_array( "All of your plugins are currently supported. Great Job! $learn_more", 'good', 'supported_plugins' );
 		} else {
-			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins.", 'bad', 'supported_plugins' );
+			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins. $learn_more", 'bad', 'supported_plugins' );
 		}
 	}
 
@@ -549,7 +556,7 @@ class WPHC_Checks {
 						break;
 
 					case 6:
-						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. $unsupported_message $learn_more";
+						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. Security support ends on December 31, 2018! $unsupported_message $learn_more";
 						$status = 'okay';
 						break;
 
@@ -562,7 +569,7 @@ class WPHC_Checks {
 			case 7:
 				switch ( intval( $version[1] ) ) {
 					case 0:
-						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2 $learn_more";
+						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2. Security support ends for this version on Dec 3, 2018! $learn_more";
 						$status = 'okay';
 						break;
 
@@ -605,7 +612,7 @@ class WPHC_Checks {
 	/**
 	 * Determines if WordPress version is current
 	 *
-	 * @since X.X.X
+	 * @since 1.6.4
 	 * @param array $updates The updates available, if any.
 	 * @return bool True if the version is current
 	 */

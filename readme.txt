@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 1.6.7
+Stable tag: 1.6.8
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,6 +66,8 @@ Get notified immediately if your site goes down.
 **Email Notifications**
 Get notified when a vulnerability is found in a plugin you have installed. Receive weekly summaries for all of your sites.
 
+[Learn more about our premium plan!](https://wphealth.app)
+
 = Make Suggestions Or Contribute =
 WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
@@ -81,6 +83,11 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.6.8 (September 7, 2018) =
+* Adds link to checks from plugins page
+* Makes minor text changes
+* Improves internationalization
 
 = 1.6.7 (August 31, 2018) =
 * Adds info about new premium features
@@ -110,13 +117,6 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 = 1.6.0 (June 24, 2018) =
 * Closed Bug: Plugin page not showing all unsupported plugins ([Issue #59](https://github.com/fpcorso/wordpress-health-check/issues/59))
 * Closed Enhancement: External endpoint to run check ([Issue #50](https://github.com/fpcorso/wordpress-health-check/issues/50))
-
-= 1.5.1 (June 21, 2018) =
-* Makes minor performance changes for sites with many plugins
-
-= 1.5.0 (June 5, 2018) =
-* Closed enhancement: Add alerts on plugins page ([Issue #26](https://github.com/fpcorso/wordpress-health-check/issues/26))
-* Closed bug: Isn't compatible with MariaDB ([Issue #44](https://github.com/fpcorso/wordpress-health-check/issues/44))
 
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 

@@ -29,11 +29,11 @@
 	display: block;
 	text-align: center;
 	background: #fff;
-	border: 5px solid #173F9C;
+	border: 3px solid #173F9C;
 	border-radius: 10px;
-	padding: 12px 36px;
-	margin: 10px;
-	font-size: 14px;
+	padding: 10px 25px;
+	margin: 8px;
+	font-size: 13px;
 	color: #000;
 	font-weight: bold;
 }

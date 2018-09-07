@@ -1,3 +1,10 @@
+= 1.5.1 (June 21, 2018) =
+* Makes minor performance changes for sites with many plugins
+
+= 1.5.0 (June 5, 2018) =
+* Closed enhancement: Add alerts on plugins page ([Issue #26](https://github.com/fpcorso/wordpress-health-check/issues/26))
+* Closed bug: Isn't compatible with MariaDB ([Issue #44](https://github.com/fpcorso/wordpress-health-check/issues/44))
+
 = 1.4.4 (May 24, 2018) =
 * Fixes bug causes undefined function errors on the frontend when logged in
 
@@ -12,6 +19,7 @@
 * Adds SSL check
 * Adds disabled file editor check
 * Updates text information for PHP and MySQL checks
+
 = 1.3.3 (December 9, 2016) =
 * Ensures stability in WordPress 4.7
 

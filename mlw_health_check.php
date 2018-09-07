@@ -2,14 +2,14 @@
 /**
  * Plugin Name: WP Health (Formerly My WP Health Check)
  * Description: Check the health of your WordPress installation!
- * Version: 1.6.7
+ * Version: 1.6.8
  * Author: Frank Corso
  * Author URI: https://wphealth.app/
  * Plugin URI: https://wphealth.app/
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso
- * @version 1.6.7
+ * @version 1.6.8
  * @package WPHC
  */
 
@@ -17,6 +17,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Defines plugin constants.
+define( 'WPHC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * Main class of plugin
@@ -31,7 +34,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.6.7';
+	public $version = '1.6.8';
 
 	/**
 	 * Main construct
@@ -119,8 +122,13 @@ class My_WP_Health_Check {
 				?>
 				<tr style="background-color: lightyellow;">
 					<td colspan="<?php echo esc_attr( $wp_list_table->get_column_count() ); ?>">
-						<div><span style="font-weight:bold;"><?php echo esc_html( $name ); ?></span> has not been updated in over two years which indicates that it is no longer supported by the developer.
-						There could be security issues that will not be fixed! Please reach out to the developers to ensure this is still supported or look for alternatives and uninstall this plugin.</div>
+						<div>
+							<?php
+							/* translators: %s is the name of the plugin. */
+							echo sprintf( esc_html__( '%s has not been updated in over two years which indicates that it is no longer supported by the developer.
+							There could be security issues that will not be fixed! Please reach out to the developers to ensure this is still supported or look for alternatives and uninstall this plugin.', 'my-wp-health-check' ), esc_html( $name ) );
+							?>
+						</div>
 					</td>
 				</tr>
 				<?php
