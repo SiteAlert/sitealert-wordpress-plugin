@@ -1,7 +1,9 @@
 <?php
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exits if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Class that handles displaying of review notice
@@ -24,7 +26,7 @@ class WPHC_Review_Manager {
 	 *
 	 * @since 1.1.0
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->check_message_display();
 	}
 
@@ -77,7 +79,7 @@ class WPHC_Review_Manager {
 		);
 		echo '&nbsp;<a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/my-wp-health-check?rate=5#postform" class="button-primary">' . __( 'Yeah, you deserve it!', 'my-wp-health-check' ) . '</a>';
 		echo '&nbsp;<a href="' . esc_url( $already_url ) . '" class="button-secondary">' . __( 'I already did!', 'my-wp-health-check' ) . '</a>';
-  		echo '&nbsp;<a href="' . esc_url( $nope_url ) . '" class="button-secondary">' . __( 'No, this plugin is not good enough', 'my-wp-health-check' ) . '</a>';
+		echo '&nbsp;<a href="' . esc_url( $nope_url ) . '" class="button-secondary">' . __( 'No, this plugin is not good enough', 'my-wp-health-check' ) . '</a>';
 		echo "<br /><br /></div>";
 	}
 
