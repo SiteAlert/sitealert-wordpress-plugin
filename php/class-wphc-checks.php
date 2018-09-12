@@ -122,9 +122,11 @@ class WPHC_Checks {
 		$error = esc_html__( 'Encountered an error. WordPress version not checked. Please check again later.' );
 		$bad   = esc_html__( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.' );
 
-		if ( function_exists( 'get_core_updates' ) ) {
-			$core_update = get_core_updates();
+		$from_api = get_site_option( '_site_transient_update_core' );
+		if ( isset( $from_api->updates ) && is_array( $from_api->updates ) ) {
+			$core_update = $from_api->updates;
 		}
+
 		if ( $this->is_wp_current( $core_update ) ) {
 			return $this->prepare_array( $good, 'good', 'wordpress_version' );
 		} elseif ( ! $core_update ) {

@@ -187,6 +187,7 @@ class WPHC_Tracking {
 			?>
 			<div class="updated">
 				<p><?php esc_html_e( "Allow WP Health to anonymously track this plugin's usage and help us make this plugin better? No sensitive data is tracked.", 'my-wp-health-check' ); ?></p>
+				<p><a href="http://bit.ly/2MpT2Rd" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
 				<p>
 					<a href="<?php echo esc_url( $optin_url ); ?>" class="button-secondary"><?php esc_html_e( 'Allow', 'my-wp-health-check' ); ?></a>
 					<a href="<?php echo esc_url( $optout_url ); ?>" class="button-secondary"><?php esc_html_e( 'Do not allow', 'my-wp-health-check' ); ?></a>
