@@ -30,7 +30,7 @@ function wphc_generate_checks_page() {
 		<?php
 		if ( ! isset( $settings['api_key'] ) || empty( $settings['api_key'] ) ) {
 			$ad_message = 'Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard! <a target="_blank" href="http://bit.ly/2oqLaoR">Learn more!</a>';
-			$ad_number  = rand( 0, 1 );
+			$ad_number  = rand( 0, 2 );
 			switch ( $ad_number ) {
 				case 0:
 					// Ad 1.
@@ -40,6 +40,11 @@ function wphc_generate_checks_page() {
 				case 1:
 					// Ad 2.
 					$ad_message = 'Do not lose time and money! Be notified as soon as your site goes down with uptime monitoring. Check out our premium plan for more details! <a target="_blank" href="http://bit.ly/2Cwjskt">Learn more!</a>';
+					break;
+
+				case 2:
+					// Ad 3.
+					$ad_message = 'Receive these checks in a weekly email by upgrading to our premium version. <a target="_blank" href="http://bit.ly/2IVBLzh">Learn more!</a>';
 					break;
 
 				default:
@@ -82,7 +87,23 @@ function wphc_generate_checks_page() {
 							<div class="wphc-info-box">
 								<h4><?php esc_html_e( 'Subscribe to our newsletter!', 'my-wp-health-check' ); ?></h4>
 								<p>Learn about our newest features, receive tips and guides, and more!</p>
-								<a href="http://bit.ly/2KGTxpK" target="_blank" class="button-primary">Subscribe Now!</a>
+								<div id="wphc-subscribe">
+									<?php
+									$current_user = wp_get_current_user();
+
+									$name  = '';
+									$email = '';
+									if ( $current_user instanceof WP_User ) {
+										$name  = $current_user->user_firstname;
+										$email = $current_user->user_email;
+									}
+									?>
+									<label>First Name</label>
+									<input type="text" id="wphc-subscribe-name" value="<?php echo esc_attr( $name ); ?>">
+									<label>Email</label>
+									<input type="email" id="wphc-subscribe-email" value="<?php echo esc_attr( $email ); ?>">
+									<button id="wphc-subscribe-button" class="button-primary">Subscribe</button>
+								</div>
 							</div>
 							<?php
 							$wphc_rss  = array();
@@ -107,7 +128,7 @@ function wphc_generate_checks_page() {
 									<div>
 										<?php echo esc_html( $item['description'] ); ?>
 									</div>
-									<a target='_blank' href="<?php echo esc_attr( $item['link'] ); ?>?utm_source=checks-page&utm_medium=plugin&utm_campaign=health-plugin" class="button-primary"><?php _e( 'Read More', 'my-wp-health-check' ); ?></a>
+									<a target='_blank' href="<?php echo esc_attr( $item['link'] ); ?>?utm_source=checks-page&utm_medium=plugin&utm_campaign=health-plugin" class="button-primary"><?php esc_html_e( 'Read More', 'my-wp-health-check' ); ?></a>
 								</div>
 								<?php
 							}

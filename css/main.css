@@ -33,7 +33,7 @@
 	border-radius: 10px;
 	padding: 10px 25px;
 	margin: 8px;
-	font-size: 13px;
+	font-size: 14px;
 	color: #000;
 	font-weight: bold;
 }
@@ -88,13 +88,23 @@
 	justify-content: space-between;
 }
 
-.wphc-flex-item {
+#wphc-subscribe label {
+	display: block;
+	text-align: center;
+	font-weight: bold;
+}
 
+#wphc-subscribe input {
+	display: block;
+	width: 100%;
+	border: 3px solid #173F9C;
+	border-radius: 10px;
 }
 
 .wphc-info-section {
 	background-color: #412D3C;
 	padding-bottom: 1px;
+	min-width: 150px;
 }
 
 .wphc-info-section-title {

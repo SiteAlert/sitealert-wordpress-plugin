@@ -5,6 +5,17 @@
 var WPHCAdmin;
 (function ($) {
 	WPHCAdmin = {
+		subscribe: function( name, email ) {
+			WPHCAdmin.displaySpinner( $( '#wphc-subscribe' ) );
+			var data = {
+				action: 'wphc_subscribe',
+				name: name,
+				email: email,
+			};
+			$.post( ajaxurl, data, function( response ) {
+				$( '#wphc-subscribe' ).html( 'Awesome! You have been subscribed.' );
+			});
+		},
 		/**
 		 * Sends the settings to our AJAX endpoint
 		 *
@@ -142,6 +153,10 @@ var WPHCAdmin;
 	// Code to run after DOM is loaded
 	$(function() {
 		WPHCAdmin.loadAllChecks();
+		$( '#wphc-subscribe-button' ).on( 'click', function( event ) {
+			event.preventDefault();
+			WPHCAdmin.subscribe( $( '#wphc-subscribe-name' ).val(), $( '#wphc-subscribe-email' ).val() );
+		});
 		$( '.wphc-tab' ).on( 'click', function( event ) {
 			event.preventDefault();
 			WPHCAdmin.selectTab( $( this ) );
