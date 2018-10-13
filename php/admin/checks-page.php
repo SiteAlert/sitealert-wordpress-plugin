@@ -112,7 +112,7 @@ function wphc_generate_checks_page() {
 									<div>
 										<?php echo esc_html( $item['description'] ); ?>
 									</div>
-									<a target='_blank' href="<?php echo esc_attr( $item['link'] ); ?>?utm_source=checks-page&utm_medium=plugin&utm_campaign=health-plugin" class="button-primary"><?php _e( 'Read More', 'my-wp-health-check' ); ?></a>
+									<a target='_blank' href="<?php echo esc_attr( $item['link'] ); ?>?utm_source=checks-page&utm_medium=plugin&utm_campaign=health-plugin" class="button-primary"><?php esc_html_e( 'Read More', 'my-wp-health-check' ); ?></a>
 								</div>
 								<?php
 							}
