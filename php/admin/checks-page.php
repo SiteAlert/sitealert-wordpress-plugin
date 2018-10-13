@@ -99,9 +99,9 @@ function wphc_generate_checks_page() {
 									}
 									?>
 									<label>First Name</label>
-									<input type="text" id="wphc-subscribe-name" value="<?php esc_attr( $name ); ?>">
+									<input type="text" id="wphc-subscribe-name" value="<?php echo esc_attr( $name ); ?>">
 									<label>Email</label>
-									<input type="email" id="wphc-subscribe-email" value="<?php esc_attr( $email ); ?>">
+									<input type="email" id="wphc-subscribe-email" value="<?php echo esc_attr( $email ); ?>">
 									<button id="wphc-subscribe-button" class="button-primary">Subscribe</button>
 								</div>
 							</div>

@@ -8,6 +8,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_action( 'wp_ajax_wphc_subscribe', 'wphc_subscribe_ajax' );
+add_action( 'wp_ajax_nopriv_wphc_subscribe', 'wphc_subscribe_ajax' );
+
+/**
+ * Subscribes the user to our mailing list.
+ *
+ * @since 1.6.10
+ */
+function wphc_subscribe_ajax() {
+	$name  = sanitize_text_field( $_POST['name'] );
+	$email = sanitize_email( $_POST['email'] );
+	$json  = array(
+		'success' => true,
+	);
+
+	if ( is_email( $email ) ) {
+		$response = wp_remote_post( 'https://wphealth.app/quiz/get-wp-health-straight-to-your-inbox/', array(
+			'method'      => 'POST',
+			'timeout'     => 45,
+			'redirection' => 5,
+			'httpversion' => '1.0',
+			'blocking'    => true,
+			'headers'     => array(),
+			'cookies'     => array(),
+			'body'        => array(
+				'total_questions'   => 0,
+				'complete_quiz'     => 'confirmation',
+				'qmn_quiz_id'       => 2,
+				'timer'             => 0,
+				'qsm_drip_checkbox' => 1,
+				'contact_field_0'   => $name,
+				'contact_field_1'   => $email,
+			),
+		));
+	} else {
+		$json['success'] = false;
+	}
+	echo json_encode( $json );
+	wp_die();
+}
+
 add_action( 'wp_ajax_wphc_save_plugin_settings', 'wphc_save_settings' );
 add_action( 'wp_ajax_nopriv_wphc_save_plugin_settings', 'wphc_save_settings' );
 

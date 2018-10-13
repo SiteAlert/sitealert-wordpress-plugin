@@ -7,17 +7,12 @@ var WPHCAdmin;
 	WPHCAdmin = {
 		subscribe: function( name, email ) {
 			WPHCAdmin.displaySpinner( $( '#wphc-subscribe' ) );
-			var url = 'https://wphealth.app/quiz/get-wp-health-straight-to-your-inbox/';
 			var data = {
-				'complete_quiz': 'confirmation',
-				'timer': 0,
-				'total_questions': 0,
-				'qmn_quiz_id': 2,
-				'qsm_drip_checkbox': 1,
-				'contact_field_0': name,
-				'contact_field_1': email
+				action: 'wphc_subscribe',
+				name: name,
+				email: email,
 			};
-			$.post( url, data, function( response ) {
+			$.post( ajaxurl, data, function( response ) {
 				$( '#wphc-subscribe' ).html( 'Awesome! You have been subscribed.' );
 			});
 		},
