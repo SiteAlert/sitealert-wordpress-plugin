@@ -129,7 +129,23 @@ function wphc_generate_checks_page() {
 							<th scope="row">
 								<?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?>
 								<p><?php esc_html_e( "Allows WP Health to anonymously track this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
-								<p><a href="http://bit.ly/2MpT2Rd" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
+								<div id="wphc-subscribe">
+									<?php
+									$current_user = wp_get_current_user();
+
+									$name  = '';
+									$email = '';
+									if ( $current_user instanceof WP_User ) {
+										$name  = $current_user->user_firstname;
+										$email = $current_user->user_email;
+									}
+									?>
+									<label>First Name</label>
+									<input type="text" id="wphc-subscribe-name" value="<?php esc_attr( $name ); ?>">
+									<label>Email</label>
+									<input type="email" id="wphc-subscribe-email" value="<?php esc_attr( $email ); ?>">
+									<button id="wphc-subscribe-button" class="button-primary">Subscribe</button>
+								</div>
 							</th>
 							<td>
 								<?php

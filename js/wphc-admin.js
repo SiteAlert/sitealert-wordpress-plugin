@@ -5,6 +5,22 @@
 var WPHCAdmin;
 (function ($) {
 	WPHCAdmin = {
+		subscribe: function( name, email ) {
+			WPHCAdmin.displaySpinner( $( '#wphc-subscribe' ) );
+			var url = 'https://wphealth.app/quiz/get-wp-health-straight-to-your-inbox/';
+			var data = {
+				'complete_quiz': 'confirmation',
+				'timer': 0,
+				'total_questions': 0,
+				'qmn_quiz_id': 2,
+				'qsm_drip_checkbox': 1,
+				'contact_field_0': name,
+				'contact_field_1': email
+			};
+			$.post( url, data, function( response ) {
+				$( '#wphc-subscribe' ).html( 'Awesome! You have been subscribed.' );
+			});
+		},
 		/**
 		 * Sends the settings to our AJAX endpoint
 		 *
@@ -142,6 +158,10 @@ var WPHCAdmin;
 	// Code to run after DOM is loaded
 	$(function() {
 		WPHCAdmin.loadAllChecks();
+		$( '#wphc-subscribe-button' ).on( 'click', function( event ) {
+			event.preventDefault();
+			WPHCAdmin.subscribe( $( '#wphc-subscribe-name' ).val(), $( '#wphc-subscribe-email' ).val() );
+		});
 		$( '.wphc-tab' ).on( 'click', function( event ) {
 			event.preventDefault();
 			WPHCAdmin.selectTab( $( this ) );
