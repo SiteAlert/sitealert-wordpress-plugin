@@ -359,17 +359,10 @@ class WPHC_Checks {
 
 		// Load the available theme updates.
 		$theme_updates = array();
-		if ( function_exists( 'get_theme_updates' ) ) {
-			$theme_updates = get_theme_updates();
-		} else {
-			$current = get_site_transient( 'update_themes' );
-			if ( isset( $current->response ) ) {
-				foreach ( $current->response as $stylesheet => $data ) {
-					$theme_updates[ $stylesheet ]         = wp_get_theme( $stylesheet );
-					$theme_updates[ $stylesheet ]->update = $data;
-				}
-			}
+		if ( ! function_exists( 'get_theme_updates' ) ) {
+			include ABSPATH . '/wp-admin/includes/update.php';
 		}
+		$theme_updates = get_theme_updates();
 
 		// If we have theme updates, show them. If not, say all clear.
 		if ( ! empty( $theme_updates ) ) {
