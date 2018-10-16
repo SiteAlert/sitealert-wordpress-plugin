@@ -146,18 +146,10 @@ class WPHC_Checks {
 
 		// Loads the available plugin updates.
 		$plugin_updates = array();
-		if ( function_exists( 'get_plugin_updates' ) ) {
-			$plugin_updates = get_plugin_updates();
-		} else {
-			$current     = get_site_transient( 'update_plugins' );
-			$all_plugins = $this->get_plugins();
-			foreach ( (array) $all_plugins as $plugin_file => $plugin_data ) {
-				if ( isset( $current->response[ $plugin_file ] ) ) {
-					$plugin_updates[ $plugin_file ]         = (object) $plugin_data;
-					$plugin_updates[ $plugin_file ]->update = $current->response[ $plugin_file ];
-				}
-			}
+		if ( ! function_exists( 'get_plugin_updates' ) ) {
+			include ABSPATH . '/wp-admin/includes/update.php';
 		}
+		$plugin_updates = get_plugin_updates();
 
 		if ( ! empty( $plugin_updates ) ) {
 			$plugins = array();
