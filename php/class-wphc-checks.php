@@ -146,8 +146,9 @@ class WPHC_Checks {
 
 		// Loads the available plugin updates.
 		$plugin_updates = array();
-		if ( ! function_exists( 'get_plugin_updates' ) ) {
-			include ABSPATH . '/wp-admin/includes/update.php';
+		if ( ! function_exists( 'get_plugin_updates' ) || ! function_exists( 'get_plugins' ) ) {
+			include_once ABSPATH . '/wp-admin/includes/plugin.php';
+			include_once ABSPATH . '/wp-admin/includes/update.php';
 		}
 		$plugin_updates = get_plugin_updates();
 
