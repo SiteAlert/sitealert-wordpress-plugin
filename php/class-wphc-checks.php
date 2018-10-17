@@ -146,18 +146,11 @@ class WPHC_Checks {
 
 		// Loads the available plugin updates.
 		$plugin_updates = array();
-		if ( function_exists( 'get_plugin_updates' ) ) {
-			$plugin_updates = get_plugin_updates();
-		} else {
-			$current     = get_site_transient( 'update_plugins' );
-			$all_plugins = $this->get_plugins();
-			foreach ( (array) $all_plugins as $plugin_file => $plugin_data ) {
-				if ( isset( $current->response[ $plugin_file ] ) ) {
-					$plugin_updates[ $plugin_file ]         = (object) $plugin_data;
-					$plugin_updates[ $plugin_file ]->update = $current->response[ $plugin_file ];
-				}
-			}
+		if ( ! function_exists( 'get_plugin_updates' ) || ! function_exists( 'get_plugins' ) ) {
+			include_once ABSPATH . '/wp-admin/includes/plugin.php';
+			include_once ABSPATH . '/wp-admin/includes/update.php';
 		}
+		$plugin_updates = get_plugin_updates();
 
 		if ( ! empty( $plugin_updates ) ) {
 			$plugins = array();
@@ -367,17 +360,10 @@ class WPHC_Checks {
 
 		// Load the available theme updates.
 		$theme_updates = array();
-		if ( function_exists( 'get_theme_updates' ) ) {
-			$theme_updates = get_theme_updates();
-		} else {
-			$current = get_site_transient( 'update_themes' );
-			if ( isset( $current->response ) ) {
-				foreach ( $current->response as $stylesheet => $data ) {
-					$theme_updates[ $stylesheet ]         = wp_get_theme( $stylesheet );
-					$theme_updates[ $stylesheet ]->update = $data;
-				}
-			}
+		if ( ! function_exists( 'get_theme_updates' ) ) {
+			include ABSPATH . '/wp-admin/includes/update.php';
 		}
+		$theme_updates = get_theme_updates();
 
 		// If we have theme updates, show them. If not, say all clear.
 		if ( ! empty( $theme_updates ) ) {
