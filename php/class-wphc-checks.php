@@ -57,6 +57,7 @@ class WPHC_Checks {
 		$checks[] = $this->file_editor_check();
 		$checks[] = $this->admin_user_check();
 		$checks[] = $this->themes_check();
+		$checks[] = $this->comments_check();
 		return apply_filters( 'wphc_wp_checks', $checks );
 	}
 
@@ -92,6 +93,34 @@ class WPHC_Checks {
 			'message' => $message,
 			'type'    => $type,
 		);
+	}
+
+	/**
+	 * Checks if there are too many spam comments
+	 *
+	 * @since 1.7.0
+	 * @return array The array of the message and type
+	 */
+	public function comments_check() {
+		// Sets the args to get the count of spam comments.
+		$args = array(
+			'status' => 'spam',
+			'count'  => true,
+		);
+
+		// Gets the count.
+		$spam_count = get_comments( $args );
+
+		// Prepares our messages.
+		$good_message = esc_html__( 'Your WordPress does not have many spam comments. Great!', 'my-wp-health-check' );
+		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments. This can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
+
+		// Checks if the spam count is over 10.
+		if ( 10 < $spam_count ) {
+			return $this->prepare_array( $bad_message, 'bad', 'comments' );
+		} else {
+			return $this->prepare_array( $good_message, 'good', 'comments' );
+		}
 	}
 
 	/**
