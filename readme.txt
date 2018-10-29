@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 1.6.11
+Stable tag: 1.7.0
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,9 @@ Checks to see if you have SSL on your site.
 **File Editor**
 Checks if your site has disabled the file editor.
 
+**Spam Comments**
+Checks to make sure you don't have too many spam comments.
+
 **Optional REST API**
 If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "WP Health" page in the tools menu.
 
@@ -62,6 +65,9 @@ See all of your checks from all of your sites in one place!
 
 **Uptime Monitoring**
 Get notified immediately if your site goes down.
+
+**Page Speed Monitoring**
+Keep track of how fast your site is loading.
 
 **Email Notifications**
 Get notified when a vulnerability is found in a plugin you have installed. Receive weekly summaries for all of your sites.
@@ -84,52 +90,13 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Changelog ==
 
-= 1.6.11 (October 18, 2018) =
-* Fixes plugin update check in REST API
-
-= 1.6.10 (October 14, 2018) =
-* Makes minor text changes
-
-= 1.6.9 (September 13, 2018) =
-* Enhances WordPress version check to work on hosts modifying the get_core_updates() function
-
-= 1.6.8 (September 7, 2018) =
-* Adds link to checks from plugins page
-* Makes minor text changes
-* Improves internationalization
-
-= 1.6.7 (August 31, 2018) =
-* Adds info about new premium features
-
-= 1.6.6 (August 23, 2018) =
-* Fixes undefined variable bug in check for MariaDB
-
-= 1.6.5 (August 13, 2018) =
-* Makes minor text changes
-* Changes permission level to administrator instead of editor to see the checks
-
-= 1.6.4 (July 30, 2018) =
-* Makes minor text changes
-
-= 1.6.3 (July 7, 2018) =
-* Makes minor design and text changes
-* Improves internationalization
-
-= 1.6.2 (July 2, 2018) =
-* Changes name of plugin to WP Health
-* Fixes incorrect offest error
-* Makes minor design and text changes
-
-= 1.6.1 (June 25, 2018) =
-* Fixes style issue with new settings tab
-
-= 1.6.0 (June 24, 2018) =
-* Closed Bug: Plugin page not showing all unsupported plugins ([Issue #59](https://github.com/fpcorso/wordpress-health-check/issues/59))
-* Closed Enhancement: External endpoint to run check ([Issue #50](https://github.com/fpcorso/wordpress-health-check/issues/50))
+= 1.7.0 (October 30, 2018) =
+* Adds new spam comments check to advise users to delete spam comments
+* Adds value key to JSON object in the REST API
 
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.6.0 =
-This update fixes a few bugs and adds an optional REST API endpoint
+= 1.7.0 =
+This update adds a new check and adds a value key to the REST API endpoints
