@@ -1,3 +1,46 @@
+= 1.6.11 (October 18, 2018) =
+* Fixes plugin update check in REST API
+
+= 1.6.10 (October 14, 2018) =
+* Makes minor text changes
+
+= 1.6.9 (September 13, 2018) =
+* Enhances WordPress version check to work on hosts modifying the get_core_updates() function
+
+= 1.6.8 (September 7, 2018) =
+* Adds link to checks from plugins page
+* Makes minor text changes
+* Improves internationalization
+
+= 1.6.7 (August 31, 2018) =
+* Adds info about new premium features
+
+= 1.6.6 (August 23, 2018) =
+* Fixes undefined variable bug in check for MariaDB
+
+= 1.6.5 (August 13, 2018) =
+* Makes minor text changes
+* Changes permission level to administrator instead of editor to see the checks
+
+= 1.6.4 (July 30, 2018) =
+* Makes minor text changes
+
+= 1.6.3 (July 7, 2018) =
+* Makes minor design and text changes
+* Improves internationalization
+
+= 1.6.2 (July 2, 2018) =
+* Changes name of plugin to WP Health
+* Fixes incorrect offest error
+* Makes minor design and text changes
+
+= 1.6.1 (June 25, 2018) =
+* Fixes style issue with new settings tab
+
+= 1.6.0 (June 24, 2018) =
+* Closed Bug: Plugin page not showing all unsupported plugins ([Issue #59](https://github.com/fpcorso/wordpress-health-check/issues/59))
+* Closed Enhancement: External endpoint to run check ([Issue #50](https://github.com/fpcorso/wordpress-health-check/issues/50))
+
 = 1.5.1 (June 21, 2018) =
 * Makes minor performance changes for sites with many plugins
 

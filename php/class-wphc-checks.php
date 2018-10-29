@@ -57,6 +57,7 @@ class WPHC_Checks {
 		$checks[] = $this->file_editor_check();
 		$checks[] = $this->admin_user_check();
 		$checks[] = $this->themes_check();
+		$checks[] = $this->comments_check();
 		return apply_filters( 'wphc_wp_checks', $checks );
 	}
 
@@ -84,14 +85,44 @@ class WPHC_Checks {
 	 * @param string $message The message to be displayed.
 	 * @param string $type The results of the check. Options are 'good', 'okay', or 'bad'.
 	 * @param string $check The check that was performed.
+	 * @param string $value The result from the check.
 	 * @return array The array of the message and type
 	 */
-	public function prepare_array( $message, $type, $check = '' ) {
+	public function prepare_array( $message, $type, $check = '', $value = 'unknown' ) {
 		return array(
 			'check'   => $check,
 			'message' => $message,
 			'type'    => $type,
+			'value'   => $value,
 		);
+	}
+
+	/**
+	 * Checks if there are too many spam comments
+	 *
+	 * @since 1.7.0
+	 * @return array The array of the message and type
+	 */
+	public function comments_check() {
+		// Sets the args to get the count of spam comments.
+		$args = array(
+			'status' => 'spam',
+			'count'  => true,
+		);
+
+		// Gets the count.
+		$spam_count = get_comments( $args );
+
+		// Prepares our messages.
+		$good_message = esc_html__( 'Your WordPress does not have many spam comments. Great!', 'my-wp-health-check' );
+		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments. This can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
+
+		// Checks if the spam count is over 10.
+		if ( 10 < $spam_count ) {
+			return $this->prepare_array( $bad_message, 'bad', 'comments', $spam_count );
+		} else {
+			return $this->prepare_array( $good_message, 'good', 'comments', $spam_count );
+		}
 	}
 
 	/**
@@ -102,9 +133,9 @@ class WPHC_Checks {
 	 */
 	public function file_editor_check() {
 		if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
-			return $this->prepare_array( __( 'The file editor on this site has been disabled. Great!', 'my-wp-health-check' ), 'good', 'file_editor' );
+			return $this->prepare_array( __( 'The file editor on this site has been disabled. Great!', 'my-wp-health-check' ), 'good', 'file_editor', true );
 		} else {
-			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. The recommended solution is using a security plugin, such as iThemes Security, that has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor' );
+			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. The recommended solution is using a security plugin, such as iThemes Security, that has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor', false );
 		}
 	}
 
@@ -128,11 +159,11 @@ class WPHC_Checks {
 		}
 
 		if ( $this->is_wp_current( $core_update ) ) {
-			return $this->prepare_array( $good, 'good', 'wordpress_version' );
+			return $this->prepare_array( $good, 'good', 'wordpress_version', true );
 		} elseif ( ! $core_update ) {
-			return $this->prepare_array( $error, 'okay', 'wordpress_version' );
+			return $this->prepare_array( $error, 'okay', 'wordpress_version', false );
 		} else {
-			return $this->prepare_array( $bad, 'bad', 'wordpress_version' );
+			return $this->prepare_array( $bad, 'bad', 'wordpress_version', false );
 		}
 	}
 
@@ -157,10 +188,10 @@ class WPHC_Checks {
 			foreach ( $plugin_updates as $plugin ) {
 				$plugins[] = $plugin->Name;
 			}
-			$plugin_list = implode( ',', $plugins );
-			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad', 'plugin_updates' );
+			$plugin_list = implode( ', ', $plugins );
+			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad', 'plugin_updates', $plugins );
 		} else {
-			return $this->prepare_array( 'All of your WordPress plugins are up to date. Great Job!', 'good', 'plugin_updates' );
+			return $this->prepare_array( 'All of your WordPress plugins are up to date. Great Job!', 'good', 'plugin_updates', array() );
 		}
 	}
 
@@ -193,9 +224,9 @@ class WPHC_Checks {
 
 		// If any plugins are inactive, display error message. If not, display success message.
 		if ( ! empty( $inactive_plugins ) ) {
-			return $this->prepare_array( 'These plugins are not active: ' . implode( ', ', $inactive_plugins ) . '. Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.', 'bad', 'inactive_plugins' );
+			return $this->prepare_array( 'These plugins are not active: ' . implode( ', ', $inactive_plugins ) . '. Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.', 'bad', 'inactive_plugins', $inactive_plugins );
 		} else {
-			return $this->prepare_array( 'All of your plugins installed on the site are in use. Great job!', 'good', 'inactive_plugins' );
+			return $this->prepare_array( 'All of your plugins installed on the site are in use. Great job!', 'good', 'inactive_plugins', array() );
 		}
 	}
 
@@ -229,7 +260,7 @@ class WPHC_Checks {
 			// Cycle through all plugins.
 			$now = time();
 			foreach ( $plugins as $plugin => $plugin_data ) {
-				$slug        = explode( '/', $plugin );
+				$slug           = explode( '/', $plugin );
 				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
 				if ( false === $plugin_updated || $force ) {
 					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}" );
@@ -257,11 +288,13 @@ class WPHC_Checks {
 			// Creates our list and stores as transient.
 			$plugin_list = implode( ', ', $unsupported_plugins );
 			set_transient( 'wphc_supported_plugin_check', $plugin_list, 1 * HOUR_IN_SECONDS );
+		} else {
+			$unsupported_plugins = explode( ', ', $plugin_list );
 		}
 		if ( empty( $plugin_list ) ) {
-			return $this->prepare_array( "All of your plugins are currently supported. Great Job! $learn_more", 'good', 'supported_plugins' );
+			return $this->prepare_array( "All of your plugins are currently supported. Great Job! $learn_more", 'good', 'supported_plugins', array() );
 		} else {
-			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins. $learn_more", 'bad', 'supported_plugins' );
+			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins. $learn_more", 'bad', 'supported_plugins', $unsupported_plugins );
 		}
 	}
 
@@ -331,9 +364,9 @@ class WPHC_Checks {
 		}
 		if ( ! empty( $vulnerable_plugins ) ) {
 			$plugin_list = implode( ',', $vulnerable_plugins );
-			return $this->prepare_array( "The following plugins have known security vulnerabilities that have not been fixed in an update: $plugin_list. Please reach out to the developer immediately to ensure these vulnerabilities are being patched. If not, you must find alternatives to these plugins.", 'bad', 'vulnerable_plugins' );
+			return $this->prepare_array( "The following plugins have known security vulnerabilities that have not been fixed in an update: $plugin_list. Please reach out to the developer immediately to ensure these vulnerabilities are being patched. If not, you must find alternatives to these plugins.", 'bad', 'vulnerable_plugins', $vulnerable_plugins );
 		} else {
-			return $this->prepare_array( 'Great! None of your plugins have known security vulnerabilities!', 'good', 'vulnerable_plugins' );
+			return $this->prepare_array( 'Great! None of your plugins have known security vulnerabilities!', 'good', 'vulnerable_plugins', array() );
 		}
 	}
 
@@ -345,9 +378,9 @@ class WPHC_Checks {
 	public function admin_user_check() {
 		$user = get_user_by( 'login', 'admin' );
 		if ( false === $user ) {
-			return $this->prepare_array( "Your site does not have a user 'admin'. Great job!", 'good', 'admin_user' );
+			return $this->prepare_array( "Your site does not have a user 'admin'. Great job!", 'good', 'admin_user', true );
 		} else {
-			return $this->prepare_array( "There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'good', 'admin_user' );
+			return $this->prepare_array( "There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'good', 'admin_user', false );
 		}
 	}
 
@@ -368,10 +401,10 @@ class WPHC_Checks {
 		// If we have theme updates, show them. If not, say all clear.
 		if ( ! empty( $theme_updates ) ) {
 			// Get the themes with available updates.
-			$updates = implode( ',', array_keys( $theme_updates ) );
-			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe.", 'bad', 'theme_updates' );
+			$updates = implode( ', ', array_keys( $theme_updates ) );
+			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe.", 'bad', 'theme_updates', array_keys( $theme_updates ) );
 		} else {
-			return $this->prepare_array( 'All of your WordPress themes are up to date. Great Job!', 'good', 'theme_updates' );
+			return $this->prepare_array( 'All of your WordPress themes are up to date. Great Job!', 'good', 'theme_updates', array() );
 		}
 	}
 
@@ -477,7 +510,7 @@ class WPHC_Checks {
 			}
 		}
 
-		return $this->prepare_array( $msg, $status, 'mysql_version' );
+		return $this->prepare_array( $msg, $status, 'mysql_version', $version );
 	}
 
 	/**
@@ -490,9 +523,9 @@ class WPHC_Checks {
 		$success    = __( 'Great! You are using SSL on your site.', 'my-wp-health-check' );
 		$fail       = __( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'my-wp-health-check' );
 		if ( is_ssl() ) {
-			return $this->prepare_array( "$success $learn_more", 'good', 'ssl' );
+			return $this->prepare_array( "$success $learn_more", 'good', 'ssl', true );
 		} else {
-			return $this->prepare_array( "$fail $learn_more", 'bad', 'ssl' );
+			return $this->prepare_array( "$fail $learn_more", 'bad', 'ssl', false );
 		}
 	}
 
@@ -581,7 +614,7 @@ class WPHC_Checks {
 				$msg = $error;
 				break;
 		}
-		return $this->prepare_array( $msg, $status, 'php_version' );
+		return $this->prepare_array( $msg, $status, 'php_version', PHP_VERSION );
 	}
 
 	/**
