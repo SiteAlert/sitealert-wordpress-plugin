@@ -614,7 +614,7 @@ class WPHC_Checks {
 				$msg = $error;
 				break;
 		}
-		return $this->prepare_array( $msg, $status, 'php_version', $version );
+		return $this->prepare_array( $msg, $status, 'php_version', PHP_VERSION );
 	}
 
 	/**
