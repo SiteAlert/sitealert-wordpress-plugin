@@ -260,7 +260,7 @@ class WPHC_Checks {
 			// Cycle through all plugins.
 			$now = time();
 			foreach ( $plugins as $plugin => $plugin_data ) {
-				$slug        = explode( '/', $plugin );
+				$slug           = explode( '/', $plugin );
 				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
 				if ( false === $plugin_updated || $force ) {
 					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}" );
