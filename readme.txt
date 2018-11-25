@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,6 +63,9 @@ Check out our premium plans that includes:
 **Central Dashboard**
 See all of your checks from all of your sites in one place!
 
+**Broken Images Monitoring**
+Get notified if you have any broken images on your site.
+
 **Uptime Monitoring**
 Get notified immediately if your site goes down.
 
@@ -89,6 +92,10 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.7.1 (November 26, 2018) =
+* Adds link to new article on why to update your site to relevant checks
+* Adds info regarding new broken image monitoring in premium version to readme
 
 = 1.7.0 (October 30, 2018) =
 * Adds new spam comments check to advise users to delete spam comments
