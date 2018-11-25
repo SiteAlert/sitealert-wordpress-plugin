@@ -148,6 +148,8 @@ class WPHC_Checks {
 	public function wordpress_version_check() {
 		$core_update = false;
 
+		$learn_more = '<a href="http://bit.ly/2Rbb9gL" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
+
 		// Prepares messages.
 		$good  = esc_html__( 'Your WordPress is up to date. Great Job!' );
 		$error = esc_html__( 'Encountered an error. WordPress version not checked. Please check again later.' );
@@ -159,11 +161,11 @@ class WPHC_Checks {
 		}
 
 		if ( $this->is_wp_current( $core_update ) ) {
-			return $this->prepare_array( $good, 'good', 'wordpress_version', true );
+			return $this->prepare_array( $good . ' ' . $learn_more, 'good', 'wordpress_version', true );
 		} elseif ( ! $core_update ) {
-			return $this->prepare_array( $error, 'okay', 'wordpress_version', false );
+			return $this->prepare_array( $error . ' ' . $learn_more, 'okay', 'wordpress_version', false );
 		} else {
-			return $this->prepare_array( $bad, 'bad', 'wordpress_version', false );
+			return $this->prepare_array( $bad . ' ' . $learn_more, 'bad', 'wordpress_version', false );
 		}
 	}
 
@@ -174,6 +176,8 @@ class WPHC_Checks {
 	 * @return array The array of the message and type
 	 */
 	public function update_plugins_check() {
+
+		$learn_more = '<a href="http://bit.ly/2ReF1J6" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
 
 		// Loads the available plugin updates.
 		$plugin_updates = array();
@@ -189,9 +193,9 @@ class WPHC_Checks {
 				$plugins[] = $plugin->Name;
 			}
 			$plugin_list = implode( ', ', $plugins );
-			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe.", 'bad', 'plugin_updates', $plugins );
+			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe. $learn_more", 'bad', 'plugin_updates', $plugins );
 		} else {
-			return $this->prepare_array( 'All of your WordPress plugins are up to date. Great Job!', 'good', 'plugin_updates', array() );
+			return $this->prepare_array( "All of your WordPress plugins are up to date. Great Job! $learn_more", 'good', 'plugin_updates', array() );
 		}
 	}
 
@@ -391,6 +395,8 @@ class WPHC_Checks {
 	 */
 	public function themes_check() {
 
+		$learn_more = '<a href="http://bit.ly/2RbahZx" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
+
 		// Load the available theme updates.
 		$theme_updates = array();
 		if ( ! function_exists( 'get_theme_updates' ) ) {
@@ -402,9 +408,9 @@ class WPHC_Checks {
 		if ( ! empty( $theme_updates ) ) {
 			// Get the themes with available updates.
 			$updates = implode( ', ', array_keys( $theme_updates ) );
-			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe.", 'bad', 'theme_updates', array_keys( $theme_updates ) );
+			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe. $learn_more", 'bad', 'theme_updates', array_keys( $theme_updates ) );
 		} else {
-			return $this->prepare_array( 'All of your WordPress themes are up to date. Great Job!', 'good', 'theme_updates', array() );
+			return $this->prepare_array( "All of your WordPress themes are up to date. Great Job! $learn_more", 'good', 'theme_updates', array() );
 		}
 	}
 
