@@ -2,8 +2,8 @@
 Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
-Tested up to: 4.9
-Stable tag: 1.7.1
+Tested up to: 5.0
+Stable tag: 1.7.2
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -92,6 +92,9 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.7.2 (December 8, 2018) =
+* Ensures plugin is compatible with WordPress 5.0
 
 = 1.7.1 (November 26, 2018) =
 * Adds link to new article on why to update your site to relevant checks
