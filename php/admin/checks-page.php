@@ -114,7 +114,7 @@ function wphc_generate_checks_page() {
 							$wphc_rss  = array();
 							$wphc_feed = fetch_feed( 'https://wphealth.app/feed/' );
 							if ( ! is_wp_error( $wphc_feed ) ) {
-								$wphc_feed_items = $wphc_feed->get_items( 0, 5 );
+								$wphc_feed_items = $wphc_feed->get_items( 0, 3 );
 								foreach ( $wphc_feed_items as $feed_item ) {
 									$wphc_rss[] = array(
 										'link'        => $feed_item->get_link(),
