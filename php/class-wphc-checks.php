@@ -541,11 +541,9 @@ class WPHC_Checks {
 	 * @since 0.1.0
 	 */
 	public function php_check() {
-		$version      = explode( '.', PHP_VERSION );
-		$site_version = $version[0] . '.' . $version[1];
-
-		$msg    = '';
-		$status = 'bad';
+		$version = explode( '.', PHP_VERSION );
+		$msg     = '';
+		$status  = 'bad';
 
 		// Sets up PHP versions and dates.
 		$php_versions = array(
@@ -596,9 +594,20 @@ class WPHC_Checks {
 		);
 
 		/**
-		 * Sets up strings with translations.
+		 * Do some quick checks to make sure everything will work.
 		 */
 		$error = __( 'Error checking PHP health.', 'my-wp-health-check' );
+		if ( ! is_array( $version ) || count( $version ) < 2 ) {
+			return $this->prepare_array( $error, $status, 'php_version', PHP_VERSION );
+		}
+		$site_version = $version[0] . '.' . $version[1];
+		if ( ! isset( $php_versions[ $site_version ] ) ) {
+			return $this->prepare_array( $error, $status, 'php_version', PHP_VERSION );
+		}
+
+		/**
+		 * Sets up strings with translations.
+		 */
 		/* translators: %s: Version of PHP and the date the version of PHP stops receiving security updates */
 		$unsupported_version_message = sprinf( __( 'Your server is running PHP version %1$s which has not been supported since %2$s.', 'my-wp-health-check' ), $site_version, $php_versions[ $site_version ]['eol'] );
 		/* translators: %s: Version of PHP and the date the version of PHP stops receiving security updates */
