@@ -542,84 +542,101 @@ class WPHC_Checks {
 	 */
 	public function php_check() {
 		$version = explode( '.', PHP_VERSION );
+		$msg     = '';
+		$status  = 'bad';
 
-		$msg    = '';
-		$status = 'bad';
+		// Sets up PHP versions and dates.
+		$php_versions = array(
+			'5.0' => array(
+				'release' => 'July 13, 2004',
+				'eol'     => 'September 5, 2005',
+			),
+			'5.1' => array(
+				'release' => 'November 24, 2005',
+				'eol'     => 'August 24, 2006',
+			),
+			'5.2' => array(
+				'release' => 'November 2, 2006',
+				'eol'     => 'January 6, 2011',
+			),
+			'5.3' => array(
+				'release' => 'June 30, 2009',
+				'eol'     => 'August 14, 2014',
+			),
+			'5.4' => array(
+				'release' => 'March 1, 2012',
+				'eol'     => 'September 3, 2015',
+			),
+			'5.5' => array(
+				'release' => 'June 20, 2013',
+				'eol'     => 'July 21, 2016',
+			),
+			'5.6' => array(
+				'release' => 'August 28, 2014',
+				'eol'     => 'December 31, 2018',
+			),
+			'7.0' => array(
+				'release' => 'December 3, 2015',
+				'eol'     => 'December 2, 2018',
+			),
+			'7.1' => array(
+				'release' => 'December 1, 2016',
+				'eol'     => 'December 1, 2019',
+			),
+			'7.2' => array(
+				'release' => 'November 30, 2017',
+				'eol'     => 'November 30, 2020',
+			),
+			'7.3' => array(
+				'release' => 'December 6, 2018',
+				'eol'     => 'December 6, 2021',
+			),
+		);
 
-		// Sets up messages.
-		$error                = __( 'Error checking PHP health.', 'my-wp-health-check' );
-		$your_version_message = 'Your server is running PHP version ' . PHP_VERSION;
-		$unsupported_message  = 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!';
-		$learn_more           = '<a href="http://bit.ly/2KJs1b6" target="_blank">' . __( 'Learn more about what PHP is.', 'my-wp-health-check' ) . '</a>';
-		switch ( intval( $version[0] ) ) {
-			case 4:
-				$msg = "$your_version_message which has not been supported since Aug 2008 and is below the required 5.2. $unsupported_message $learn_more";
-				break;
-
-			case 5:
-				switch ( intval( $version[1] ) ) {
-					case 0:
-						$msg = "$your_version_message which has not been supported since Sep 2005 and is below the required 5.2. $unsupported_message $learn_more";
-						break;
-
-					case 1:
-						$msg = "$your_version_message which has not been supported since Aug 2006 and is below the required 5.2. $unsupported_message $learn_more";
-						break;
-
-					case 2:
-						$msg = "$your_version_message which has not been supported since Jan 2011 and is below the recommended 7.2. $unsupported_message $learn_more";
-						break;
-
-					case 3:
-						$msg = "$your_version_message which has not been supported since Aug 2014 and is below the recommended 7.2. $unsupported_message $learn_more";
-						break;
-
-					case 4:
-						$msg = "$your_version_message which has not been supported since Sep 2015 and is below the recommended 7.2. $unsupported_message $learn_more";
-						break;
-
-					case 5:
-						$msg = "$your_version_message which has not been supported since Jul 2016 and is below the recommended 7.2. $unsupported_message $learn_more";
-						break;
-
-					case 6:
-						$msg    = "$your_version_message which has not been actively supported since Jan 2017 and is below the recommended 7.2. Security support ends on December 31, 2018! $unsupported_message $learn_more";
-						$status = 'okay';
-						break;
-
-					default:
-						$msg = $error;
-						break;
-				}
-				break;
-
-			case 7:
-				switch ( intval( $version[1] ) ) {
-					case 0:
-						$msg    = "$your_version_message which has not been actively supported since Dec 2017 and is below the recommended 7.2. Security support ends for this version on Dec 3, 2018! $learn_more";
-						$status = 'okay';
-						break;
-
-					case 1:
-						$msg    = "$your_version_message. Good job! While this is not the recommended 7.2, this version is still actively supported until Dec 2018. Be sure to check with your host to make sure they have a plan to update to 7.2. $learn_more";
-						$status = 'good';
-						break;
-
-					case 2:
-						$msg    = "$your_version_message. Good job! This is the latest version. $learn_more";
-						$status = 'good';
-						break;
-
-					default:
-						$msg = $error;
-						break;
-				}
-				break;
-
-			default:
-				$msg = $error;
-				break;
+		/**
+		 * Do some quick checks to make sure everything will work.
+		 */
+		$error = __( 'Error checking PHP health.', 'my-wp-health-check' );
+		if ( ! is_array( $version ) || count( $version ) < 2 ) {
+			return $this->prepare_array( $error, $status, 'php_version', PHP_VERSION );
 		}
+		$site_version = $version[0] . '.' . $version[1];
+		if ( ! isset( $php_versions[ $site_version ] ) ) {
+			return $this->prepare_array( $error, $status, 'php_version', PHP_VERSION );
+		}
+
+		/**
+		 * Sets up strings with translations.
+		 */
+		/* translators: %s: Version of PHP and the date the version of PHP stops receiving security updates */
+		$unsupported_version_message = sprintf( __( 'Your server is running PHP version %1$s which has not been supported since %2$s.', 'my-wp-health-check' ), $site_version, $php_versions[ $site_version ]['eol'] );
+		/* translators: %s: Version of PHP and the date the version of PHP stops receiving security updates */
+		$supported_version_message = sprintf( __( 'Good job! Your server is running PHP version %1$s which will receive security updates until %2$s.', 'my-wp-health-check' ), $site_version, $php_versions[ $site_version ]['eol'] );
+		$unsupported_message       = __( 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!', 'my-wp-health-check' );
+		$security_ending_message   = __( 'Be sure to check with your host to make sure they have a plan to update before the security support ends.', 'my-wp-health-check' );
+		$below_recommended         = __( 'This is below the recommended 7.2.', 'my-wp-health-check' );
+		$learn_more                = '<a href="http://bit.ly/2KJs1b6" target="_blank">' . __( 'Learn more about what PHP is.', 'my-wp-health-check' ) . '</a>';
+
+		$eol_time = strtotime( $php_versions[ $site_version ]['eol'] );
+		$today    = time();
+		if ( $eol_time <= $today ) {
+			// If EOL is passed, show unsupported message.
+			$msg = $unsupported_version_message . ' ' . $unsupported_message;
+		} elseif ( $eol_time - 31536000 < $today ) {
+			// If EOL is coming up within the next 365 days, show expiring soon message.
+			$msg    = $supported_version_message . ' ' . $security_ending_message;
+			$status = 'okay';
+		} else {
+			// If EOL is farther than 1 year out, show good message.
+			$msg    = $supported_version_message;
+			$status = 'good';
+		}
+
+		if ( version_compare( $site_version, '7.2', '<' ) ) {
+			$msg .= ' ' . $below_recommended;
+		}
+
+		$msg .= ' ' . $learn_more;
 		return $this->prepare_array( $msg, $status, 'php_version', PHP_VERSION );
 	}
 
