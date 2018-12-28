@@ -622,7 +622,7 @@ class WPHC_Checks {
 		if ( $eol_time <= $today ) {
 			// If EOL is passed, show unsupported message.
 			$msg = $unsupported_version_message . ' ' . $unsupported_message;
-		} elseif ( $eol_time - 31536000 > $today ) {
+		} elseif ( $eol_time - 31536000 < $today ) {
 			// If EOL is coming up within the next 365 days, show expiring soon message.
 			$msg    = $supported_version_message . ' ' . $security_ending_message;
 			$status = 'okay';
