@@ -609,9 +609,9 @@ class WPHC_Checks {
 		 * Sets up strings with translations.
 		 */
 		/* translators: %s: Version of PHP and the date the version of PHP stops receiving security updates */
-		$unsupported_version_message = sprinf( __( 'Your server is running PHP version %1$s which has not been supported since %2$s.', 'my-wp-health-check' ), $site_version, $php_versions[ $site_version ]['eol'] );
+		$unsupported_version_message = sprintf( __( 'Your server is running PHP version %1$s which has not been supported since %2$s.', 'my-wp-health-check' ), $site_version, $php_versions[ $site_version ]['eol'] );
 		/* translators: %s: Version of PHP and the date the version of PHP stops receiving security updates */
-		$supported_version_message = sprinf( __( 'Good job! Your server is running PHP version %1$s which will receive security updates until %2$s.', 'my-wp-health-check' ), $site_version, $php_versions[ $site_version ]['eol'] );
+		$supported_version_message = sprintf( __( 'Good job! Your server is running PHP version %1$s which will receive security updates until %2$s.', 'my-wp-health-check' ), $site_version, $php_versions[ $site_version ]['eol'] );
 		$unsupported_message       = __( 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!', 'my-wp-health-check' );
 		$security_ending_message   = __( 'Be sure to check with your host to make sure they have a plan to update before the security support ends.', 'my-wp-health-check' );
 		$below_recommended         = __( 'This is below the recommended 7.2.', 'my-wp-health-check' );
