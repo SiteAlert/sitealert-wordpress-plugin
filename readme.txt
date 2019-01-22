@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 5.0
-Stable tag: 1.7.3
+Stable tag: 1.7.4
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -72,6 +72,9 @@ Get notified immediately if your site goes down.
 **Page Speed Monitoring**
 Keep track of how fast your site is loading.
 
+**Blacklist Monitoring**
+WP Health will monitor dozens of lists and alert you if your site is blacklisted.
+
 **Email Notifications**
 Get notified when a vulnerability is found in a plugin you have installed. Receive weekly summaries for all of your sites.
 
@@ -92,6 +95,9 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.7.4 (January 22, 2019) =
+* 
 
 = 1.7.3 (December 28, 2018) =
 * Modifies text for PHP check since two versions are ending support this month.
