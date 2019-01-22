@@ -97,7 +97,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 == Changelog ==
 
 = 1.7.4 (January 22, 2019) =
-* 
+* Adds info on new blacklist monitoring feature to readme
 
 = 1.7.3 (December 28, 2018) =
 * Modifies text for PHP check since two versions are ending support this month.
