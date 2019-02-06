@@ -40,7 +40,6 @@ class WPHC_Checks {
 	public function server_checks() {
 		$checks   = array();
 		$checks[] = $this->php_check();
-		$checks[] = $this->json_check();
 		$checks[] = $this->mysql_check();
 		$checks[] = $this->ssl_check();
 		return apply_filters( 'wphc_server_checks', $checks );
@@ -533,21 +532,6 @@ class WPHC_Checks {
 			return $this->prepare_array( "$success $learn_more", 'good', 'ssl', true );
 		} else {
 			return $this->prepare_array( "$fail $learn_more", 'bad', 'ssl', false );
-		}
-	}
-
-	/**
-	 * Checks if the JSON extension is enabled.
-	 *
-	 * @since 1.8.0
-	 */
-	public function json_check() {
-		$success = esc_html__( "Great! Your site's PHP has the JSON extension enabled.", 'my-wp-health-check' );
-		$fail    = esc_html__( "Your site's PHP does not have the JSON extension enabled. This may cause some plugins and themes to not work. Reach out to your hosting provider and ask for them to enable the JSON extension in your PHP.", 'my-wp-health-check' );
-		if ( extension_loaded( 'json' ) && function_exists( 'json_decode' ) ) {
-			return $this->prepare_array( $success, 'good', 'json', true );
-		} else {
-			return $this->prepare_array( $fail, 'bad', 'json', false );
 		}
 	}
 
