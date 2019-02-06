@@ -135,7 +135,7 @@ class WPHC_Checks {
 		if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
 			return $this->prepare_array( __( 'The file editor on this site has been disabled. Great!', 'my-wp-health-check' ), 'good', 'file_editor', true );
 		} else {
-			return $this->prepare_array( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. The recommended solution is using a security plugin, such as iThemes Security, that has features to disable the file editor. Alternatively, you can edit the wp-config file <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor', false );
+			return $this->prepare_array( __( 'The file editor on this site has not been disabled. Right now, an admin user can edit plugins and themes from within the WordPress admin. It is recommended to disable file editing within the WordPress dashboard. The recommended solution is using a security plugin, such as iThemes Security, that has features to disable the file editor. Alternatively, you can edit the wp-config file', 'my-wp-health-check' ) . ' <a href="https://codex.wordpress.org/Hardening_WordPress#Disable_File_Editing" target="_blank">as shown here</a>.', 'okay', 'file_editor', false );
 		}
 	}
 
@@ -195,7 +195,7 @@ class WPHC_Checks {
 			$plugin_list = implode( ', ', $plugins );
 			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe. $learn_more", 'bad', 'plugin_updates', $plugins );
 		} else {
-			return $this->prepare_array( "All of your WordPress plugins are up to date. Great Job! $learn_more", 'good', 'plugin_updates', array() );
+			return $this->prepare_array( __( 'All of your WordPress plugins are up to date. Great Job!', 'my-wp-health-check' ) . $learn_more, 'good', 'plugin_updates', array() );
 		}
 	}
 
@@ -230,7 +230,7 @@ class WPHC_Checks {
 		if ( ! empty( $inactive_plugins ) ) {
 			return $this->prepare_array( 'These plugins are not active: ' . implode( ', ', $inactive_plugins ) . '. Inactive plugins can still be compromised by hackers. If you are not using them, please uninstall them.', 'bad', 'inactive_plugins', $inactive_plugins );
 		} else {
-			return $this->prepare_array( 'All of your plugins installed on the site are in use. Great job!', 'good', 'inactive_plugins', array() );
+			return $this->prepare_array( __( 'All of your plugins installed on the site are in use. Great job!', 'my-wp-health-check' ), 'good', 'inactive_plugins', array() );
 		}
 	}
 
@@ -410,7 +410,7 @@ class WPHC_Checks {
 			$updates = implode( ', ', array_keys( $theme_updates ) );
 			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe. $learn_more", 'bad', 'theme_updates', array_keys( $theme_updates ) );
 		} else {
-			return $this->prepare_array( "All of your WordPress themes are up to date. Great Job! $learn_more", 'good', 'theme_updates', array() );
+			return $this->prepare_array( __( 'All of your WordPress themes are up to date. Great Job!', 'my-wp-health-check' ) . $learn_more, 'good', 'theme_updates', array() );
 		}
 	}
 
