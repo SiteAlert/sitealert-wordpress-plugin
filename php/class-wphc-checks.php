@@ -195,7 +195,7 @@ class WPHC_Checks {
 			$plugin_list = implode( ', ', $plugins );
 			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe. $learn_more", 'bad', 'plugin_updates', $plugins );
 		} else {
-			return $this->prepare_array( __( 'All of your WordPress plugins are up to date. Great Job!', 'my-wp-health-check' ) . $learn_more, 'good', 'plugin_updates', array() );
+			return $this->prepare_array( __( 'All of your WordPress plugins are up to date. Great Job!', 'my-wp-health-check' ) . " $learn_more", 'good', 'plugin_updates', array() );
 		}
 	}
 
@@ -410,7 +410,7 @@ class WPHC_Checks {
 			$updates = implode( ', ', array_keys( $theme_updates ) );
 			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe. $learn_more", 'bad', 'theme_updates', array_keys( $theme_updates ) );
 		} else {
-			return $this->prepare_array( __( 'All of your WordPress themes are up to date. Great Job!', 'my-wp-health-check' ) . $learn_more, 'good', 'theme_updates', array() );
+			return $this->prepare_array( __( 'All of your WordPress themes are up to date. Great Job!', 'my-wp-health-check' ) . " $learn_more", 'good', 'theme_updates', array() );
 		}
 	}
 
