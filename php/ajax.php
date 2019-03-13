@@ -24,7 +24,7 @@ function wphc_subscribe_ajax() {
 	);
 
 	if ( is_email( $email ) ) {
-		$response = wp_remote_post( 'https://wphealth.app/quiz/get-wp-health-straight-to-your-inbox/', array(
+		$response = wp_remote_post( 'https://wphealth.app/quiz/maintenance-course/', array(
 			'method'      => 'POST',
 			'timeout'     => 45,
 			'redirection' => 5,
@@ -35,7 +35,7 @@ function wphc_subscribe_ajax() {
 			'body'        => array(
 				'total_questions'   => 0,
 				'complete_quiz'     => 'confirmation',
-				'qmn_quiz_id'       => 2,
+				'qmn_quiz_id'       => 5,
 				'timer'             => 0,
 				'qsm_drip_checkbox' => 1,
 				'contact_field_0'   => $name,

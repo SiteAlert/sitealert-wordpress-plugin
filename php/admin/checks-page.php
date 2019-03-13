@@ -26,9 +26,7 @@ function wphc_generate_checks_page() {
 	?>
 	<div class="wrap">
 		<h2>WP Health</h2>
-		<div class="admin-messages">
-			<?php wphc_generate_ads(); ?>
-		</div>
+		<div class="admin-messages"></div>
 		<hr />
 		<h2 class="nav-tab-wrapper">
 			<a href="#" data-tab='1' class="nav-tab nav-tab-active wphc-tab"><?php esc_html_e( 'Checks', 'my-wp-health-check' ); ?></a>
@@ -38,25 +36,41 @@ function wphc_generate_checks_page() {
 			<div id="tab-1" class="wphc-tab-content">
 				<div class="wphc-flex">
 					<div class="wphc-flex-item">
-						<h3><?php esc_html_e( 'Server Check', 'my-wp-health-check' ); ?></h3>
+						<h3><?php esc_html_e( 'Server Checks', 'my-wp-health-check' ); ?></h3>
 						<div class="server-checks">
 							<?php do_action( 'wphc_server_check' ); ?>
 						</div>
-						<h3><?php esc_html_e( 'WordPress Check', 'my-wp-health-check' ); ?></h3>
+						<h3><?php esc_html_e( 'WordPress Checks', 'my-wp-health-check' ); ?></h3>
 						<div class="WordPress-checks">
 							<?php do_action( 'wphc_wordpress_check' ); ?>
 						</div>
-						<h3><?php esc_html_e( 'Plugin Check', 'my-wp-health-check' ); ?></h3>
+						<h3><?php esc_html_e( 'Plugin Checks', 'my-wp-health-check' ); ?></h3>
 						<div class="plugin-checks">
 							<?php do_action( 'wphc_plugin_check' ); ?>
 						</div>
+						<?php
+						if ( ! isset( $settings['api_key'] ) || empty( $settings['api_key'] ) ) {
+							?>
+							<h3><?php esc_html_e( 'Premium Checks', 'my-wp-health-check' ); ?></h3>
+							<p><?php esc_html_e( 'Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ); ?> <a href="http://bit.ly/2EWX3uK" target="_blank"><?php esc_html_e( 'Learn more!', 'my-wp-health-check' ); ?></a></p>
+							<div class="premium-checks"></div>
+							<?php
+						}
+						?>
 					</div>
 					<div class="wphc-flex-item">
 						<div class="wphc-info-section">
 							<h3 class="wphc-info-section-title">WP Health News</h3>
 							<div class="wphc-info-box">
-								<h4><?php esc_html_e( 'Subscribe to our newsletter!', 'my-wp-health-check' ); ?></h4>
-								<p>Learn about our newest features, receive tips and guides, and more!</p>
+								<h4><?php esc_html_e( 'Learn how to maintain your WordPress site!', 'my-wp-health-check' ); ?></h4>
+								<p><?php esc_html_e( 'Get our 5-day "Maintaining Your WordPress Site" email course. Sign up to receive our email course that will discuss:', 'my-wp-health-check' ); ?></p>
+								<ul>
+									<li><?php esc_html_e( 'Hosting', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'Updates', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'Backups', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'Security', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'and more!', 'my-wp-health-check' ); ?></li>
+								</ul>
 								<div id="wphc-subscribe">
 									<?php
 									$current_user = wp_get_current_user();

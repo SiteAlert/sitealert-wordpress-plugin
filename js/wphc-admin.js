@@ -53,6 +53,20 @@ var WPHCAdmin;
 			WPHCAdmin.loadServerChecks();
 			WPHCAdmin.loadWordPressChecks();
 			WPHCAdmin.loadPluginChecks();
+			WPHCAdmin.loadPremiumAlerts();
+		},
+		// Shows potential premium checks
+		loadPremiumAlerts: function() {
+			if ( $( '.premium-checks' ).length > 0 ) {
+				WPHCAdmin.displaySpinner( $( '.premium-checks' ) );
+				setTimeout( function() {
+					var display = [];
+					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored to make sure it is up.', 'okay' ) );
+					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored for broken links and images.', 'okay' ) );
+					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored for site speed.', 'okay' ) );
+					WPHCAdmin.displaySection( $( ".premium-checks" ), display );
+				}, 2000 );
+			}
 		},
 		// Loads the server checks
 		loadServerChecks: function() {
