@@ -24,7 +24,7 @@ function wphc_subscribe_ajax() {
 	);
 
 	if ( is_email( $email ) ) {
-		$response = wp_remote_post( 'https://wphealth.app/quiz/get-wp-health-straight-to-your-inbox/', array(
+		$response = wp_remote_post( 'https://wphealth.app/quiz/maintenance-course/', array(
 			'method'      => 'POST',
 			'timeout'     => 45,
 			'redirection' => 5,

@@ -55,8 +55,15 @@ function wphc_generate_checks_page() {
 						<div class="wphc-info-section">
 							<h3 class="wphc-info-section-title">WP Health News</h3>
 							<div class="wphc-info-box">
-								<h4><?php esc_html_e( 'Subscribe to our newsletter!', 'my-wp-health-check' ); ?></h4>
-								<p>Learn about our newest features, receive tips and guides, and more!</p>
+								<h4><?php esc_html_e( 'Learn how to maintain your WordPress site!', 'my-wp-health-check' ); ?></h4>
+								<p><?php esc_html_e( 'Get our 5-day "Maintaining Your WordPress Site" email course. Sign up to receive our email course that will discuss:', 'my-wp-health-check' ); ?></p>
+								<ul>
+									<li><?php esc_html_e( 'Hosting', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'Updates', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'Backups', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'Security', 'my-wp-health-check' ); ?></li>
+									<li><?php esc_html_e( 'and more!', 'my-wp-health-check' ); ?></li>
+								</ul>
 								<div id="wphc-subscribe">
 									<?php
 									$current_user = wp_get_current_user();
