@@ -26,9 +26,7 @@ function wphc_generate_checks_page() {
 	?>
 	<div class="wrap">
 		<h2>WP Health</h2>
-		<div class="admin-messages">
-			<?php wphc_generate_ads(); ?>
-		</div>
+		<div class="admin-messages"></div>
 		<hr />
 		<h2 class="nav-tab-wrapper">
 			<a href="#" data-tab='1' class="nav-tab nav-tab-active wphc-tab"><?php esc_html_e( 'Checks', 'my-wp-health-check' ); ?></a>
@@ -38,18 +36,27 @@ function wphc_generate_checks_page() {
 			<div id="tab-1" class="wphc-tab-content">
 				<div class="wphc-flex">
 					<div class="wphc-flex-item">
-						<h3><?php esc_html_e( 'Server Check', 'my-wp-health-check' ); ?></h3>
+						<h3><?php esc_html_e( 'Server Checks', 'my-wp-health-check' ); ?></h3>
 						<div class="server-checks">
 							<?php do_action( 'wphc_server_check' ); ?>
 						</div>
-						<h3><?php esc_html_e( 'WordPress Check', 'my-wp-health-check' ); ?></h3>
+						<h3><?php esc_html_e( 'WordPress Checks', 'my-wp-health-check' ); ?></h3>
 						<div class="WordPress-checks">
 							<?php do_action( 'wphc_wordpress_check' ); ?>
 						</div>
-						<h3><?php esc_html_e( 'Plugin Check', 'my-wp-health-check' ); ?></h3>
+						<h3><?php esc_html_e( 'Plugin Checks', 'my-wp-health-check' ); ?></h3>
 						<div class="plugin-checks">
 							<?php do_action( 'wphc_plugin_check' ); ?>
 						</div>
+						<?php
+						if ( ! isset( $settings['api_key'] ) || empty( $settings['api_key'] ) ) {
+							?>
+							<h3><?php esc_html_e( 'Premium Checks', 'my-wp-health-check' ); ?></h3>
+							<p><?php esc_html_e( 'Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ); ?> <a href="http://bit.ly/2EWX3uK" target="_blank"><?php esc_html_e( 'Learn more!', 'my-wp-health-check' ); ?></a></p>
+							<div class="premium-checks"></div>
+							<?php
+						}
+						?>
 					</div>
 					<div class="wphc-flex-item">
 						<div class="wphc-info-section">
