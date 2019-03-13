@@ -13,8 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Prints the ads in the plugin.
  *
  * @since 1.7.7
+ * @param array $settings The settings for the plugin.
  */
-function wphc_generate_ads() {
+function wphc_generate_ads( $settings = false ) {
+	if ( false === $settings || ! is_array( $settings ) ) {
+		$settings = (array) get_option( 'wphc-settings' );
+	}
 	if ( ! isset( $settings['api_key'] ) || empty( $settings['api_key'] ) ) {
 		$ad_message = 'Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard! <a target="_blank" href="http://bit.ly/2oqLaoR">Learn more!</a>';
 		$ad_number  = rand( 0, 4 );
