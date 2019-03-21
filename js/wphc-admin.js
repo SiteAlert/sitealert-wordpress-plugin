@@ -65,7 +65,7 @@ var WPHCAdmin;
 					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored for broken links and images.', 'okay' ) );
 					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored for site speed.', 'okay' ) );
 					WPHCAdmin.displaySection( $( ".premium-checks" ), display );
-				}, 2000 );
+				}, 1500 );
 			}
 		},
 		// Loads the server checks
