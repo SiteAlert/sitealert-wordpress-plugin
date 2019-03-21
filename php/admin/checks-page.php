@@ -52,7 +52,7 @@ function wphc_generate_checks_page() {
 						if ( ! isset( $settings['api_key'] ) || empty( $settings['api_key'] ) ) {
 							?>
 							<h3><?php esc_html_e( 'Premium Checks', 'my-wp-health-check' ); ?></h3>
-							<p><?php esc_html_e( 'Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ); ?> <a href="http://bit.ly/2EWX3uK" target="_blank"><?php esc_html_e( 'Learn more!', 'my-wp-health-check' ); ?></a></p>
+							<p><?php esc_html_e( 'Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ); ?> <a href="http://bit.ly/2U0eGmS" target="_blank"><?php esc_html_e( 'Learn more!', 'my-wp-health-check' ); ?></a></p>
 							<div class="premium-checks"></div>
 							<?php
 						}
