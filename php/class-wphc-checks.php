@@ -58,6 +58,7 @@ class WPHC_Checks {
 		$checks[] = $this->admin_user_check();
 		$checks[] = $this->themes_check();
 		$checks[] = $this->comments_check();
+		$checks[] = $this->public_check();
 		return apply_filters( 'wphc_wp_checks', $checks );
 	}
 
@@ -95,6 +96,26 @@ class WPHC_Checks {
 			'type'    => $type,
 			'value'   => $value,
 		);
+	}
+
+	/**
+	 * Checks if the discourage search engine option is still enabled.
+	 *
+	 * @since 1.8.0
+	 * @return array The array of the message and type
+	 */
+	public function public_check() {
+
+		// Prepares our messages.
+		$good_message = esc_html__( 'Your WordPress is allowing search engines to index your site. Great!', 'my-wp-health-check' );
+		$bad_message  = esc_html__( 'Your WordPress site is currently discouraging search engines from indexing your site. If you want search engines to index your site, you can disable this option by unchecking the "Search Engine Visibility" on the "Reading" page of the "Settings" menu.', 'my-wp-health-check' );
+
+		$public = int_val( get_option( 'blog_public' ) );
+		if ( 1 === $public ) {
+			return $this->prepare_array( $good_message, 'good', 'search_engine', true );
+		} else {
+			return $this->prepare_array( $bad_message, 'okay', 'search_engine', false );
+		}
 	}
 
 	/**
