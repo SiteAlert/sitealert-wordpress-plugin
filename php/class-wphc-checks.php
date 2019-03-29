@@ -110,7 +110,7 @@ class WPHC_Checks {
 		$good_message = esc_html__( 'Your WordPress is allowing search engines to index your site. Great!', 'my-wp-health-check' );
 		$bad_message  = esc_html__( 'Your WordPress site is currently discouraging search engines from indexing your site. If you want search engines to index your site, you can disable this option by unchecking the "Search Engine Visibility" on the "Reading" page of the "Settings" menu.', 'my-wp-health-check' );
 
-		$public = int_val( get_option( 'blog_public' ) );
+		$public = intval( get_option( 'blog_public' ) );
 		if ( 1 === $public ) {
 			return $this->prepare_array( $good_message, 'good', 'search_engine', true );
 		} else {
