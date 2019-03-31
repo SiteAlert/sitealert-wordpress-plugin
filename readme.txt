@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 1.7.9
+Stable tag: 1.8.0
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -96,41 +96,12 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Changelog ==
 
-= 1.7.9 (March 22, 2019) =
-* Makes minor changes to text
-
-= 1.7.8 (March 14, 2019) =
-* Fixes bug causing ads to still show for premium users
-
-= 1.7.7 (March 9, 2019) =
-* Makes minor changes to text
-
-= 1.7.6 (February 22, 2019) =
-* Ensures compatibility with WordPress 5.1
-
-= 1.7.5 (February 6, 2019) =
-* Improves internationalization
-
-= 1.7.4 (January 22, 2019) =
-* Adds info on new blacklist monitoring feature to readme
-
-= 1.7.3 (December 28, 2018) =
-* Modifies text for PHP check since two versions are ending support this month.
-
-= 1.7.2 (December 8, 2018) =
-* Ensures plugin is compatible with WordPress 5.0
-
-= 1.7.1 (November 26, 2018) =
-* Adds link to new article on why to update your site to relevant checks
-* Adds info regarding new broken image monitoring in premium version to readme
-
-= 1.7.0 (October 30, 2018) =
-* Adds new spam comments check to advise users to delete spam comments
-* Adds value key to JSON object in the REST API
+= 1.8.0 (April 1, 2019) =
+* Closed Enhancement: Check if site is discouraging search engines ([Issue #105](https://github.com/fpcorso/wordpress-health-check/issues/105))
 
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.7.0 =
-This update adds a new check and adds a value key to the REST API endpoints
+= 1.8.0 =
+This update adds a new check!
