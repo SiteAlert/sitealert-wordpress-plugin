@@ -96,7 +96,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Changelog ==
 
-= 1.8.0 (March 29, 2019) =
+= 1.8.0 (April 1, 2019) =
 * Closed Enhancement: Check if site is discouraging search engines ([Issue #105](https://github.com/fpcorso/wordpress-health-check/issues/105))
 
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
