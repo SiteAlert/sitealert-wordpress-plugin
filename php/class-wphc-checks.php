@@ -643,12 +643,12 @@ class WPHC_Checks {
 		if ( $eol_time <= $today ) {
 			// If EOL is passed, show unsupported message.
 			$msg = $unsupported_version_message . ' ' . $unsupported_message;
-		} elseif ( $eol_time - 31536000 < $today ) {
-			// If EOL is coming up within the next 365 days, show expiring soon message.
+		} elseif ( $eol_time - 15552000 < $today ) {
+			// If EOL is coming up within the next 180 days, show expiring soon message.
 			$msg    = $supported_version_message . ' ' . $security_ending_message;
 			$status = 'okay';
 		} else {
-			// If EOL is farther than 1 year out, show good message.
+			// If EOL is farther than 180 days out, show good message.
 			$msg    = $supported_version_message;
 			$status = 'good';
 		}
