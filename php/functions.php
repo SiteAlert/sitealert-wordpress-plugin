@@ -20,7 +20,7 @@ function wphc_get_total_checks() {
 	$totals = get_transient( 'wphc_total_checks' );
 	if ( false === $totals ) {
 		$totals = 0;
-		$wphc = new WPHC_Checks();
+		$wphc   = new WPHC_Checks();
 		$checks = $wphc->all_checks();
 		foreach ( $checks as $check ) {
 			if ( 'good' !== $check['type'] ) {

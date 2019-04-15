@@ -1,10 +1,16 @@
 <?php
-//if uninstall not called from WordPress, then exit
+/**
+ * Uninstallation script.
+ *
+ * @package WPHC
+ */
+
+// If uninstall not called from WordPress, then exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 }
 
-// Deletes plugin's settings
+// Deletes plugin's settings.
 delete_option( 'wphc_review_message_trigger' );
 delete_option( 'wphc-settings' );
 delete_option( 'wphc_tracker_last_time' );
