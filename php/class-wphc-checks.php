@@ -138,8 +138,8 @@ class WPHC_Checks {
 		$good_message = esc_html__( 'Your WordPress does not have many spam comments. Great!', 'my-wp-health-check' );
 		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments. This can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
 
-		// Checks if the spam count is over 10.
-		if ( 10 < $spam_count ) {
+		// Checks if the spam count is over 25.
+		if ( 25 < $spam_count ) {
 			return $this->prepare_array( $bad_message, 'bad', 'comments', $spam_count );
 		} else {
 			return $this->prepare_array( $good_message, 'good', 'comments', $spam_count );
@@ -287,13 +287,17 @@ class WPHC_Checks {
 			foreach ( $plugins as $plugin => $plugin_data ) {
 				$slug           = explode( '/', $plugin );
 				$plugin_updated = get_transient( 'wphc_supported_check_' . $slug[0] );
+
+				// If the transient doesn't exists, is old, or we are forcing a refresh, refresh the date.
 				if ( false === $plugin_updated || $force ) {
-					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}" );
-					$plugin_info = @unserialize( $response['body'] );
-					if ( is_object( $plugin_info ) && isset( $plugin_info->last_updated ) ) {
-						$plugin_updated = $plugin_info->last_updated;
+					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}.json" );
+					$api_data    = wp_remote_retrieve_body( $response );
+					$plugin_info = json_decode( $api_data, true );
+
+					if ( is_array( $plugin_info ) && isset( $plugin_info['last_updated'] ) ) {
+						$plugin_updated = $plugin_info['last_updated'];
 					} else {
-						// If the plugin isn't from wordpress.org, just add today's date as we have no way of checking when last updated.
+						// If the plugin isn't from wordpress.org or there was an error, just add today's date as we have no way of checking when last updated.
 						$plugin_updated = date( 'Y-m-d' );
 					}
 					set_transient( 'wphc_supported_check_' . $slug[0], $plugin_updated, 1 * DAY_IN_SECONDS );
@@ -643,12 +647,12 @@ class WPHC_Checks {
 		if ( $eol_time <= $today ) {
 			// If EOL is passed, show unsupported message.
 			$msg = $unsupported_version_message . ' ' . $unsupported_message;
-		} elseif ( $eol_time - 31536000 < $today ) {
-			// If EOL is coming up within the next 365 days, show expiring soon message.
+		} elseif ( $eol_time - 15552000 < $today ) {
+			// If EOL is coming up within the next 180 days, show expiring soon message.
 			$msg    = $supported_version_message . ' ' . $security_ending_message;
 			$status = 'okay';
 		} else {
-			// If EOL is farther than 1 year out, show good message.
+			// If EOL is farther than 180 days out, show good message.
 			$msg    = $supported_version_message;
 			$status = 'good';
 		}
