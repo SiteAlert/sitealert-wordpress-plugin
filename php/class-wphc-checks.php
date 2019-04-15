@@ -290,16 +290,14 @@ class WPHC_Checks {
 
 				// If the transient doesn't exists, is old, or we are forcing a refresh, refresh the date.
 				if ( false === $plugin_updated || $force ) {
-					$response = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}" );
-					if ( is_array( $response ) && ! is_wp_error( $response ) ) {
-						$plugin_info = @unserialize( $response['body'] );
-						if ( is_object( $plugin_info ) && isset( $plugin_info->last_updated ) ) {
-							$plugin_updated = $plugin_info->last_updated;
-						}
-					}
+					$response    = wp_remote_get( "http://api.wordpress.org/plugins/info/1.0/{$slug[0]}.json" );
+					$api_data    = wp_remote_retrieve_body( $response );
+					$plugin_info = json_decode( $api_data, true );
 
-					// If the plugin isn't from wordpress.org or there was an error, just add today's date as we have no way of checking when last updated.
-					if ( false === $plugin_updated ) {
+					if ( is_array( $plugin_info ) && isset( $plugin_info['last_updated'] ) ) {
+						$plugin_updated = $plugin_info['last_updated'];
+					} else {
+						// If the plugin isn't from wordpress.org or there was an error, just add today's date as we have no way of checking when last updated.
 						$plugin_updated = date( 'Y-m-d' );
 					}
 					set_transient( 'wphc_supported_check_' . $slug[0], $plugin_updated, 1 * DAY_IN_SECONDS );
