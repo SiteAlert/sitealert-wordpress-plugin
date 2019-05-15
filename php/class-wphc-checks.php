@@ -409,7 +409,7 @@ class WPHC_Checks {
 		if ( false === $user ) {
 			return $this->prepare_array( "Your site does not have a user 'admin'. Great job!", 'good', 'admin_user', true );
 		} else {
-			return $this->prepare_array( "There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'good', 'admin_user', false );
+			return $this->prepare_array( "There is a user 'admin' on your site. Hackers use this username when trying to gain access to your site. Please change this username to something else.", 'bad', 'admin_user', false );
 		}
 	}
 

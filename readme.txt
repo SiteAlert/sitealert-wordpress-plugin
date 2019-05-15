@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 5.2
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -95,6 +95,9 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.8.3 (May 16, 2019) =
+* Closed Bug: Failed admin username check shows green ([Issue #112](https://github.com/fpcorso/wordpress-health-check/issues/112))
 
 = 1.8.2 (May 8, 2019) =
 * Ensures compatibility with WordPress 5.2
