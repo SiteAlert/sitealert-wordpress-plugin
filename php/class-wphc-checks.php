@@ -136,7 +136,7 @@ class WPHC_Checks {
 
 		// Prepares our messages.
 		$good_message = esc_html__( 'Your WordPress does not have many spam comments. Great!', 'my-wp-health-check' );
-		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments. This can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
+		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments which can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
 
 		// Checks if the spam count is over 50.
 		if ( 50 < $spam_count ) {
