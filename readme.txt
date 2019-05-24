@@ -76,7 +76,7 @@ Keep track of how fast your site is loading.
 WP Health will monitor dozens of lists and alert you if your site is blacklisted.
 
 **Email Notifications**
-Get notified when a vulnerability is found in a plugin you have installed. Receive weekly summaries for all of your sites.
+Get notified when a vulnerability is found in a plugin you have installed. Receive summaries for all of your sites.
 
 [Learn more about our premium plan!](https://wphealth.app)
 
