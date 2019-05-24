@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 5.2
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,11 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Changelog ==
 
+= 1.8.4 (May 25, 2019) =
+* Increases spam comment threshold to 50 for check to fail
+* Fixes minor capitalization and grammar mistakes
+* Reduces refresh time for admin bar count from 1 hour to 45 minutes
+
 = 1.8.3 (May 16, 2019) =
 * Closed Bug: Failed admin username check shows green ([Issue #112](https://github.com/fpcorso/wordpress-health-check/issues/112))
 
@@ -103,7 +108,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 * Ensures compatibility with WordPress 5.2
 
 = 1.8.1 (April 16, 2019) =
-* Increases number of spam messages needed to trigger check to fail.
+* Increases number of spam messages needed to trigger check to fail
 
 = 1.8.0 (April 1, 2019) =
 * Closed Enhancement: Check if site is discouraging search engines ([Issue #105](https://github.com/fpcorso/wordpress-health-check/issues/105))
