@@ -27,7 +27,9 @@ function wphc_get_total_checks() {
 				$totals++;
 			}
 		}
-		set_transient( 'wphc_total_checks', $totals, HOUR_IN_SECONDS );
+
+		// Sets transient to expire in 45 minutes.
+		set_transient( 'wphc_total_checks', $totals, 45 * MINUTE_IN_SECONDS );
 	}
 	return intval( $totals );
 }

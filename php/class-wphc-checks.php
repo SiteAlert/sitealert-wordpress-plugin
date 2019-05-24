@@ -136,10 +136,10 @@ class WPHC_Checks {
 
 		// Prepares our messages.
 		$good_message = esc_html__( 'Your WordPress does not have many spam comments. Great!', 'my-wp-health-check' );
-		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments. This can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
+		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments which can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
 
-		// Checks if the spam count is over 25.
-		if ( 25 < $spam_count ) {
+		// Checks if the spam count is over 50.
+		if ( 50 < $spam_count ) {
 			return $this->prepare_array( $bad_message, 'bad', 'comments', $spam_count );
 		} else {
 			return $this->prepare_array( $good_message, 'good', 'comments', $spam_count );
@@ -172,7 +172,7 @@ class WPHC_Checks {
 		$learn_more = '<a href="http://bit.ly/2Rbb9gL" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
 
 		// Prepares messages.
-		$good  = esc_html__( 'Your WordPress is up to date. Great Job!' );
+		$good  = esc_html__( 'Your WordPress is up to date. Great job!' );
 		$error = esc_html__( 'Encountered an error. WordPress version not checked. Please check again later.' );
 		$bad   = esc_html__( 'Your WordPress is not up to date. Your site has not received the latest security fixes and is less secure from hackers. Please consider updating.' );
 
@@ -216,7 +216,7 @@ class WPHC_Checks {
 			$plugin_list = implode( ', ', $plugins );
 			return $this->prepare_array( "You are not using the latest version of these plugins: $plugin_list. These updates could contain important security updates. Please update your plugins to ensure your site is secure and safe. $learn_more", 'bad', 'plugin_updates', $plugins );
 		} else {
-			return $this->prepare_array( __( 'All of your WordPress plugins are up to date. Great Job!', 'my-wp-health-check' ) . " $learn_more", 'good', 'plugin_updates', array() );
+			return $this->prepare_array( __( 'All of your WordPress plugins are up to date. Great job!', 'my-wp-health-check' ) . " $learn_more", 'good', 'plugin_updates', array() );
 		}
 	}
 
@@ -321,7 +321,7 @@ class WPHC_Checks {
 			$unsupported_plugins = explode( ', ', $plugin_list );
 		}
 		if ( empty( $plugin_list ) ) {
-			return $this->prepare_array( "All of your plugins are currently supported. Great Job! $learn_more", 'good', 'supported_plugins', array() );
+			return $this->prepare_array( "All of your plugins are currently supported. Great job! $learn_more", 'good', 'supported_plugins', array() );
 		} else {
 			return $this->prepare_array( "The following plugins have not been updated in over two years which indicate that they are no longer supported by their developer: $plugin_list. There could be security issues that will not be fixed! Please reach out to the developers to ensure these plugins are still supported or look for alternatives and uninstall these plugins. $learn_more", 'bad', 'supported_plugins', $unsupported_plugins );
 		}
@@ -435,7 +435,7 @@ class WPHC_Checks {
 			$updates = implode( ', ', array_keys( $theme_updates ) );
 			return $this->prepare_array( "You are not using the latest version of these themes: $updates. These updates could contain important security updates. Please update your themes to ensure your site is secure and safe. $learn_more", 'bad', 'theme_updates', array_keys( $theme_updates ) );
 		} else {
-			return $this->prepare_array( __( 'All of your WordPress themes are up to date. Great Job!', 'my-wp-health-check' ) . " $learn_more", 'good', 'theme_updates', array() );
+			return $this->prepare_array( __( 'All of your WordPress themes are up to date. Great job!', 'my-wp-health-check' ) . " $learn_more", 'good', 'theme_updates', array() );
 		}
 	}
 
