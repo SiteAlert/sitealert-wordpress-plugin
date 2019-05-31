@@ -143,7 +143,7 @@ function wphc_generate_checks_page() {
 						</tr>
 						<tr>
 							<th scope="row">
-								<label for="api_key"><?php esc_html_e( 'Your WP Health Premium API Key', 'my-wp-health-check' ); ?><label>
+								<label for="api_key"><?php esc_html_e( 'Your WP Health Premium API Key', 'my-wp-health-check' ); ?></label>
 								<p><?php esc_html_e( 'Enter your API Key to add this site to your WP Health Premium account.', 'my-wp-health-check' ); ?></p>
 								<p><?php esc_html_e( 'If you are a developer wanting to use the REST API: By default the REST API is disabled for this plugin. You can add your own custom API Key to enable it so you can build custom scripts around the REST API.', 'my-wp-health-check' ); ?></p>
 							</th>
