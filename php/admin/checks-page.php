@@ -127,7 +127,7 @@ function wphc_generate_checks_page() {
 					<tbody>
 						<tr>
 							<th scope="row">
-								<?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?>
+								<label for="tracking_allowed"><?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?></label>
 								<p><?php esc_html_e( "Allows WP Health to anonymously track this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
 								<p><a href="http://bit.ly/2MpT2Rd" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
 							</th>
@@ -143,8 +143,9 @@ function wphc_generate_checks_page() {
 						</tr>
 						<tr>
 							<th scope="row">
-								<?php esc_html_e( 'API Key', 'my-wp-health-check' ); ?>
-								<p><?php esc_html_e( 'By default the REST API is disabled for this plugin. Enter in an API Key to enable it so you can build custom scripts around the REST API.', 'my-wp-health-check' ); ?></p>
+								<label for="api_key"><?php esc_html_e( 'Your WP Health Premium API Key', 'my-wp-health-check' ); ?></label>
+								<p><?php esc_html_e( 'Enter your API Key to add this site to your WP Health Premium account.', 'my-wp-health-check' ); ?></p>
+								<p><?php esc_html_e( 'If you are a developer wanting to use the REST API: By default the REST API is disabled for this plugin. You can add your own custom API Key to enable it so you can build custom scripts around the REST API.', 'my-wp-health-check' ); ?></p>
 							</th>
 							<td>
 								<?php
