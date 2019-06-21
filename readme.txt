@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.7
 Tested up to: 5.2
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -95,6 +95,9 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.8.6 (June 21, 2019) =
+* Sorts the checks with failed checks at top of each section
 
 = 1.8.5 (June 1, 2019) =
 * Changes text info for the API Key setting
