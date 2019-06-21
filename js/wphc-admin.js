@@ -60,12 +60,13 @@ var WPHCAdmin;
 			if ( $( '.premium-checks' ).length > 0 ) {
 				WPHCAdmin.displaySpinner( $( '.premium-checks' ) );
 				setTimeout( function() {
-					var display = [];
-					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored to make sure it is up.', 'okay' ) );
-					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored for broken links and images.', 'okay' ) );
-					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored for site speed.', 'okay' ) );
-					display.push( WPHCAdmin.printMessage( 'Your site is not being monitored for being listed on blacklists.', 'okay' ) );
-					WPHCAdmin.displaySection( $( ".premium-checks" ), display );
+					var checks = [
+						{'message': 'Your site is not being monitored to make sure it is up.', 'type':'okay'},
+						{'message': 'Your site is not being monitored for broken links and images.', 'type':'okay'},
+						{'message': 'Your site is not being monitored for site speed.', 'type':'okay'},
+						{'message': 'Your site is not being monitored for being listed on blacklists.', 'type':'okay'},
+					];
+					WPHCAdmin.displaySection( $( ".premium-checks" ), checks );
 				}, 1500 );
 			}
 		},
@@ -77,7 +78,7 @@ var WPHCAdmin;
 			};
 
 			jQuery.post( ajaxurl, data, function( response ) {
-				WPHCAdmin.displayServerChecks( JSON.parse( response ) );
+				WPHCAdmin.displaySection( $( ".server-checks" ), JSON.parse( response ) );
 			});
 		},
 		// Loads the WP checks
@@ -88,7 +89,7 @@ var WPHCAdmin;
 			};
 
 			jQuery.post( ajaxurl, data, function( response ) {
-				WPHCAdmin.displayWordPressChecks( JSON.parse( response ) );
+				WPHCAdmin.displaySection( $( ".WordPress-checks" ), JSON.parse( response ) );
 			});
 		},
 		// Loads the plugin checks
@@ -99,39 +100,38 @@ var WPHCAdmin;
 			};
 
 			jQuery.post( ajaxurl, data, function( response ) {
-				WPHCAdmin.displayPluginChecks( JSON.parse( response ) );
+				WPHCAdmin.displaySection( $( ".plugin-checks" ), JSON.parse( response ) );
 			});
 		},
-		// Prepares the server checks results
-		displayServerChecks: function( checks ) {
-			var display = [];
-			$.each( checks, function( i, val ) {
-				display.push( WPHCAdmin.printMessage( val.message, val.type ) );
-			});
-			WPHCAdmin.displaySection( $( ".server-checks" ), display );
-		},
-		// Prepares the WP checks results
-		displayWordPressChecks: function( checks ) {
-			var display = [];
-			$.each( checks, function( i, val ) {
-				display.push( WPHCAdmin.printMessage( val.message, val.type ) );
-			});
-			WPHCAdmin.displaySection( $( ".WordPress-checks" ), display );
-		},
-		// Prepares the plugin checks results
-		displayPluginChecks: function( checks ) {
-			var display = [];
-			$.each( checks, function( i, val ) {
-				display.push( WPHCAdmin.printMessage( val.message, val.type ) );
-			});
-			WPHCAdmin.displaySection( $( ".plugin-checks" ), display );
-		},
-		// Displays the results in the section
+		// Displays the results in the section, with bad checks shown first.
 		displaySection: function( $section, checks ) {
 			$section.empty();
-			for (var i = 0; i < checks.length; i++) {
-				$section.append( checks[i] );
-			}
+			var okayChecks = [];
+			var goodChecks = [];
+			checks.forEach(function(check) {
+				switch ( check.type ) {
+					case 'good':
+						goodChecks.push( check );
+						break;
+
+					case 'okay':
+						okayChecks.push( check );
+						break
+
+					case 'bad':
+						$section.append( WPHCAdmin.printMessage( check.message, check.type ) );
+						break
+				
+					default:
+						break;
+				}
+			});
+			okayChecks.forEach(function(check){
+				$section.append( WPHCAdmin.printMessage( check.message, check.type ) );
+			});
+			goodChecks.forEach(function(check){
+				$section.append( WPHCAdmin.printMessage( check.message, check.type ) );
+			});
 		},
 		// Displays a loading spinner in the $section
 		displaySpinner: function( $section ) {
