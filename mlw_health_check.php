@@ -55,7 +55,7 @@ class My_WP_Health_Check {
 		if ( is_admin() ) {
 			include 'php/admin/ads.php';
 			include 'php/admin/checks-page.php';
-			include 'php/class-wphc-review-manager.php';
+			//include 'php/class-wphc-review-manager.php';
 			include 'php/class-wphc-tracking.php';
 		}
 		include 'php/class-wphc-install.php';
