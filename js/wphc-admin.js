@@ -64,7 +64,7 @@ var WPHCAdmin;
 						{'message': 'Your site is not being monitored to make sure it is up.', 'type':'okay'},
 						{'message': 'Your site is not being monitored for broken links and images.', 'type':'okay'},
 						{'message': 'Your site is not being monitored for site speed.', 'type':'okay'},
-						{'message': 'Your site is not being monitored for being listed on blacklists.', 'type':'okay'},
+						{'message': 'Your site is not being monitored for being listed on blacklists. <a href="http://bit.ly/2ybOObi" target="_blank">Learn more about what blacklists are!</a>', 'type':'okay'},
 					];
 					WPHCAdmin.displaySection( $( ".premium-checks" ), checks );
 				}, 1500 );
