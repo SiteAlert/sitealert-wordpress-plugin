@@ -72,6 +72,15 @@ class WPHC_Review_Manager {
 		$already_url  = esc_url( add_query_arg( 'wphc_review_notice_check', 'already_did' ) );
 		$nope_url  = esc_url( add_query_arg( 'wphc_review_notice_check', 'remove_message' ) );
 		?>
+        <style>
+            .wphc-review-message strong {
+                display: block;
+                margin: 10px 0;
+            }
+            .wphc-review-message .wphc-review-message-action-links {
+                margin-top: 15px;
+            }
+        </style>
 		<div class="updated wphc-review-message">
 			<p>
 				<?php
@@ -82,7 +91,7 @@ class WPHC_Review_Manager {
 				);
 				?>
 			</p>
-			<p>
+			<p class="wphc-review-message-action-links">
 				<a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/my-wp-health-check?rate=5#postform" class="button-primary"><?php esc_html_e( 'Yeah, you deserve it!', 'my-wp-health-check' ); ?></a>
 				<a href="<?php echo esc_url( $already_url ); ?>" class="button-secondary"><?php esc_html_e( 'I already did!', 'my-wp-health-check' ); ?></a>
 				<a href="<?php echo esc_url( $nope_url ); ?>" class="button-secondary"><?php esc_html_e( 'No, this plugin is not good enough', 'my-wp-health-check' ); ?></a>
