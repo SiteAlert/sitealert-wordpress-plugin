@@ -27,7 +27,7 @@ class WPHC_Review_Manager {
 	 * @since 1.1.0
 	 */
 	public function __construct() {
-		$this->check_message_display();
+	    add_action( 'admin_init', array( $this, 'check_message_display' ) );
 	}
 
 	/**
@@ -75,7 +75,6 @@ class WPHC_Review_Manager {
         <style>
             .wphc-review-message strong {
                 display: block;
-                margin: 10px 0;
             }
             .wphc-review-message .wphc-review-message-action-links {
                 margin-top: 15px;
