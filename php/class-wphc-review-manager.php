@@ -27,7 +27,7 @@ class WPHC_Review_Manager {
 	 * @since 1.1.0
 	 */
 	public function __construct() {
-		$this->check_message_display();
+	    add_action( 'admin_init', array( $this, 'check_message_display' ) );
 	}
 
 	/**
@@ -36,6 +36,9 @@ class WPHC_Review_Manager {
 	 * @since 1.1.0
 	 */
 	public function check_message_display() {
+	    if ( ! current_user_can( 'activate_plugins' ) ) {
+	        return;
+        }
 		$this->admin_notice_check();
 		$this->trigger = $this->check_message_trigger();
 		if ( -1 !== $this->trigger ) {
@@ -71,16 +74,32 @@ class WPHC_Review_Manager {
 	public function display_admin_message() {
 		$already_url  = esc_url( add_query_arg( 'wphc_review_notice_check', 'already_did' ) );
 		$nope_url  = esc_url( add_query_arg( 'wphc_review_notice_check', 'remove_message' ) );
-		echo "<div class='updated'><br />";
-		echo sprintf( __('Greetings! I just noticed that you have been using the WP Health plugin for over a week now. That is
+		?>
+        <style>
+            .wphc-review-message strong {
+                display: block;
+            }
+            .wphc-review-message .wphc-review-message-action-links {
+                margin-top: 15px;
+            }
+        </style>
+		<div class="updated wphc-review-message">
+			<p>
+				<?php
+				echo sprintf( __('Greetings! I just noticed that you have been using the WP Health plugin for over a week now. That is
 		awesome! Could you please help me out by giving this plugin a 5-star rating on WordPress? This
 		will help me by helping other users discover this plugin. %s', 'my-wp-health-check'),
-			'<br /><strong><em>~ Frank Corso</em></strong><br /><br />'
-		);
-		echo '&nbsp;<a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/my-wp-health-check?rate=5#postform" class="button-primary">' . __( 'Yeah, you deserve it!', 'my-wp-health-check' ) . '</a>';
-		echo '&nbsp;<a href="' . esc_url( $already_url ) . '" class="button-secondary">' . __( 'I already did!', 'my-wp-health-check' ) . '</a>';
-		echo '&nbsp;<a href="' . esc_url( $nope_url ) . '" class="button-secondary">' . __( 'No, this plugin is not good enough', 'my-wp-health-check' ) . '</a>';
-		echo "<br /><br /></div>";
+					'<strong><em>~ Frank Corso</em></strong>'
+				);
+				?>
+			</p>
+			<p class="wphc-review-message-action-links">
+				<a target="_blank" href="http://bit.ly/reviewwphealth" class="button-primary"><?php esc_html_e( 'Yeah, you deserve it!', 'my-wp-health-check' ); ?></a>
+				<a href="<?php echo esc_url( $already_url ); ?>" class="button-secondary"><?php esc_html_e( 'I already did!', 'my-wp-health-check' ); ?></a>
+				<a href="<?php echo esc_url( $nope_url ); ?>" class="button-secondary"><?php esc_html_e( 'No, this plugin is not good enough', 'my-wp-health-check' ); ?></a>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
@@ -89,10 +108,10 @@ class WPHC_Review_Manager {
 	 * @since 1.1.0
 	 */
 	public function admin_notice_check() {
-		if ( isset( $_GET["wphc_review_notice_check"] ) && 'remove_message' == $_GET["wphc_review_notice_check"] ) {
+		if ( isset( $_GET['wphc_review_notice_check'] ) && 'remove_message' == $_GET['wphc_review_notice_check'] ) {
 			update_option( 'wphc_review_message_trigger', -1 );
 		}
-		if ( isset( $_GET["wphc_review_notice_check"] ) && 'already_did' == $_GET["wphc_review_notice_check"] ) {
+		if ( isset( $_GET['wphc_review_notice_check'] ) && 'already_did' == $_GET['wphc_review_notice_check'] ) {
 			update_option( 'wphc_review_message_trigger', -1 );
 		}
 	}
