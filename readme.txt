@@ -97,6 +97,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 == Changelog ==
 
 = 1.8.9 (Sept 10, 2019) =
+* Bumps minimum WordPress version to 4.9 which is 2 years old
 * Makes minor styling changes
 * Adjusts review message
 
