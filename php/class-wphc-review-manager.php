@@ -36,9 +36,12 @@ class WPHC_Review_Manager {
 	 * @since 1.1.0
 	 */
 	public function check_message_display() {
+	    if ( ! current_user_can( 'activate_plugins' ) ) {
+	        return;
+        }
 		$this->admin_notice_check();
 		$this->trigger = $this->check_message_trigger();
-		if ( -1 !== $this->trigger && current_user_can( 'activate_plugins' ) ) {
+		if ( -1 !== $this->trigger ) {
 			if ( ! empty( $this->trigger ) && $this->trigger < strtotime( '-1 week' ) ) {
 				add_action( 'admin_notices', array( $this, 'display_admin_message' ) );
 			}
