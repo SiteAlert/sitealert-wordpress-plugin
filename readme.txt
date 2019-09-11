@@ -1,7 +1,7 @@
 === WP Health (Formerly My WP Health Check) ===
 Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
-Requires at least: 4.7
+Requires at least: 4.9
 Tested up to: 5.2.3
 Stable tag: 1.8.9
 Requires PHP: 5.2
