@@ -2,7 +2,7 @@
 Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.9
-Tested up to: 5.2.3
+Tested up to: 5.3.2
 Stable tag: 1.8.9
 Requires PHP: 5.2
 License: GPLv2
@@ -95,6 +95,9 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 1. Admin Page
 
 == Changelog ==
+
+= 1.8.10 (XXX) =
+* Bumps tested WordPress version to recent version
 
 = 1.8.9 (Sept 10, 2019) =
 * Bumps minimum WordPress version to 4.9 which is 2 years old
