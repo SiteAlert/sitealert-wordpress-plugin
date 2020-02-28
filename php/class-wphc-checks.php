@@ -616,6 +616,10 @@ class WPHC_Checks {
 				'release' => 'December 6, 2018',
 				'eol'     => 'December 6, 2021',
 			),
+			'7.4' => array(
+				'release' => 'November 28, 2019',
+				'eol'     => 'November 28, 2022',
+			),
 		);
 
 		/**
