@@ -75,7 +75,7 @@ class WPHC_Checks {
 		$checks[] = $this->update_plugins_check();
 		$checks[] = $this->inactive_plugins_check();
 		$checks[] = $this->supported_plugin_check( $force, $ignore_limit );
-		$checks[] = $this->vulnerable_plugins_check( $force, $ignore_limit );
+		//$checks[] = $this->vulnerable_plugins_check( $force, $ignore_limit );
 		return apply_filters( 'wphc_plugins_checks', $checks );
 	}
 
