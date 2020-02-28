@@ -75,7 +75,7 @@ class WPHC_Checks {
 		$checks[] = $this->update_plugins_check();
 		$checks[] = $this->inactive_plugins_check();
 		$checks[] = $this->supported_plugin_check( $force, $ignore_limit );
-		$checks[] = $this->vulnerable_plugins_check( $force, $ignore_limit );
+		//$checks[] = $this->vulnerable_plugins_check( $force, $ignore_limit );
 		return apply_filters( 'wphc_plugins_checks', $checks );
 	}
 
@@ -615,6 +615,10 @@ class WPHC_Checks {
 			'7.3' => array(
 				'release' => 'December 6, 2018',
 				'eol'     => 'December 6, 2021',
+			),
+			'7.4' => array(
+				'release' => 'November 28, 2019',
+				'eol'     => 'November 28, 2022',
 			),
 		);
 
