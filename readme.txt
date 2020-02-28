@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.9
 Tested up to: 5.3.2
-Stable tag: 1.8.9
+Stable tag: 1.8.10
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -39,9 +39,6 @@ This check ensures that you do not have a user with the username of "admin" on y
 **Plugins No Longer Being Supported**
 This plugin checks to see if you have any plugins installed that are no longer supported by the developer.
 
-**Plugins With Known Vulnerabilities**
-This will check your plugins to see if you have a plugin installed with a known vulnerability that has not been fixed.
-
 **Theme Updates**
 This plugin checks to make sure all of your themes are up to date.
 
@@ -75,6 +72,9 @@ Keep track of how fast your site is loading.
 **Blacklist Monitoring**
 WP Health will monitor dozens of lists and alert you if your site is blacklisted.
 
+**Accessibility Monitoring**
+WP Health will scan your site an alert you of potential accessibility concerns.
+
 **Email Notifications**
 Get notified when a vulnerability is found in a plugin you have installed. Receive summaries for all of your sites.
 
@@ -96,7 +96,8 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Changelog ==
 
-= 1.8.10 (XXX) =
+= 1.8.10 (February 28 , 2020) =
+* Temporarily disables vulnerabilty checker to due changes with 3rd party API
 * Bumps tested WordPress version to recent version
 
 = 1.8.9 (Sept 10, 2019) =
