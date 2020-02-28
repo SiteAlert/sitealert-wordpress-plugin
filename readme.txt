@@ -97,7 +97,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 == Changelog ==
 
 = 1.8.10 (February 28 , 2020) =
-* Temporarily disables vulnerabilty checker to due changes with 3rd party API
+* Temporarily disables vulnerability checker to due changes with 3rd party API
 * Bumps tested WordPress version to recent version
 
 = 1.8.9 (Sept 10, 2019) =
