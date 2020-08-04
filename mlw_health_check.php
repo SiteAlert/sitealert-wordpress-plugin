@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Health (Formerly My WP Health Check)
  * Description: Keep your site healthy, secure, and performing well!
- * Version: 1.8.11
+ * Version: 1.8.12
  * Author: Frank Corso
  * Author URI: https://wphealth.app/
  * Plugin URI: https://wphealth.app/
