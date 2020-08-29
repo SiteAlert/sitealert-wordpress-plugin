@@ -82,14 +82,17 @@ class WPHC_Telemetry {
 	 * @return void
 	 */
 	private function send_data() {
-		$response = wp_remote_post( 'https://wphc.frankcorso.me/?usage_track=confirmation', array(
+		$response = wp_remote_post( 'https://telemetry.sitealert.io/api/v1/telemetry', array(
 			'method'      => 'POST',
 			'timeout'     => 15,
 			'redirection' => 5,
 			'httpversion' => '1.1',
 			'blocking'    => false,
-			'body'        => $this->data,
+			'body'        => json_encode( $this->data ),
 			'user-agent'  => 'WPHealth Telemetry',
+			'headers'     => array(
+				'Content-type' => 'application/json',
+			),
 		));
 	}
 
