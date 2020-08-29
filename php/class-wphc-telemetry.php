@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.2.1
  */
-class WPHC_Tracking {
+class WPHC_Telemetry {
 
 	/**
 	 * Date To Send Home
@@ -29,7 +29,7 @@ class WPHC_Tracking {
 	 * Call functions within class
 	 *
 	 * @since 1.2.1
-	 * @uses WPHC_Tracking::add_hooks() Adds actions to hooks and filters
+	 * @uses WPHC_Telemetry::add_hooks() Adds actions to hooks and filters
 	 * @return void
 	 */
 	public function __construct() {
@@ -56,9 +56,9 @@ class WPHC_Tracking {
 	 * Determines if the plugin has been authorized to send the data home in the settings page. Then checks if it has been at least a week since the last send.
 	 *
 	 * @since 1.2.1
-	 * @uses WPHC_Tracking::load_data()
-	 * @uses WPHC_Tracking::send_data()
-	 * @uses WPHC_Tracking::is_time_to_send()
+	 * @uses WPHC_Telemetry::load_data()
+	 * @uses WPHC_Telemetry::send_data()
+	 * @uses WPHC_Telemetry::is_time_to_send()
 	 * @return void
 	 */
 	public function track_check() {
@@ -230,6 +230,6 @@ class WPHC_Tracking {
 		return ( '1' == $allowed || '2' == $allowed ) && ( ( $last_time && $last_time < strtotime( '-1 week' ) ) || ! $last_time );
 	}
 }
-$wphc_tracking = new WPHC_Tracking();
+$wphc_telemetry = new WPHC_Telemetry();
 
 ?>
