@@ -109,11 +109,10 @@ class WPHC_Telemetry {
 
 		// Sets basic set up info.
 		$data                  = array();
-		$data['plugin']        = 'WPHC';
 		$data['url']           = home_url();
 		$data['wp_version']    = get_bloginfo( 'version' );
 		$data['php_version']   = PHP_VERSION;
-		$data['mysql_version'] = $wpdb->db_version();
+		$data['db_version']    = $wpdb->db_version();
 		$data['server_app']    = $_SERVER['SERVER_SOFTWARE'];
 
 		// Retrieves current plugin information.
@@ -129,7 +128,7 @@ class WPHC_Telemetry {
 			}
 		}
 		$data['active_plugins']   = $active_plugins;
-		$data['inactive_plugins'] = $plugins;
+		$data['inactive_plugins'] = array_values( $plugins );
 
 		// Retrieves current theme information.
 		$theme_data            = wp_get_theme();
@@ -137,19 +136,18 @@ class WPHC_Telemetry {
 		$data['theme_version'] = $theme_data->Version;
 
 		// Retrieves site information.
-		$data['site_title']   = get_bloginfo( 'name' );
-		$data['site_desc']    = get_bloginfo( 'description' );
-		$data['site_charset'] = get_bloginfo( 'charset' );
-		$data['lang']         = get_bloginfo( 'language' );
+		$data['site_title']          = get_bloginfo( 'name' );
+		$data['site_description']    = get_bloginfo( 'description' );
+		$data['charset']             = get_bloginfo( 'charset' );
+		$data['lang']                = get_bloginfo( 'language' );
 
 		// Retrieves WP Health specific data.
 		$data['original_version']    = get_option( 'wphc_original_version' );
 		$data['current_version']     = get_option( 'wphc_current_version' );
-		$data['failed_tests']        = wphc_get_total_checks();
-		$data['plugin_updates']      = get_plugin_updates();
-		$data['theme_updates']       = get_theme_updates();
+		$data['failed_checks']       = wphc_get_total_checks();
+		$data['plugin_updates']      = array_keys( get_plugin_updates() );
+		$data['theme_updates']       = array_keys( get_theme_updates() );
 		$data['unsupported_plugins'] = get_transient( 'wphc_supported_plugin_check' );
-		$data['admin_check']         = get_user_by( 'login', 'admin' ) ? 'yes' : 'no';
 
 		$this->data = $data;
 	}
