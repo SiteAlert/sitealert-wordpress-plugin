@@ -84,17 +84,13 @@ class WPHC_Telemetry {
 	private function send_data() {
 		$response = wp_remote_post( 'https://wphc.frankcorso.me/?usage_track=confirmation', array(
 			'method'      => 'POST',
-			'timeout'     => 10,
+			'timeout'     => 15,
 			'redirection' => 5,
-			'httpversion' => '1.0',
-			'blocking'    => true,
+			'httpversion' => '1.1',
+			'blocking'    => false,
 			'body'        => $this->data,
-			'user-agent'  => 'WPHC Usage Tracker',
+			'user-agent'  => 'WPHealth Telemetry',
 		));
-		if ( is_wp_error( $response ) ) {
-			$error_message = $response->get_error_message();
-			echo "Something went wrong with WPHC Usage Tracker: $error_message";
-		}
 	}
 
 	/**
