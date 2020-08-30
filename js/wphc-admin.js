@@ -61,6 +61,7 @@ var WPHCAdmin;
 				WPHCAdmin.displaySpinner( $( '.premium-checks' ) );
 				setTimeout( function() {
 					var checks = [
+						{'message': 'You are not receiving emails with the failed checks from this site.', 'type':'okay'},
 						{'message': 'Your site is not being monitored to make sure it is up.', 'type':'okay'},
 						{'message': 'Your site is not being monitored for broken links and images.', 'type':'okay'},
 						{'message': 'Your site is not being monitored for site speed.', 'type':'okay'},
