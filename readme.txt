@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, mysql, plugin, version, security, vulnerable, vulnerability, inactive, update
 Requires at least: 4.9
 Tested up to: 5.5
-Stable tag: 1.8.12
+Stable tag: 1.8.13
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -83,18 +83,15 @@ Get notified when a vulnerability is found in a plugin you have installed. Recei
 = Make Suggestions Or Contribute =
 WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
-== Installation ==
-
-* Navigate to Add New Plugin page within your WordPress
-* Search for WP Health
-* Click Install Now link on the plugin and follow the prompts
-* Activate the plugin through the 'Plugins' menu in WordPress
-
 == Screenshots ==
 
 1. Admin Page
 
 == Changelog ==
+
+= 1.8.13 (August 31, 2020) =
+* Modify telemtry opt-in
+* Add info about email summary premium feature
 
 = 1.8.12 (August 5, 2020) =
 * Ensures WP Health works with WordPress 5.5
@@ -123,23 +120,6 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 = 1.8.5 (June 1, 2019) =
 * Changes text info for the API Key setting
 * Makes minor design changes
-
-= 1.8.4 (May 25, 2019) =
-* Increases spam comment threshold to 50 for check to fail
-* Fixes minor capitalization and grammar mistakes
-* Reduces refresh time for admin bar count from 1 hour to 45 minutes
-
-= 1.8.3 (May 16, 2019) =
-* Closed Bug: Failed admin username check shows green ([Issue #112](https://github.com/fpcorso/wordpress-health-check/issues/112))
-
-= 1.8.2 (May 8, 2019) =
-* Ensures compatibility with WordPress 5.2
-
-= 1.8.1 (April 16, 2019) =
-* Increases number of spam messages needed to trigger check to fail
-
-= 1.8.0 (April 1, 2019) =
-* Closed Enhancement: Check if site is discouraging search engines ([Issue #105](https://github.com/fpcorso/wordpress-health-check/issues/105))
 
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 

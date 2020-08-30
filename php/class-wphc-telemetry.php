@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.2.1
  */
-class WPHC_Tracking {
+class WPHC_Telemetry {
 
 	/**
 	 * Date To Send Home
@@ -29,7 +29,7 @@ class WPHC_Tracking {
 	 * Call functions within class
 	 *
 	 * @since 1.2.1
-	 * @uses WPHC_Tracking::add_hooks() Adds actions to hooks and filters
+	 * @uses WPHC_Telemetry::add_hooks() Adds actions to hooks and filters
 	 * @return void
 	 */
 	public function __construct() {
@@ -56,9 +56,9 @@ class WPHC_Tracking {
 	 * Determines if the plugin has been authorized to send the data home in the settings page. Then checks if it has been at least a week since the last send.
 	 *
 	 * @since 1.2.1
-	 * @uses WPHC_Tracking::load_data()
-	 * @uses WPHC_Tracking::send_data()
-	 * @uses WPHC_Tracking::is_time_to_send()
+	 * @uses WPHC_Telemetry::load_data()
+	 * @uses WPHC_Telemetry::send_data()
+	 * @uses WPHC_Telemetry::is_time_to_send()
 	 * @return void
 	 */
 	public function track_check() {
@@ -82,19 +82,18 @@ class WPHC_Tracking {
 	 * @return void
 	 */
 	private function send_data() {
-		$response = wp_remote_post( 'https://wphc.frankcorso.me/?usage_track=confirmation', array(
+		$response = wp_remote_post( 'https://telemetry.sitealert.io/api/v1/telemetry', array(
 			'method'      => 'POST',
-			'timeout'     => 10,
+			'timeout'     => 15,
 			'redirection' => 5,
-			'httpversion' => '1.0',
-			'blocking'    => true,
-			'body'        => $this->data,
-			'user-agent'  => 'WPHC Usage Tracker',
+			'httpversion' => '1.1',
+			'blocking'    => false,
+			'body'        => json_encode( $this->data ),
+			'user-agent'  => 'WPHealth Telemetry',
+			'headers'     => array(
+				'Content-type' => 'application/json',
+			),
 		));
-		if ( is_wp_error( $response ) ) {
-			$error_message = $response->get_error_message();
-			echo "Something went wrong with WPHC Usage Tracker: $error_message";
-		}
 	}
 
 	/**
@@ -110,11 +109,10 @@ class WPHC_Tracking {
 
 		// Sets basic set up info.
 		$data                  = array();
-		$data['plugin']        = 'WPHC';
 		$data['url']           = home_url();
 		$data['wp_version']    = get_bloginfo( 'version' );
 		$data['php_version']   = PHP_VERSION;
-		$data['mysql_version'] = $wpdb->db_version();
+		$data['db_version']    = $wpdb->db_version();
 		$data['server_app']    = $_SERVER['SERVER_SOFTWARE'];
 
 		// Retrieves current plugin information.
@@ -130,7 +128,7 @@ class WPHC_Tracking {
 			}
 		}
 		$data['active_plugins']   = $active_plugins;
-		$data['inactive_plugins'] = $plugins;
+		$data['inactive_plugins'] = array_values( $plugins );
 
 		// Retrieves current theme information.
 		$theme_data            = wp_get_theme();
@@ -138,19 +136,18 @@ class WPHC_Tracking {
 		$data['theme_version'] = $theme_data->Version;
 
 		// Retrieves site information.
-		$data['site_title']   = get_bloginfo( 'name' );
-		$data['site_desc']    = get_bloginfo( 'description' );
-		$data['site_charset'] = get_bloginfo( 'charset' );
-		$data['lang']         = get_bloginfo( 'language' );
+		$data['site_title']          = get_bloginfo( 'name' );
+		$data['site_description']    = get_bloginfo( 'description' );
+		$data['charset']             = get_bloginfo( 'charset' );
+		$data['lang']                = get_bloginfo( 'language' );
 
 		// Retrieves WP Health specific data.
 		$data['original_version']    = get_option( 'wphc_original_version' );
 		$data['current_version']     = get_option( 'wphc_current_version' );
-		$data['failed_tests']        = wphc_get_total_checks();
-		$data['plugin_updates']      = get_plugin_updates();
-		$data['theme_updates']       = get_theme_updates();
+		$data['failed_checks']       = wphc_get_total_checks();
+		$data['plugin_updates']      = array_keys( get_plugin_updates() );
+		$data['theme_updates']       = array_keys( get_theme_updates() );
 		$data['unsupported_plugins'] = get_transient( 'wphc_supported_plugin_check' );
-		$data['admin_check']         = get_user_by( 'login', 'admin' ) ? 'yes' : 'no';
 
 		$this->data = $data;
 	}
@@ -186,7 +183,7 @@ class WPHC_Tracking {
 			$optout_url = esc_url( add_query_arg( 'wphc_track_check', 'opt_out_of_tracking' ) );
 			?>
 			<div class="updated">
-				<p><?php esc_html_e( "Allow WP Health to track this plugin's usage and help us make this plugin better? No user data is sent to our servers. No sensitive data is tracked.", 'my-wp-health-check' ); ?></p>
+				<p><?php esc_html_e( "We are constantly improving WP Health but that's difficult to do if we don't know how it's being used. Please allow data sharing so that we can receive a little information on how it is used. This setting can be changed at any time on our Settings tab. No user data is sent to our servers. No sensitive data is tracked.", 'my-wp-health-check' ); ?></p>
 				<p><a href="http://bit.ly/2MpT2Rd" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
 				<p>
 					<a href="<?php echo esc_url( $optin_url ); ?>" class="button-secondary"><?php esc_html_e( 'Allow', 'my-wp-health-check' ); ?></a>
@@ -230,6 +227,6 @@ class WPHC_Tracking {
 		return ( '1' == $allowed || '2' == $allowed ) && ( ( $last_time && $last_time < strtotime( '-1 week' ) ) || ! $last_time );
 	}
 }
-$wphc_tracking = new WPHC_Tracking();
+$wphc_telemetry = new WPHC_Telemetry();
 
 ?>
