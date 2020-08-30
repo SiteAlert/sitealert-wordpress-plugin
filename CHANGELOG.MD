@@ -1,3 +1,52 @@
+= 1.8.13 (August 31, 2020) =
+* Modify telemtry opt-in
+* Add info about email summary premium feature
+
+= 1.8.12 (August 5, 2020) =
+* Ensures WP Health works with WordPress 5.5
+
+= 1.8.11 (April 27, 2020) =
+* Ensures WP Health works with the latest WordPress version
+
+= 1.8.10 (February 28 , 2020) =
+* Temporarily disables vulnerability checker to due changes with 3rd party API
+* Bumps tested WordPress version to recent version
+
+= 1.8.9 (Sept 10, 2019) =
+* Bumps minimum WordPress version to 4.9 which is 2 years old
+* Makes minor styling changes
+* Adjusts review message
+
+= 1.8.8 (July 25, 2019) =
+* Adds link for more information about blacklists
+
+= 1.8.7 (July 16, 2019) =
+* Temporarily turns off review message
+
+= 1.8.6 (June 21, 2019) =
+* Sorts the checks with failed checks at top of each section
+
+= 1.8.5 (June 1, 2019) =
+* Changes text info for the API Key setting
+* Makes minor design changes
+
+= 1.8.4 (May 25, 2019) =
+* Increases spam comment threshold to 50 for check to fail
+* Fixes minor capitalization and grammar mistakes
+* Reduces refresh time for admin bar count from 1 hour to 45 minutes
+
+= 1.8.3 (May 16, 2019) =
+* Closed Bug: Failed admin username check shows green ([Issue #112](https://github.com/fpcorso/wordpress-health-check/issues/112))
+
+= 1.8.2 (May 8, 2019) =
+* Ensures compatibility with WordPress 5.2
+
+= 1.8.1 (April 16, 2019) =
+* Increases number of spam messages needed to trigger check to fail
+
+= 1.8.0 (April 1, 2019) =
+* Closed Enhancement: Check if site is discouraging search engines ([Issue #105](https://github.com/fpcorso/wordpress-health-check/issues/105))
+
 = 1.7.9 (March 22, 2019) =
 * Makes minor changes to text
 
