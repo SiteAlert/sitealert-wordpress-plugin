@@ -58,6 +58,8 @@ class My_WP_Health_Check {
 			include 'php/class-wphc-review-manager.php';
 			include 'php/class-wphc-telemetry.php';
 			include 'php/class-wphc-upsells.php';
+
+			WPHC_Upsells::init();
 		}
 		include 'php/class-wphc-checks.php';
 		include 'php/functions.php';
