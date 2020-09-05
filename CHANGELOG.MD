@@ -1,3 +1,8 @@
+= 1.8.14 (Sept 6, 2020) =
+* Fix error notice relating to permission callback in REST API
+* Move all api key authentication in REST API to new permission callback
+* Added new upsell message
+
 = 1.8.13 (August 31, 2020) =
 * Modify telemtry opt-in
 * Add info about email summary premium feature
