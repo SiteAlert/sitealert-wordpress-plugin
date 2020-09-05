@@ -46,11 +46,11 @@ class WPHC_Upsells {
                         margin-left: 2em;
                     }
                     .wphc-upsell-message ul li:before {
-                        content: "\f155";
+                        content: "\f12a";
                         display: inline-block;
                         -webkit-font-smoothing: antialiased;
                         font: normal 16px/1 'dashicons';
-                        color: #46b450;
+                        color: #173f9c;
                         margin-right: 10px;
                         word-wrap: break-word;
                     }
