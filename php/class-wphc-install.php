@@ -62,6 +62,9 @@ class WPHC_Install {
 		if ( ! get_option( 'wphc_original_version' ) ) {
 			add_option( 'wphc_original_version', $version );
 		}
+		if ( ! get_option( 'wphc_install_timestamp' ) ) {
+			add_option( 'wphc_install_timestamp', time() );
+		}
 		if ( get_option( 'wphc_current_version' ) != $version ) {
 			// Updates current version option.
 			update_option( 'wphc_current_version', $version );
