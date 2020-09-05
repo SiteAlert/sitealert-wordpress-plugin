@@ -2,14 +2,14 @@
 /**
  * Plugin Name: WP Health (Formerly My WP Health Check)
  * Description: Keep your site healthy, secure, and performing well!
- * Version: 1.8.13
+ * Version: 1.8.14
  * Author: Frank Corso
  * Author URI: https://wphealth.app/
  * Plugin URI: https://wphealth.app/
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso
- * @version 1.8.13
+ * @version 1.8.14
  * @package WPHC
  */
 
@@ -34,7 +34,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.8.13';
+	public $version = '1.8.14';
 
 	/**
 	 * Main construct
@@ -53,12 +53,14 @@ class My_WP_Health_Check {
 	 */
 	private function load_dependencies() {
 		if ( is_admin() ) {
-			include 'php/admin/ads.php';
 			include 'php/admin/checks-page.php';
+			include 'php/class-wphc-install.php';
 			include 'php/class-wphc-review-manager.php';
 			include 'php/class-wphc-telemetry.php';
+			include 'php/class-wphc-upsells.php';
+
+			WPHC_Upsells::init();
 		}
-		include 'php/class-wphc-install.php';
 		include 'php/class-wphc-checks.php';
 		include 'php/functions.php';
 		include 'php/ajax.php';

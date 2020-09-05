@@ -20,13 +20,34 @@ function wphc_register_rest_routes() {
 	$settings = (array) get_option( 'wphc-settings', '' );
 	if ( isset( $settings['api_key'] ) && ! empty( $settings['api_key'] ) ) {
 		register_rest_route( 'wordpress-health-check/v1', '/checks/', array(
-			'methods'  => WP_REST_Server::READABLE,
-			'callback' => 'wphc_rest_get_all_checks',
+			'methods'             => WP_REST_Server::READABLE,
+			'callback'            => 'wphc_rest_get_all_checks',
+			'permission_callback' => 'wphc_rest_permission_callback'
 		) );
 		register_rest_route( 'wordpress-health-check/v1', '/checks/(?P<type>[a-zA-Z]+)', array(
-			'methods'  => WP_REST_Server::READABLE,
-			'callback' => 'wphc_rest_get_check',
+			'methods'             => WP_REST_Server::READABLE,
+			'callback'            => 'wphc_rest_get_check',
+			'permission_callback' => 'wphc_rest_permission_callback'
 		) );
+	}
+}
+
+/**
+ * Tests the API Key provided to ensure this is a valid client
+ *
+ * @param WP_REST_Request $request
+ * @return bool|WP_Error True if authenticated api key.
+ */
+function wphc_rest_permission_callback( WP_REST_Request $request ) {
+	$settings = (array) get_option( 'wphc-settings', '' );
+	if ( isset( $request['api_key'] ) ) {
+		if ( isset( $settings['api_key'] ) && strtoupper( $request['api_key'] ) === strtoupper( $settings['api_key'] ) ) {
+			return true;
+		} else {
+			return new WP_Error( 'unauthorized', 'The API Key supplied was not valid' );
+		}
+	} else {
+		return new WP_Error( 'unauthorized', 'The API Key is missing' );
 	}
 }
 
@@ -38,17 +59,8 @@ function wphc_register_rest_routes() {
  * @return array The checks requested.
  */
 function wphc_rest_get_all_checks( WP_REST_Request $request ) {
-	$settings = (array) get_option( 'wphc-settings', '' );
-	if ( isset( $request['api_key'] ) && isset( $settings['api_key'] ) && strtoupper( $request['api_key'] ) === strtoupper( $settings['api_key'] ) ) {
-		$wphc   = new WPHC_Checks();
-		$checks = $wphc->all_checks();
-		return $checks;
-	} else {
-		return array(
-			'error' => 'Unauthorized Access',
-			'msg'   => 'The API Key supplied was not valid',
-		);
-	}
+	$wphc   = new WPHC_Checks();
+	return $wphc->all_checks();
 }
 
 /**
@@ -59,31 +71,23 @@ function wphc_rest_get_all_checks( WP_REST_Request $request ) {
  * @return array The checks requested.
  */
 function wphc_rest_get_check( WP_REST_Request $request ) {
-	$settings = (array) get_option( 'wphc-settings', '' );
-	if ( isset( $request['api_key'] ) && isset( $settings['api_key'] ) && strtoupper( $request['api_key'] ) === strtoupper( $settings['api_key'] ) ) {
-		$wphc = new WPHC_Checks();
-		switch ( $request['type'] ) {
-			case 'server':
-				$checks = $wphc->server_checks();
-				break;
+	$wphc = new WPHC_Checks();
+	switch ( $request['type'] ) {
+		case 'server':
+			$checks = $wphc->server_checks();
+			break;
 
-			case 'wp':
-				$checks = $wphc->wp_checks();
-				break;
+		case 'wp':
+			$checks = $wphc->wp_checks();
+			break;
 
-			case 'plugins':
-				$checks = $wphc->plugins_checks( true, true );
-				break;
+		case 'plugins':
+			$checks = $wphc->plugins_checks( true, true );
+			break;
 
-			default:
-				$checks = array();
-				break;
-		}
-		return $checks;
-	} else {
-		return array(
-			'error' => 'Unauthorized Access',
-			'msg'   => 'The API Key supplied was not valid',
-		);
+		default:
+			$checks = array();
+			break;
 	}
+	return $checks;
 }
