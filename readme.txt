@@ -92,7 +92,7 @@ WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 == Frequently Asked Questions ==
 
 = Why do I need an uptime monitor? =
-You need to keep track of how often your site goes down and be able to immediately look into it. When your site is down, you are missing out on new subscribers and new customers.
+If your site were to go down right now, how many visitors and customers would you miss out on until you discovered your site was down? With uptime monitoring, you are immediately notified when your site goes down so you can look into and keep track of how often your site goes down.
 
 Also, if you host guarantees 99% uptime, that could still mean 35 hours where your site is down each year. At 99.9%, that's still over 3 hours your site is down each year. Making sure your hosting provider is staying within their guarantee is important.
 
