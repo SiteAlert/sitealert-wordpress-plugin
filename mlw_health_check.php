@@ -42,6 +42,7 @@ class My_WP_Health_Check {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
+	    $this->maybe_create_scheduled_event();
 		$this->load_dependencies();
 		$this->load_hooks();
 	}
@@ -136,6 +137,17 @@ class My_WP_Health_Check {
 				</tr>
 				<?php
 			}
+		}
+	}
+
+	/**
+	 * Create a weekly cron event, if one does not already exist.
+     *
+     * @since 1.8.15
+	 */
+	public function maybe_create_scheduled_event() {
+		if ( ! wp_next_scheduled( 'wphc_daily_scheduled_action' ) && ! wp_installing() ) {
+			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'wphc_daily_scheduled_action' );
 		}
 	}
 }
