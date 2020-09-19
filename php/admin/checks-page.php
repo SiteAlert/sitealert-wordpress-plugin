@@ -159,7 +159,7 @@ function wphc_generate_checks_page() {
 						</tr>
 					</tbody>
 				</table>
-				<button class="btn button" id="wphc-settings-save"><?php esc_html_e( 'Save Changes', 'my-wp-health-check' ); ?></button>
+				<button class="btn button button-primary" id="wphc-settings-save"><?php esc_html_e( 'Save Changes', 'my-wp-health-check' ); ?></button>
 			</div>
 		</main>
 	</div>
