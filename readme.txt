@@ -1,9 +1,9 @@
 === WP Health (Formerly My WP Health Check) ===
 Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
-Requires at least: 5.0
+Requires at least: 5.1
 Tested up to: 5.5
-Stable tag: 1.8.14
+Stable tag: 1.8.15
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,10 @@ Also, if you host guarantees 99% uptime, that could still mean 35 hours where yo
 1. Admin Page
 
 == Changelog ==
+
+= 1.8.15 (Sept 22, 2020) =
+* Bump minimum WordPress version to 5.1, which is 18 months old
+* Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
 
 = 1.8.14 (Sept 6, 2020) =
 * Fix error notice relating to permission callback in REST API
