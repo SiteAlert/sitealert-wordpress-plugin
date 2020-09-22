@@ -114,10 +114,16 @@ class WPHC_Telemetry {
 		$data['db_version']    = $wpdb->db_version();
 		$data['server_app']    = $_SERVER['SERVER_SOFTWARE'];
 
-		// Retrieves current plugin information.
+
+		// Loads in necessary files, if needed.
 		if ( ! function_exists( 'get_plugins' ) ) {
 			include ABSPATH . '/wp-admin/includes/plugin.php';
 		}
+		if ( ! function_exists( 'get_plugin_updates' ) ) {
+			include ABSPATH . '/wp-admin/includes/update.php';
+		}
+
+		// Retrieves current plugin information.
 		$plugins        = array_keys( get_plugins() );
 		$active_plugins = get_option( 'active_plugins', array() );
 		foreach ( $plugins as $key => $plugin ) {
