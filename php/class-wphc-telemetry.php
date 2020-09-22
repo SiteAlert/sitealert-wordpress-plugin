@@ -1,6 +1,6 @@
 <?php
 /**
- * Sends data to tracking server, if opted in
+ * Sends data to telemetry server, if opted in
  */
 
 // Exits if accessed directly.
@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class To Send Tracking Information
+ * Class To Send Telemetry Information
  *
  * @since 1.2.1
  */
@@ -47,7 +47,7 @@ class WPHC_Telemetry {
 	private function add_hooks() {
 		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 		add_action( 'admin_init', array( $this, 'admin_notice_check' ) );
-		add_action( 'shutdown', array( $this, 'track_check' ) );
+		add_action( 'wphc_daily_scheduled_action', array( $this, 'telemetry_check' ) );
 	}
 
 	/**
@@ -55,21 +55,21 @@ class WPHC_Telemetry {
 	 *
 	 * Determines if the plugin has been authorized to send the data home in the settings page. Then checks if it has been at least a week since the last send.
 	 *
-	 * @since 1.2.1
+	 * @since 1.8.15
 	 * @uses WPHC_Telemetry::load_data()
 	 * @uses WPHC_Telemetry::send_data()
 	 * @uses WPHC_Telemetry::is_time_to_send()
 	 * @return void
 	 */
-	public function track_check() {
+	public function telemetry_check() {
 		$settings = (array) get_option( 'wphc-settings' );
-		$tracking_allowed = '0';
+		$telemetry_allowed = '0';
 		if ( isset( $settings['tracking_allowed'] ) ) {
-			$tracking_allowed = $settings['tracking_allowed'];
+			$telemetry_allowed = $settings['tracking_allowed'];
 		}
 		$last_time = get_option( 'wphc_tracker_last_time' );
-		if ( $this->is_time_to_send( $tracking_allowed, $last_time ) ) {
-			$this->load_data( $tracking_allowed );
+		if ( $this->is_time_to_send( $telemetry_allowed, $last_time ) ) {
+			$this->load_data();
 			$this->send_data();
 			update_option( 'wphc_tracker_last_time', time() );
 		}
@@ -100,10 +100,9 @@ class WPHC_Telemetry {
 	 * Prepares The Data To Be Sent
 	 *
 	 * @since 1.2.1
-	 * @param string $tracking The value of the tracking setting.
 	 * @return void
 	 */
-	private function load_data( $tracking ) {
+	private function load_data() {
 
 		global $wpdb;
 
@@ -115,10 +114,16 @@ class WPHC_Telemetry {
 		$data['db_version']    = $wpdb->db_version();
 		$data['server_app']    = $_SERVER['SERVER_SOFTWARE'];
 
-		// Retrieves current plugin information.
+
+		// Loads in necessary files, if needed.
 		if ( ! function_exists( 'get_plugins' ) ) {
 			include ABSPATH . '/wp-admin/includes/plugin.php';
 		}
+		if ( ! function_exists( 'get_plugin_updates' ) ) {
+			include ABSPATH . '/wp-admin/includes/update.php';
+		}
+
+		// Retrieves current plugin information.
 		$plugins        = array_keys( get_plugins() );
 		$active_plugins = get_option( 'active_plugins', array() );
 		foreach ( $plugins as $key => $plugin ) {

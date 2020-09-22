@@ -1,3 +1,7 @@
+= 1.8.15 (Sept 22, 2020) =
+* Bump minimum WordPress version to 5.1, which is 18 months old
+* Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
+
 = 1.8.14 (Sept 6, 2020) =
 * Fix error notice relating to permission callback in REST API
 * Move all api key authentication in REST API to new permission callback

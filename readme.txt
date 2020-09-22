@@ -1,9 +1,9 @@
 === WP Health (Formerly My WP Health Check) ===
 Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
-Requires at least: 4.9
+Requires at least: 5.1
 Tested up to: 5.5
-Stable tag: 1.8.14
+Stable tag: 1.8.15
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -60,6 +60,12 @@ Check out our premium plans that includes:
 **Central Dashboard**
 See all of your checks from all of your sites in one place!
 
+**Moz Domain Authority Monitoring**
+Monitor changes in your site's Moz Domain Authority.
+
+**Broken Link Monitoring**
+Discover any broken links on your site before your visitors do.
+
 **Broken Images Monitoring**
 Get notified if you have any broken images on your site.
 
@@ -76,18 +82,29 @@ WP Health will monitor dozens of lists and alert you if your site is blacklisted
 WP Health will scan your site an alert you of potential accessibility concerns.
 
 **Email Notifications**
-Get notified when a vulnerability is found in a plugin you have installed. Receive summaries for all of your sites.
+Receive summaries for all your sites including any warnings, broken links, and more!
 
 [Learn more about our premium plan!](https://wphealth.app)
 
 = Make Suggestions Or Contribute =
 WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
+== Frequently Asked Questions ==
+
+= Why do I need an uptime monitor? =
+If your site were to go down right now, how many visitors and customers would you miss out on until you discovered your site was down? With uptime monitoring, you are immediately notified when your site goes down so you can look into and keep track of how often your site goes down.
+
+Also, if you host guarantees 99% uptime, that could still mean 35 hours where your site is down each year. At 99.9%, that's still over 3 hours your site is down each year. Making sure your hosting provider is staying within their guarantee is important.
+
 == Screenshots ==
 
 1. Admin Page
 
 == Changelog ==
+
+= 1.8.15 (Sept 22, 2020) =
+* Bump minimum WordPress version to 5.1, which is 18 months old
+* Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
 
 = 1.8.14 (Sept 6, 2020) =
 * Fix error notice relating to permission callback in REST API
@@ -123,5 +140,5 @@ For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpco
 
 == Upgrade Notice ==
 
-= 1.8.0 =
-This update adds a new check!
+= 1.8.15 =
+Keep WP Health up to date to ensure all of your checks are running smoothly.

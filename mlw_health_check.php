@@ -2,14 +2,14 @@
 /**
  * Plugin Name: WP Health (Formerly My WP Health Check)
  * Description: Keep your site healthy, secure, and performing well!
- * Version: 1.8.14
+ * Version: 1.8.15
  * Author: Frank Corso
  * Author URI: https://wphealth.app/
  * Plugin URI: https://wphealth.app/
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso
- * @version 1.8.14
+ * @version 1.8.15
  * @package WPHC
  */
 
@@ -34,7 +34,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.8.14';
+	public $version = '1.8.15';
 
 	/**
 	 * Main construct
@@ -42,6 +42,7 @@ class My_WP_Health_Check {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
+	    $this->maybe_create_scheduled_event();
 		$this->load_dependencies();
 		$this->load_hooks();
 	}
@@ -56,11 +57,11 @@ class My_WP_Health_Check {
 			include 'php/admin/checks-page.php';
 			include 'php/class-wphc-install.php';
 			include 'php/class-wphc-review-manager.php';
-			include 'php/class-wphc-telemetry.php';
 			include 'php/class-wphc-upsells.php';
 
 			WPHC_Upsells::init();
 		}
+		include 'php/class-wphc-telemetry.php';
 		include 'php/class-wphc-checks.php';
 		include 'php/functions.php';
 		include 'php/ajax.php';
@@ -136,6 +137,17 @@ class My_WP_Health_Check {
 				</tr>
 				<?php
 			}
+		}
+	}
+
+	/**
+	 * Create a weekly cron event, if one does not already exist.
+     *
+     * @since 1.8.15
+	 */
+	public function maybe_create_scheduled_event() {
+		if ( ! wp_next_scheduled( 'wphc_daily_scheduled_action' ) && ! wp_installing() ) {
+			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'wphc_daily_scheduled_action' );
 		}
 	}
 }

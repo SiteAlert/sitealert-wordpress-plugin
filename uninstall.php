@@ -22,4 +22,8 @@ delete_option( 'wphc_install_timestamp' );
 delete_transient( 'wphc_supported_plugin_check' );
 delete_transient( 'wphc_total_checks' );
 
+// Deletes our daily cron event.
+$timestamp = wp_next_scheduled( 'wphc_daily_scheduled_action' );
+wp_unschedule_event( $timestamp, 'wphc_daily_scheduled_action' );
+
 ?>
