@@ -23,7 +23,7 @@ var WPHCAdmin;
 		 */
 		saveSettings: function() {
 			$( '#wphc-settings-save' ).prop( 'disabled', true );
-			document.querySelector('.admin-messages').scrollIntoView({behavior: "smooth", block: "start", inline: "start"})
+			document.querySelector('.admin-messages').scrollIntoView({behavior: "smooth", block: "end", inline: "start"})
 			WPHCAdmin.displayAlert( 'Saving settings...', 'info' );
 			var tracking_allowed = 0;
 			if ( $( '#tracking_allowed' ).prop( 'checked' ) ) {
