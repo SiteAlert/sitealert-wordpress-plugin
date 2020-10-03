@@ -22,6 +22,8 @@ var WPHCAdmin;
 		 * @since 1.6.4
 		 */
 		saveSettings: function() {
+			$( '#wphc-settings-save' ).prop( 'disabled', true );
+			document.querySelector('.admin-messages').scrollIntoView({behavior: "smooth", block: "start", inline: "start"})
 			WPHCAdmin.displayAlert( 'Saving settings...', 'info' );
 			var tracking_allowed = 0;
 			if ( $( '#tracking_allowed' ).prop( 'checked' ) ) {
@@ -32,20 +34,21 @@ var WPHCAdmin;
 				tracking_allowed: tracking_allowed,
 				api_key: $( '#api_key' ).val(),
 			};
-			jQuery.post( ajaxurl, data, function( response ) {
+			$.post( ajaxurl, data, function( response ) {
 				response =  JSON.parse( response );
 				if ( response.success ) {
-					WPHCAdmin.displayAlert( 'Settings have been saved!', 'success' );
+					WPHCAdmin.displayAlert( response.msg, 'success' );
 				} else {
 					WPHCAdmin.displayAlert( 'Error when saving! ' + response.msg, 'error' );
 				}
+				$( '#wphc-settings-save' ).prop( 'disabled', false );
 			});
 		},
 		selectTab: function( tab ) {
 			$( '.wphc-tab' ).removeClass( 'nav-tab-active' );
 			$( '.wphc-tab-content' ).hide();
 			tab.addClass( 'nav-tab-active' );
-			tabID = tab.data( 'tab' );
+			var tabID = tab.data( 'tab' );
 			$( '#tab-' + tabID ).show();
 		},
 		// Loads all checks

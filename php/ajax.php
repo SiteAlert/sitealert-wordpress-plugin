@@ -65,7 +65,7 @@ function wphc_save_settings() {
 	update_option( 'wphc-settings', $settings );
 	$json = array(
 		'success' => true,
-		'msg'     => '',
+		'msg'     => 'Settings have been saved!',
 	);
 	if ( 'yvqks' === substr( $api_key, 0, 5 ) ) {
 		$body_json = array(
@@ -92,8 +92,11 @@ function wphc_save_settings() {
 				$json['msg']     = "Something went wrong when sending data to WP Health API: {$body->msg}";
 			} else {
 				update_option('wphc-premium', '1' );
+				$json['msg'] = $body->msg;
 			}
 		}
+	} else {
+		update_option('wphc-premium', '0' );
 	}
 	echo json_encode( $json );
 	wp_die();
