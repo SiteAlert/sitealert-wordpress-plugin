@@ -87,7 +87,7 @@ function wphc_save_settings() {
 			$json['msg']     = "Something went wrong when sending data to WP Health API: $error_message";
 		} else {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( false === $body->success ) {
+			if ( ! isset( $body->success ) || false === $body->success ) {
 				$json['success'] = false;
 				$json['msg']     = "Something went wrong when sending data to WP Health API: {$body->msg}";
 			} else {
