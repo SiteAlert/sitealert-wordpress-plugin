@@ -65,7 +65,7 @@ function wphc_save_settings() {
 	update_option( 'wphc-settings', $settings );
 	$json = array(
 		'success' => true,
-		'msg'     => '',
+		'msg'     => 'Settings have been saved!',
 	);
 	if ( 'yvqks' === substr( $api_key, 0, 5 ) ) {
 		$body_json = array(
@@ -73,10 +73,10 @@ function wphc_save_settings() {
 			'url'       => site_url(),
 			'api_key'   => substr( $api_key, 5 ),
 		);
-		$response = wp_remote_post( 'https://api.wphealth.app/api/v1/sites', array(
+		$response = wp_remote_post( 'https://api.sitealert.io/api/v1/sites', array(
 			'timeout'     => 45,
 			'body'        => json_encode( $body_json ),
-			'user-agent'  => 'WPHC Usage Tracker',
+			'user-agent'  => 'Site Alert Plugin',
 			'headers'     => array(
 				'Content-type' => 'application/json',
 			),
@@ -87,11 +87,16 @@ function wphc_save_settings() {
 			$json['msg']     = "Something went wrong when sending data to WP Health API: $error_message";
 		} else {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( false === $body->success ) {
+			if ( ! isset( $body->success ) || false === $body->success ) {
 				$json['success'] = false;
 				$json['msg']     = "Something went wrong when sending data to WP Health API: {$body->msg}";
+			} else {
+				update_option('wphc-premium', '1' );
+				$json['msg'] = esc_html( $body->msg );
 			}
 		}
+	} else {
+		update_option('wphc-premium', '0' );
 	}
 	echo json_encode( $json );
 	wp_die();

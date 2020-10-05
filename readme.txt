@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
 Requires at least: 5.1
 Tested up to: 5.5
-Stable tag: 1.8.15
+Stable tag: 1.8.16
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -102,6 +102,10 @@ Also, if you host guarantees 99% uptime, that could still mean 35 hours where yo
 
 == Changelog ==
 
+= 1.8.16 (Oct 4, 2020) =
+* Makes minor improvements to settings tab JavaScript
+* Changes API endpoint for when adding sites to premium account
+
 = 1.8.15 (Sept 22, 2020) =
 * Bump minimum WordPress version to 5.1, which is 18 months old
 * Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
@@ -118,27 +122,9 @@ Also, if you host guarantees 99% uptime, that could still mean 35 hours where yo
 = 1.8.12 (August 5, 2020) =
 * Ensures WP Health works with WordPress 5.5
 
-= 1.8.11 (April 27, 2020) =
-* Ensures WP Health works with the latest WordPress version
-
-= 1.8.10 (February 28 , 2020) =
-* Temporarily disables vulnerability checker to due changes with 3rd party API
-* Bumps tested WordPress version to recent version
-
-= 1.8.9 (Sept 10, 2019) =
-* Bumps minimum WordPress version to 4.9 which is 2 years old
-* Makes minor styling changes
-* Adjusts review message
-
-= 1.8.8 (July 25, 2019) =
-* Adds link for more information about blacklists
-
-= 1.8.7 (July 16, 2019) =
-* Temporarily turns off review message
-
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.8.15 =
+= 1.8.16 =
 Keep WP Health up to date to ensure all of your checks are running smoothly.

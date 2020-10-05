@@ -1,3 +1,7 @@
+= 1.8.16 (Oct 4, 2020) =
+* Makes minor improvements to settings tab JavaScript
+* Changes API endpoint for when adding sites to premium account
+
 = 1.8.15 (Sept 22, 2020) =
 * Bump minimum WordPress version to 5.1, which is 18 months old
 * Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
