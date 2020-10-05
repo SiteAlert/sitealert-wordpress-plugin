@@ -92,7 +92,7 @@ function wphc_save_settings() {
 				$json['msg']     = "Something went wrong when sending data to WP Health API: {$body->msg}";
 			} else {
 				update_option('wphc-premium', '1' );
-				$json['msg'] = $body->msg;
+				$json['msg'] = esc_html( $body->msg );
 			}
 		}
 	} else {
