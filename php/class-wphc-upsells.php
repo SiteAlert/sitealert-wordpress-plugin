@@ -37,7 +37,7 @@ class WPHC_Upsells {
 			$screenparent = $screen->parent_file;
 			$screen_id    = $screen->id;
 			if ( $screenparent == 'plugins.php' && $screen_id == 'plugins' && current_user_can( 'install_plugins' ) ) {
-				$upsell_url = 'https://wphealth.app/upgrade/?utm_source=upsell-three-weeks-notice&utm_medium=medium&utm_campaign=health-plugin';
+				$upsell_url = 'https://wphealth.app/upgrade/?utm_source=upsell-three-weeks-notice&utm_medium=plugin&utm_campaign=health-plugin';
 				$nope_url   = esc_url( add_query_arg( 'wphc_three_week_upsell_notice_check', 'remove_message' ) );;
 				?>
                 <style>
