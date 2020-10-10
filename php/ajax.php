@@ -84,12 +84,12 @@ function wphc_save_settings() {
 		if ( is_wp_error( $response ) ) {
 			$json['success'] = false;
 			$error_message   = $response->get_error_message();
-			$json['msg']     = "Something went wrong when sending data to WP Health API: $error_message";
+			$json['msg']     = "Something went wrong when sending data to SiteAlert API: $error_message";
 		} else {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( ! isset( $body->success ) || false === $body->success ) {
 				$json['success'] = false;
-				$json['msg']     = "Something went wrong when sending data to WP Health API: {$body->msg}";
+				$json['msg']     = "Something went wrong when sending data to SiteAlert API: {$body->msg}";
 			} else {
 				update_option('wphc-premium', '1' );
 				$json['msg'] = esc_html( $body->msg );

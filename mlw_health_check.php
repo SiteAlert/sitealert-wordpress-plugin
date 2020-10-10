@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Health (Formerly My WP Health Check)
+ * Plugin Name: SiteAlert (Formerly WP Health)
  * Description: Keep your site healthy, secure, and performing well!
  * Version: 1.8.16
  * Author: Frank Corso
@@ -84,7 +84,7 @@ class My_WP_Health_Check {
 	 * @since 1.6.0
 	 */
 	public function setup_admin_menu() {
-		add_management_page( 'WP Health', 'WP Health', 'manage_options', 'wp-health-check', 'wphc_generate_checks_page' );
+		add_management_page( 'SiteAlert', 'SiteAlert', 'manage_options', 'wp-health-check', 'wphc_generate_checks_page' );
 	}
 
 	/**

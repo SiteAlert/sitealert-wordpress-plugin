@@ -62,7 +62,7 @@ class WPHC_Upsells {
                     }
                 </style>
                 <div class="updated wphc-upsell-message">
-                    <p><?php esc_html_e( 'Hey there! Sorry to bother you. I noticed that you have been using WP Health for three weeks now. WP Health Premium has 
+                    <p><?php esc_html_e( 'Hey there! Sorry to bother you. I noticed that you have been using SiteAlert for three weeks now. SiteAlert Premium has 
                               even more enhanced monitoring for your site including:', 'my-wp-health-check' ); ?></p>
                     <ul>
                         <li><?php esc_html_e( 'Broken Image Monitor', 'my-wp-health-check' ); ?></li>
@@ -73,7 +73,7 @@ class WPHC_Upsells {
                         <li><?php esc_html_e( 'Accessibility Monitor', 'my-wp-health-check' ); ?></li>
                     </ul>
                     <p><?php esc_html_e( 'Since you have already been using the free version, you can use coupon code THREEWEEKS to get 75% off your first month!', 'my-wp-health-check' ); ?></p>
-                    <p><?php esc_html_e( 'I truly believe WP Health makes a difference for people maintaining their WordPress sites. I hope you utilize this coupon code. Feel free to reach out if I can ever assist with anything.', 'my-wp-health-check' ); ?><strong><em>~ Frank Corso</em></strong></p>
+                    <p><?php esc_html_e( 'I truly believe SiteAlert makes a difference for people maintaining their WordPress sites. I hope you utilize this coupon code. Feel free to reach out if I can ever assist with anything.', 'my-wp-health-check' ); ?><strong><em>~ Frank Corso</em></strong></p>
                     <p class="wphc-upsell-message-action-links">
                         <a target="_blank" href="<?php echo esc_url( $upsell_url ); ?>" class="button-primary"><?php esc_html_e( 'Yeah, I want to upgrade!', 'my-wp-health-check' ); ?></a>
                         <a href="<?php echo esc_url( $nope_url ); ?>" class="button-secondary"><?php esc_html_e( 'Dismiss this alert', 'my-wp-health-check' ); ?></a>

@@ -1,4 +1,4 @@
-=== WP Health (Formerly My WP Health Check) ===
+=== SiteAlert (Formerly WP Health) ===
 Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
 Requires at least: 5.1
@@ -12,9 +12,9 @@ Monitor the health and security of your WordPress site!
 
 == Description ==
 
-WP Health will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the WP Health page to quickly see the results of these checks using the simple color-coded sections.
+SiteAlert will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
 
-Once installed, there will be a new **WP Health** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention.
+Once installed, there will be a new **SiteAlert** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention.
 
 = Currently Checks =
 
@@ -52,7 +52,7 @@ Checks if your site has disabled the file editor.
 Checks to make sure you don't have too many spam comments.
 
 **Optional REST API**
-If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "WP Health" page in the tools menu.
+If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "SiteAlert" page in the tools menu.
 
 = Need more? =
 Check out our premium plans that includes:
@@ -76,10 +76,10 @@ Get notified immediately if your site goes down.
 Keep track of how fast your site is loading.
 
 **Blacklist Monitoring**
-WP Health will monitor dozens of lists and alert you if your site is blacklisted.
+SiteAlert will monitor dozens of lists and alert you if your site is blacklisted.
 
 **Accessibility Monitoring**
-WP Health will scan your site an alert you of potential accessibility concerns.
+SiteAlert will scan your site an alert you of potential accessibility concerns.
 
 **Email Notifications**
 Receive summaries for all your sites including any warnings, broken links, and more!
@@ -87,7 +87,7 @@ Receive summaries for all your sites including any warnings, broken links, and m
 [Learn more about our premium plan!](https://wphealth.app)
 
 = Make Suggestions Or Contribute =
-WP Health [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
+SiteAlert [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 
 == Frequently Asked Questions ==
 
@@ -127,4 +127,4 @@ For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpco
 == Upgrade Notice ==
 
 = 1.8.16 =
-Keep WP Health up to date to ensure all of your checks are running smoothly.
+Keep SiteAlert up to date to ensure all of your checks are running smoothly.

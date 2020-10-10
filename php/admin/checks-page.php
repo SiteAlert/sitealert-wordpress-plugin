@@ -25,7 +25,7 @@ function wphc_generate_checks_page() {
 	$settings = (array) get_option( 'wphc-settings' );
 	?>
 	<div class="wrap">
-		<h2>WP Health</h2>
+		<h2>SiteAlert</h2>
 		<div class="admin-messages"></div>
 		<hr />
 		<h2 class="nav-tab-wrapper">
@@ -60,7 +60,7 @@ function wphc_generate_checks_page() {
 					</div>
 					<div class="wphc-flex-item">
 						<div class="wphc-info-section">
-							<h3 class="wphc-info-section-title">WP Health News</h3>
+							<h3 class="wphc-info-section-title">SiteAlert News</h3>
 							<div class="wphc-info-box">
 								<h4><?php esc_html_e( 'Learn how to maintain your WordPress site!', 'my-wp-health-check' ); ?></h4>
 								<p><?php esc_html_e( 'Get our 5-day "Maintaining Your WordPress Site" email course. Sign up to receive our email course that will discuss:', 'my-wp-health-check' ); ?></p>
@@ -91,7 +91,7 @@ function wphc_generate_checks_page() {
 							</div>
 							<?php
 							$wphc_rss  = array();
-							$wphc_feed = fetch_feed( 'https://wphealth.app/feed/' );
+							$wphc_feed = fetch_feed( 'https://sitealert.io/feed/' );
 							if ( ! is_wp_error( $wphc_feed ) ) {
 								$wphc_feed_items = $wphc_feed->get_items( 0, 3 );
 								foreach ( $wphc_feed_items as $feed_item ) {
@@ -128,7 +128,7 @@ function wphc_generate_checks_page() {
 						<tr>
 							<th scope="row">
 								<label for="tracking_allowed"><?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?></label>
-								<p><?php esc_html_e( "Allows WP Health to anonymously track this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
+								<p><?php esc_html_e( "Allows SiteAlert to collect data about this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
 								<p><a href="http://bit.ly/2MpT2Rd" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
 							</th>
 							<td>
@@ -143,8 +143,8 @@ function wphc_generate_checks_page() {
 						</tr>
 						<tr>
 							<th scope="row">
-								<label for="api_key"><?php esc_html_e( 'Your WP Health Premium API Key', 'my-wp-health-check' ); ?></label>
-								<p><?php esc_html_e( 'Enter your API Key to add this site to your WP Health Premium account.', 'my-wp-health-check' ); ?></p>
+								<label for="api_key"><?php esc_html_e( 'Your SiteAlert Premium API Key', 'my-wp-health-check' ); ?></label>
+								<p><?php esc_html_e( 'Enter your API Key to add this site to your SiteAlert Premium account.', 'my-wp-health-check' ); ?></p>
 								<p><?php esc_html_e( 'If you are a developer wanting to use the REST API: By default the REST API is disabled for this plugin. You can add your own custom API Key to enable it so you can build custom scripts around the REST API.', 'my-wp-health-check' ); ?></p>
 							</th>
 							<td>
