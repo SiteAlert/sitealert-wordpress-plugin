@@ -4,8 +4,8 @@
  * Description: Keep your site healthy, secure, and performing well!
  * Version: 1.8.16
  * Author: Frank Corso
- * Author URI: https://wphealth.app/
- * Plugin URI: https://wphealth.app/
+ * Author URI: https://sitealert.io
+ * Plugin URI: https://sitealert.io
  * Text Domain: my-wp-health-check
  *
  * @author Frank Corso

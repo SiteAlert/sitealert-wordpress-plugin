@@ -169,7 +169,7 @@ class WPHC_Checks {
 	public function wordpress_version_check() {
 		$core_update = false;
 
-		$learn_more = '<a href="http://bit.ly/2Rbb9gL" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
+		$learn_more = '<a href="https://sitealert.io/keeping-your-wordpress-site-updated/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=updated-wordpress-check" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
 
 		// Prepares messages.
 		$good  = esc_html__( 'Your WordPress is up to date. Great job!' );
@@ -198,7 +198,7 @@ class WPHC_Checks {
 	 */
 	public function update_plugins_check() {
 
-		$learn_more = '<a href="http://bit.ly/2ReF1J6" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
+		$learn_more = '<a href="https://sitealert.io/keeping-your-wordpress-site-updated/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=updated-plugin-check" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
 
 		// Loads the available plugin updates.
 		$plugin_updates = array();
@@ -270,7 +270,7 @@ class WPHC_Checks {
 	 */
 	public function supported_plugin_check( $force = false, $ignore_limit = false ) {
 		$plugin_list = get_transient( 'wphc_supported_plugin_check' );
-		$learn_more  = '<a href="http://bit.ly/2Cxq1U5" target="_blank">' . __( 'Learn more about finding quality plugins.', 'my-wp-health-check' ) . '</a>';
+		$learn_more  = '<a href="https://sitealert.io/finding-quality-wordpress-plugins/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=supported-plugin-check" target="_blank">' . __( 'Learn more about finding quality plugins.', 'my-wp-health-check' ) . '</a>';
 		if ( false === $plugin_list || $force ) {
 			$unsupported_plugins = array();
 
@@ -420,7 +420,7 @@ class WPHC_Checks {
 	 */
 	public function themes_check() {
 
-		$learn_more = '<a href="http://bit.ly/2RbahZx" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
+		$learn_more = '<a href="https://sitealert.io/keeping-your-wordpress-site-updated/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=updated-theme-check" target="_blank">' . __( 'Learn more about keeping your site updated.', 'my-wp-health-check' ) . '</a>';
 
 		// Load the available theme updates.
 		$theme_updates = array();
@@ -550,7 +550,7 @@ class WPHC_Checks {
 	 * @since 1.4.0
 	 */
 	public function ssl_check() {
-		$learn_more = '<a href="http://bit.ly/2J323Oc" target="_blank">' . __( 'Learn more about what SSL is.', 'my-wp-health-check' ) . '</a>';
+		$learn_more = '<a href="https://sitealert.io/does-my-site-need-ssl/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=ssl-check" target="_blank">' . __( 'Learn more about what SSL is.', 'my-wp-health-check' ) . '</a>';
 		$success    = __( 'Great! You are using SSL on your site.', 'my-wp-health-check' );
 		$fail       = __( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'my-wp-health-check' );
 		if ( is_ssl() ) {
@@ -644,7 +644,7 @@ class WPHC_Checks {
 		$unsupported_message       = __( 'Using an unsupported version of PHP means that you are using a version that no longer receives important security updates and fixes. Also, newer versions are faster which makes your site load faster. You must update your PHP or contact your host immediately!', 'my-wp-health-check' );
 		$security_ending_message   = __( 'Be sure to check with your host to make sure they have a plan to update before the security support ends.', 'my-wp-health-check' );
 		$below_recommended         = __( 'This is below the recommended 7.2.', 'my-wp-health-check' );
-		$learn_more                = '<a href="http://bit.ly/2KJs1b6" target="_blank">' . __( 'Learn more about what PHP is.', 'my-wp-health-check' ) . '</a>';
+		$learn_more                = '<a href="https://sitealert.io/what-is-php-and-what-version-should-my-site-use/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=php-check" target="_blank">' . __( 'Learn more about what PHP is.', 'my-wp-health-check' ) . '</a>';
 
 		$eol_time = strtotime( $php_versions[ $site_version ]['eol'] );
 		$today    = time();

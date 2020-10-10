@@ -84,7 +84,7 @@ SiteAlert will scan your site an alert you of potential accessibility concerns.
 **Email Notifications**
 Receive summaries for all your sites including any warnings, broken links, and more!
 
-[Learn more about our premium plan!](https://wphealth.app)
+[Learn more about our premium plan!](https://sitealert.io)
 
 = Make Suggestions Or Contribute =
 SiteAlert [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!

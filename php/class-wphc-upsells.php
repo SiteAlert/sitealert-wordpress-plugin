@@ -37,7 +37,7 @@ class WPHC_Upsells {
 			$screenparent = $screen->parent_file;
 			$screen_id    = $screen->id;
 			if ( $screenparent == 'plugins.php' && $screen_id == 'plugins' && current_user_can( 'install_plugins' ) ) {
-				$upsell_url = 'https://wphealth.app/upgrade/?utm_source=upsell-three-weeks-notice&utm_medium=plugin&utm_campaign=health-plugin';
+				$upsell_url = 'https://sitealert.io/upgrade/?utm_source=upsell-three-weeks-notice&utm_medium=plugin&utm_campaign=health-plugin';
 				$nope_url   = esc_url( add_query_arg( 'wphc_three_week_upsell_notice_check', 'remove_message' ) );;
 				?>
                 <style>
@@ -124,7 +124,7 @@ class WPHC_Upsells {
                 // Ad 1.
                 $ad = array(
                     'msg' => __( 'Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ),
-                    'url' => 'http://bit.ly/2oqLaoR',
+                    'url' => 'https://sitealert.io/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=wphc-ad&utm_content=ad-1',
                 );
                 break;
 
@@ -132,7 +132,7 @@ class WPHC_Upsells {
                 // Ad 2.
                 $ad = array(
                     'msg' => __( 'Do not lose time and money! Be notified as soon as your site goes down with uptime monitoring. Check out our premium plan for more details!', 'my-wp-health-check' ),
-                    'url' => 'http://bit.ly/2Cwjskt',
+                    'url' => 'https://sitealert.io/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=wphc-ad&utm_content=ad-2',
                 );
                 break;
 
@@ -140,7 +140,7 @@ class WPHC_Upsells {
                 // Ad 3.
                 $ad = array(
                     'msg' => __( 'Receive these checks in an email by upgrading to our premium version.', 'my-wp-health-check' ),
-                    'url' => 'http://bit.ly/2IVBLzh',
+                    'url' => 'https://sitealert.io/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=wphc-ad&utm_content=ad-3',
                 );
                 break;
 
@@ -148,7 +148,7 @@ class WPHC_Upsells {
                 // Ad 4.
                 $ad = array(
                     'msg' => __( 'Do not leave your visitors confused! Be notified of any broken images and links on your site by upgrading to our premium version.', 'my-wp-health-check' ),
-                    'url' => 'http://bit.ly/2RdvAto',
+                    'url' => 'https://sitealert.io/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=wphc-ad&utm_content=ad-4',
                 );
                 break;
 
@@ -156,14 +156,14 @@ class WPHC_Upsells {
                 // Ad 5.
                 $ad = array(
                     'msg' => __( 'Get Slack messages with alerts when something is wrong with your site by upgrading to our premium version.', 'my-wp-health-check' ),
-                    'url' => 'http://bit.ly/2EQKLno',
+                    'url' => 'https://sitealert.io/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=wphc-ad&utm_content=ad-5',
                 );
                 break;
 
             default:
                 $ad = array(
                     'msg' => __( 'Monitor your WordPress sites to ensure they stay up, healthy, and secure. Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ),
-                    'url' => 'http://bit.ly/2oqLaoR',
+                    'url' => 'https://sitealert.io/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=wphc-ad&utm_content=ad-1',
                 );
                 break;
         }

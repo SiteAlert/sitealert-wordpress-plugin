@@ -52,7 +52,7 @@ function wphc_generate_checks_page() {
                         if ( ! WPHC_Upsells::is_maybe_premium_user() ) {
 							?>
                             <h3><?php esc_html_e( 'Premium Checks', 'my-wp-health-check' ); ?></h3>
-                            <p><?php esc_html_e( 'Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ); ?> <a href="http://bit.ly/2U0eGmS" target="_blank"><?php esc_html_e( 'Learn more!', 'my-wp-health-check' ); ?></a></p>
+                            <p><?php esc_html_e( 'Check out our premium plans that include uptime monitoring and a central dashboard!', 'my-wp-health-check' ); ?> <a href="https://sitealert.io/upgrade?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=premium-checks-info" target="_blank"><?php esc_html_e( 'Learn more!', 'my-wp-health-check' ); ?></a></p>
                             <div class="premium-checks"></div>
 							<?php
 						}
@@ -129,7 +129,7 @@ function wphc_generate_checks_page() {
 							<th scope="row">
 								<label for="tracking_allowed"><?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?></label>
 								<p><?php esc_html_e( "Allows SiteAlert to collect data about this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
-								<p><a href="http://bit.ly/2MpT2Rd" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
+								<p><a href="https://sitealert.io/what-the-plugin-tracks/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=tracking-notice" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
 							</th>
 							<td>
 								<?php
