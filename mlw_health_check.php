@@ -84,7 +84,7 @@ class My_WP_Health_Check {
 	 * @since 1.6.0
 	 */
 	public function setup_admin_menu() {
-		add_management_page( 'SiteAlert', 'SiteAlert', 'manage_options', 'wp-health-check', 'wphc_generate_checks_page' );
+		add_management_page( 'SiteAlert', 'SiteAlert', 'manage_options', 'sitealert-checks', 'wphc_generate_checks_page' );
 	}
 
 	/**
