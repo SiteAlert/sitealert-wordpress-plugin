@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SiteAlert (Formerly WP Health)
  * Description: Keep your site healthy, secure, and performing well!
- * Version: 1.8.16
+ * Version: 1.8.17
  * Author: Frank Corso
  * Author URI: https://sitealert.io
  * Plugin URI: https://sitealert.io
@@ -33,7 +33,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.8.16';
+	public $version = '1.8.17';
 
 	/**
 	 * Main construct

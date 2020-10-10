@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
 Requires at least: 5.1
 Tested up to: 5.5
-Stable tag: 1.8.16
+Stable tag: 1.8.17
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -96,11 +96,19 @@ If your site were to go down right now, how many visitors and customers would yo
 
 Also, if you host guarantees 99% uptime, that could still mean 35 hours where your site is down each year. At 99.9%, that's still over 3 hours your site is down each year. Making sure your hosting provider is staying within their guarantee is important.
 
+= How does your broken link checker work? =
+You may have come across many plugins that can scan for broken links or broken images. However, most of these run the scan from your server which uses up a lot of our server's resources. In fact, many of these plugins are banned on several managed hosting providers.
+
+Instead, all of our broken link and broken image scanners run on our servers and scan over your site. Not only does this prevent your server from being strained, this also allows SiteAlert to catch some links that are created within plugins, such as form builders, that broken link checker plugins would miss.
+
 == Screenshots ==
 
 1. Admin Page
 
 == Changelog ==
+
+= 1.8.17 (Oct 12, 2020) =
+* Changes name to SiteAlert
 
 = 1.8.16 (Oct 4, 2020) =
 * Makes minor improvements to settings tab JavaScript
@@ -119,12 +127,9 @@ Also, if you host guarantees 99% uptime, that could still mean 35 hours where yo
 * Modify telemtry opt-in
 * Add info about email summary premium feature
 
-= 1.8.12 (August 5, 2020) =
-* Ensures WP Health works with WordPress 5.5
-
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.8.16 =
-Keep SiteAlert up to date to ensure all of your checks are running smoothly.
+= 1.8.17 =
+Keep SiteAlert (formerly WP Health) up to date to ensure all of your checks are running smoothly.

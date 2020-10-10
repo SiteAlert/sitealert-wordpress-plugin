@@ -1,3 +1,6 @@
+= 1.8.17 (Oct 12, 2020) =
+* Changes name to SiteAlert
+
 = 1.8.16 (Oct 4, 2020) =
 * Makes minor improvements to settings tab JavaScript
 * Changes API endpoint for when adding sites to premium account
