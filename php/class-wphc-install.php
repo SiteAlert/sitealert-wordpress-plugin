@@ -46,7 +46,7 @@ class WPHC_Install {
 	 */
 	public function plugin_action_links( $links ) {
 		$action_links = array(
-			'<a href="' . admin_url( 'admin.php?page=wp-health-check' ) . '">' . __( 'View Checks', 'my-wp-health-check' ) . '</a>',
+			'<a href="' . admin_url( 'admin.php?page=sitealert-checks' ) . '">' . __( 'View Checks', 'my-wp-health-check' ) . '</a>',
 		);
 		return array_merge( $action_links, $links );
 	}
