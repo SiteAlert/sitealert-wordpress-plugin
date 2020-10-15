@@ -101,7 +101,7 @@ class My_WP_Health_Check {
 			$args = array(
 				'id'    => 'wphc_admin_node',
 				'title' => '<span class="ab-icon dashicons dashicons-heart"></span>' . $total,
-				'href'  => admin_url( 'tools.php?page=wp-health-check' ),
+				'href'  => admin_url( 'tools.php?page=sitealert-checks' ),
 			);
 			$wp_admin_bar->add_node( $args );
 		}
