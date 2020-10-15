@@ -1,4 +1,4 @@
-= 1.8.17 (Oct 12, 2020) =
+= 1.8.17 (Oct 16, 2020) =
 * Changes name to SiteAlert
 
 = 1.8.16 (Oct 4, 2020) =
