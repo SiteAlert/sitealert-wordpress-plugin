@@ -94,7 +94,7 @@ SiteAlert [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
 = Why do I need an uptime monitor? =
 If your site were to go down right now, how many visitors and customers would you miss out on until you discovered your site was down? With uptime monitoring, you are immediately notified when your site goes down so you can look into and keep track of how often your site goes down.
 
-Also, if you host guarantees 99% uptime, that could still mean 35 hours where your site is down each year. At 99.9%, that's still over 3 hours your site is down each year. Making sure your hosting provider is staying within their guarantee is important.
+Also, if your host guarantees 99% uptime, that could still mean 35 hours where your site is down each year. At 99.9%, that's still over 3 hours your site is down each year. Making sure your hosting provider is staying within their guarantee is important.
 
 = How does your broken link checker work? =
 You may have come across many plugins that can scan for broken links or broken images. However, most of these run the scan from your server which uses up a lot of our server's resources. In fact, many of these plugins are banned on several managed hosting providers.
