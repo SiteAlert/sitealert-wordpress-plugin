@@ -63,6 +63,9 @@ See all of your checks from all of your sites in one place!
 **Moz Domain Authority Monitoring**
 Monitor changes in your site's Moz Domain Authority.
 
+**Alexa Rank Monitoring**
+Monitor changes in your site's Alexa Rank.
+
 **Broken Link Monitoring**
 Discover any broken links on your site before your visitors do.
 
