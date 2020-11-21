@@ -1,8 +1,8 @@
 === SiteAlert (Formerly WP Health) ===
 Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
-Requires at least: 5.1
-Tested up to: 5.5
+Requires at least: 5.3
+Tested up to: 5.6
 Stable tag: 1.8.17
 Requires PHP: 5.2
 License: GPLv2
@@ -110,6 +110,10 @@ Instead, all of our broken link and broken image scanners run on our servers and
 
 == Changelog ==
 
+= 1.8.18 (Nov 23, 2020) =
+* Bump minimum WordPress version to 5.3, which is 12 months old
+* Bump tested to up to WordPress 5.6
+
 = 1.8.17 (Oct 16, 2020) =
 * Changes name to SiteAlert
 
@@ -121,18 +125,9 @@ Instead, all of our broken link and broken image scanners run on our servers and
 * Bump minimum WordPress version to 5.1, which is 18 months old
 * Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
 
-= 1.8.14 (Sept 6, 2020) =
-* Fix error notice relating to permission callback in REST API
-* Move all api key authentication in REST API to new permission callback
-* Added new upsell message
-
-= 1.8.13 (August 31, 2020) =
-* Modify telemtry opt-in
-* Add info about email summary premium feature
-
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.8.17 =
+= 1.8.18 =
 Keep SiteAlert (formerly WP Health) up to date to ensure all of your checks are running smoothly.

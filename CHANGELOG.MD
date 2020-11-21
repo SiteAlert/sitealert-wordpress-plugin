@@ -1,3 +1,7 @@
+= 1.8.18 (Nov 23, 2020) =
+* Bump minimum WordPress version to 5.3, which is 12 months old
+* Bump tested to up to WordPress 5.6
+
 = 1.8.17 (Oct 16, 2020) =
 * Changes name to SiteAlert
 
