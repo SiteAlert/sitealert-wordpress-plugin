@@ -29,6 +29,11 @@ function wphc_register_rest_routes() {
 			'callback'            => 'wphc_rest_get_check',
 			'permission_callback' => 'wphc_rest_permission_callback'
 		) );
+		register_rest_route( 'wordpress-health-check/v1', '/emails/', array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'wphc_rest_new_email_test',
+			'permission_callback' => 'wphc_rest_permission_callback'
+		) );
 	}
 }
 
@@ -52,7 +57,7 @@ function wphc_rest_permission_callback( WP_REST_Request $request ) {
 }
 
 /**
- * Gets the results of all checks
+ * Gets the results of all checks. Requires valid API Key.
  *
  * @since 1.6.0
  * @param WP_REST_Request $request The request sent from WP REST API.
@@ -64,7 +69,7 @@ function wphc_rest_get_all_checks( WP_REST_Request $request ) {
 }
 
 /**
- * Gets the results from a type of check
+ * Gets the results from a type of check. Requires valid API Key.
  *
  * @since 1.6.0
  * @param WP_REST_Request $request The request sent from WP REST API.
@@ -90,4 +95,25 @@ function wphc_rest_get_check( WP_REST_Request $request ) {
 			break;
 	}
 	return $checks;
+}
+
+/**
+ * Creates a new email test. Requires valid API Key.
+ *
+ * @param WP_REST_Request $request The request sent from WP REST API.
+ * @return bool|WP_Error
+ * @since 1.9.0
+ */
+function wphc_rest_new_email_test( WP_REST_Request $request ) {
+	if ( ! isset( $request['test_email'] ) || ! is_email( $request['test_email'] ) ) {
+		return new WP_Error( 'invalid', 'The test email address (key: test_email) supplied was invalid.' );
+	}
+	if ( ! isset( $request['test_key'] ) ) {
+		return new WP_Error( 'invalid', 'The test email key (key: test_key) supplied was invalid.' );
+	}
+	$to = sanitize_email( $request['test_email'] );
+	$key = sanitize_text_field( $request['test_key'] );
+	$subj = "SiteAlert Test: $key";
+	wp_mail($to, $subj, '<p>Test email from SiteAlert.</p>');
+	return true;
 }

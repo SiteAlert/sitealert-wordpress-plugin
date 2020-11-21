@@ -110,7 +110,8 @@ Instead, all of our broken link and broken image scanners run on our servers and
 
 == Changelog ==
 
-= 1.8.18 (Nov 23, 2020) =
+= 1.9.0 (Nov 23, 2020) =
+* Adds a new endpoint for upcoming email deliverability monitor
 * Bump minimum WordPress version to 5.3, which is 12 months old
 * Bump tested to up to WordPress 5.6
 
