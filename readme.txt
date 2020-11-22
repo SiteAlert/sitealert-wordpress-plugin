@@ -4,7 +4,7 @@ Tags: php, uptime, plugin, version, security, update
 Requires at least: 5.3
 Tested up to: 5.6
 Stable tag: 1.8.17
-Requires PHP: 5.2
+Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,6 +114,7 @@ Instead, all of our broken link and broken image scanners run on our servers and
 * Adds a new endpoint for upcoming email deliverability monitor
 * Bump minimum WordPress version to 5.3, which is 12 months old
 * Bump tested to up to WordPress 5.6
+* Bump minimum PHP version to 5.6 to match WordPress
 
 = 1.8.17 (Oct 16, 2020) =
 * Changes name to SiteAlert
