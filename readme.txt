@@ -1,10 +1,10 @@
 === SiteAlert (Formerly WP Health) ===
 Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
-Requires at least: 5.1
-Tested up to: 5.5
-Stable tag: 1.8.17
-Requires PHP: 5.2
+Requires at least: 5.3
+Tested up to: 5.6
+Stable tag: 1.9.0
+Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ See all of your checks from all of your sites in one place!
 **Moz Domain Authority Monitoring**
 Monitor changes in your site's Moz Domain Authority.
 
+**Alexa Rank Monitoring**
+Monitor changes in your site's Alexa Rank.
+
 **Broken Link Monitoring**
 Discover any broken links on your site before your visitors do.
 
@@ -87,14 +90,14 @@ Receive summaries for all your sites including any warnings, broken links, and m
 [Learn more about our premium plan!](https://sitealert.io)
 
 = Make Suggestions Or Contribute =
-SiteAlert [is on GitHub](https://github.com/fpcorso/wordpress-health-check)!
+SiteAlert [is on GitHub](https://github.com/SiteAlert/sitealert-wordpress-plugin)!
 
 == Frequently Asked Questions ==
 
 = Why do I need an uptime monitor? =
 If your site were to go down right now, how many visitors and customers would you miss out on until you discovered your site was down? With uptime monitoring, you are immediately notified when your site goes down so you can look into and keep track of how often your site goes down.
 
-Also, if you host guarantees 99% uptime, that could still mean 35 hours where your site is down each year. At 99.9%, that's still over 3 hours your site is down each year. Making sure your hosting provider is staying within their guarantee is important.
+Also, if your host guarantees 99% uptime, that could still mean 35 hours where your site is down each year. At 99.9%, that's still over 3 hours your site is down each year. Making sure your hosting provider is staying within their guarantee is important.
 
 = How does your broken link checker work? =
 You may have come across many plugins that can scan for broken links or broken images. However, most of these run the scan from your server which uses up a lot of our server's resources. In fact, many of these plugins are banned on several managed hosting providers.
@@ -107,6 +110,12 @@ Instead, all of our broken link and broken image scanners run on our servers and
 
 == Changelog ==
 
+= 1.9.0 (Nov 30, 2020) =
+* Adds a new endpoint for upcoming email deliverability monitor
+* Bump minimum WordPress version to 5.3, which is 12 months old
+* Bump tested to up to WordPress 5.6
+* Bump minimum PHP version to 5.6 to match WordPress
+
 = 1.8.17 (Oct 16, 2020) =
 * Changes name to SiteAlert
 
@@ -118,18 +127,9 @@ Instead, all of our broken link and broken image scanners run on our servers and
 * Bump minimum WordPress version to 5.1, which is 18 months old
 * Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
 
-= 1.8.14 (Sept 6, 2020) =
-* Fix error notice relating to permission callback in REST API
-* Move all api key authentication in REST API to new permission callback
-* Added new upsell message
-
-= 1.8.13 (August 31, 2020) =
-* Modify telemtry opt-in
-* Add info about email summary premium feature
-
-For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/fpcorso/wordpress-health-check/blob/master/CHANGELOG.MD)!
+For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/SiteAlert/sitealert-wordpress-plugin/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.8.17 =
+= 1.9.0 =
 Keep SiteAlert (formerly WP Health) up to date to ensure all of your checks are running smoothly.

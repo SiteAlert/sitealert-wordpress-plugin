@@ -1,3 +1,9 @@
+= 1.9.0 (Nov 23, 2020) =
+* Adds a new endpoint for upcoming email deliverability monitor
+* Bump minimum WordPress version to 5.3, which is 12 months old
+* Bump tested to up to WordPress 5.6
+* Bump minimum PHP version to 5.6 to match WordPress
+
 = 1.8.17 (Oct 16, 2020) =
 * Changes name to SiteAlert
 
