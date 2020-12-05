@@ -114,7 +114,7 @@ Instead, all of our broken link and broken image scanners run on our servers and
 * Rewrite database version check to be easier to add new versions as they are released
 * Add the database app name (MySQL or MariaDB) to REST API endpoint
 * Add PHP 8.0 to PHP check
-* Add new continous deployment for plugin readme
+* Add new continuous deployment for plugin readme
 * Increases spam comment threshold to 150 for check to fail
 
 = 1.9.0 (Nov 30, 2020) =
@@ -131,4 +131,4 @@ For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/Site
 == Upgrade Notice ==
 
 = 1.9.1 =
-Keep SiteAlert  up to date to ensure all of your checks are running smoothly.
+Keep SiteAlert up to date to ensure all of your checks are running smoothly.
