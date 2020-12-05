@@ -3,7 +3,7 @@ Contributors: fpcorso
 Tags: php, uptime, plugin, version, security, update
 Requires at least: 5.3
 Tested up to: 5.6
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -114,7 +114,7 @@ Instead, all of our broken link and broken image scanners run on our servers and
 * Rewrite database version check to be easier to add new versions as they are released
 * Add the database app name (MySQL or MariaDB) to REST API endpoint
 * Add PHP 8.0 to PHP check
-* Add new continous deployment for plugin readme
+* Add new continuous deployment for plugin readme
 * Increases spam comment threshold to 150 for check to fail
 
 = 1.9.0 (Nov 30, 2020) =
@@ -131,4 +131,4 @@ For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/Site
 == Upgrade Notice ==
 
 = 1.9.1 =
-Keep SiteAlert  up to date to ensure all of your checks are running smoothly.
+Keep SiteAlert up to date to ensure all of your checks are running smoothly.
