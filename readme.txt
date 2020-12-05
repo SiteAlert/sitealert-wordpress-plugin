@@ -110,6 +110,13 @@ Instead, all of our broken link and broken image scanners run on our servers and
 
 == Changelog ==
 
+= 1.9.1 (December 7, 2020) =
+* Rewrite database version check to be easier to add new versions as they are released
+* Add the database app name (MySQL or MariaDB) to REST API endpoint
+* Add PHP 8.0 to PHP check
+* Add new continous deployment for plugin readme
+* Increases spam comment threshold to 150 for check to fail
+
 = 1.9.0 (Nov 30, 2020) =
 * Adds a new endpoint for upcoming email deliverability monitor
 * Bump minimum WordPress version to 5.3, which is 12 months old
@@ -119,17 +126,9 @@ Instead, all of our broken link and broken image scanners run on our servers and
 = 1.8.17 (Oct 16, 2020) =
 * Changes name to SiteAlert
 
-= 1.8.16 (Oct 4, 2020) =
-* Makes minor improvements to settings tab JavaScript
-* Changes API endpoint for when adding sites to premium account
-
-= 1.8.15 (Sept 22, 2020) =
-* Bump minimum WordPress version to 5.1, which is 18 months old
-* Fix bug in telemetry opt-in causing multiple requests on sites that opted-in
-
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/SiteAlert/sitealert-wordpress-plugin/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.9.0 =
-Keep SiteAlert (formerly WP Health) up to date to ensure all of your checks are running smoothly.
+= 1.9.1 =
+Keep SiteAlert  up to date to ensure all of your checks are running smoothly.
