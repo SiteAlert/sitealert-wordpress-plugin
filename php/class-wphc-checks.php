@@ -138,8 +138,8 @@ class WPHC_Checks {
 		$good_message = esc_html__( 'Your WordPress does not have many spam comments. Great!', 'my-wp-health-check' );
 		$bad_message  = esc_html__( 'Your WordPress has a lot of spam comments which can affect the speed of your site. You should delete your spam comments.', 'my-wp-health-check' );
 
-		// Checks if the spam count is over 50.
-		if ( 50 < $spam_count ) {
+		// Checks if the spam count is over 150.
+		if ( 150 < $spam_count ) {
 			return $this->prepare_array( $bad_message, 'bad', 'comments', $spam_count );
 		} else {
 			return $this->prepare_array( $good_message, 'good', 'comments', $spam_count );
@@ -448,22 +448,94 @@ class WPHC_Checks {
 		global $wpdb;
 
 		// Sets up main variables.
-		$version = '0.0';
-		$mariadb = false;
+		$version             = '0.0';
+		$mariadb             = false;
+		$mysql_recommended   = '5.6';
+		$mariadb_recommended = '10.1;';
+		$error               = __( 'Error checking database health.', 'my-wp-health-check' );
+		$values              = array(
+			'app'     => 'MySQL',
+			'version' => $version,
+		);
 
-		// Sets up messages.
-		$error = __( 'Error checking database health.', 'my-wp-health-check' );
-		/* translators: %s: Version of MySQL the server is running */
-		$mysql_version = __( 'Your server is running MySQL version %s.', 'my-wp-health-check' );
-		/* translators: %s: Version of MariaDB the server is running */
-		$maria_version = __( 'Your server is running MariaDB version %s.', 'my-wp-health-check' );
+		// Sets up mysql versions and dates.
+		$mysql_versions = array(
+			'5.0' => array(
+				'release' => 'October 1, 2005',
+				'eol'     => 'December 1, 2011',
+			),
+			'5.1' => array(
+				'release' => 'December 1, 2008',
+				'eol'     => 'December 1, 2013',
+			),
+			'5.5' => array(
+				'release' => 'December 1, 2010',
+				'eol'     => 'December 1, 2018',
+			),
+			'5.6' => array(
+				'release' => 'February 1, 2013',
+				'eol'     => 'February 1, 2021',
+			),
+			'5.7' => array(
+				'release' => 'October 1, 2015',
+				'eol'     => 'October 1, 2023',
+			),
+			'8.0' => array(
+				'release' => 'April 1, 2018',
+				'eol'     => 'April 1, 2026',
+			),
+		);
+
+		// Sets up mariadb versions and dates.
+		$mariadb_versions = array(
+			'5.1' => array(
+				'release' => 'February 1, 2010',
+				'eol'     => 'February 1, 2015',
+			),
+			'5.2' => array(
+				'release' => 'November 10, 2010',
+				'eol'     => 'November 10, 2015',
+			),
+			'5.3' => array(
+				'release' => 'February 29, 2012',
+				'eol'     => 'March 1, 2017',
+			),
+			'5.5' => array(
+				'release' => 'April 11, 2012',
+				'eol'     => 'April 11, 2020',
+			),
+			'10.0' => array(
+				'release' => 'March 31, 2014',
+				'eol'     => 'March 31, 2019',
+			),
+			'10.1' => array(
+				'release' => 'October 17, 2015',
+				'eol'     => 'October 17, 2020',
+			),
+			'10.2' => array(
+				'release' => 'May 23 1, 2017',
+				'eol'     => 'May 23, 2022',
+			),
+			'10.3' => array(
+				'release' => 'May 25, 2018',
+				'eol'     => 'May 25, 2023',
+			),
+			'10.4' => array(
+				'release' => 'June 18, 2019',
+				'eol'     => 'June 18, 2024',
+			),
+			'10.5' => array(
+				'release' => 'June 24, 2020',
+				'eol'     => 'June 24, 2025',
+			),
+		);
 
 		// Learned better way from the Health Check plugin: https://github.com/WordPress/health-check/blob/5ad8b4dcc3806f4be4a4c1a169ed03bdcbd69d4a/src/pages/health-check.php#L21.
 		if ( method_exists( $wpdb, 'db_version' ) ) {
 			if ( $wpdb->use_mysqli ) {
 				// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_get_server_info
 				$mysql_server_type = mysqli_get_server_info( $wpdb->dbh );
-			} else {
+			} elseif ( function_exists( 'mysql_get_server_info' ) ) {
 				// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_server_info
 				$mysql_server_type = mysql_get_server_info( $wpdb->dbh );
 			}
@@ -472,76 +544,59 @@ class WPHC_Checks {
 
 		// Tests if database is maria or mysql.
 		if ( stristr( $mysql_server_type, 'mariadb' ) ) {
-			$mariadb = true;
+			$mariadb       = true;
+			$values['app'] = 'MariaDB';
 		}
 
+		/**
+		 * Do some quick checks to make sure everything will work.
+		 */
 		$version_array = explode( '.', $version );
-
-		$msg    = '';
-		$status = 'bad';
-
-		if ( $mariadb ) {
-			switch ( intval( $version_array[0] ) ) {
-				case 5:
-					$msg = sprintf( $maria_version, $version ) . ' This is below the recommended version of 10.0. You should consider updating your MariaDB or contacting your host right away.';
-					break;
-				case 10:
-					$msg    = sprintf( $maria_version, $version ) . ' Good job! This is the recommended version.';
-					$status = 'good';
-					break;
-
-				default:
-					$msg = $error;
-					break;
-			}
-		} else {
-			switch ( intval( $version_array[0] ) ) {
-				case 4:
-					$msg = sprintf( $mysql_version, $version ) . " This has not been supported in over 5 years and is below the required 5.0. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You must update your MySQL or contact your host immediately!";
-					break;
-
-				case 5:
-					switch ( intval( $version_array[1] ) ) {
-						case 0:
-							$msg = sprintf( $mysql_version, $version ) . " This version has not been supported in 2 years and is below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host right away.";
-							break;
-
-						case 1:
-							$msg = sprintf( $mysql_version, $version ) . " This version is no longer supported and below the recommended 5.6. Using an unsupported version of MySQL means that you are using a version that no longer receives important security updates and fixes. You should consider updating your MySQL or contacting your host.";
-							break;
-
-						case 5:
-							$msg = sprintf( $mysql_version, $version ) . " This version is below the recommended 5.6. You should consider updating your MySQL or contacting your host.";
-							break;
-
-						case 6:
-							$msg    = sprintf( $mysql_version, $version ) . " Good job! This is the recommended version.";
-							$status = 'good';
-							break;
-
-						case 7:
-							$msg    = sprintf( $mysql_version, $version ) . " Good job! This is a supported version and is above the recommended version.";
-							$status = 'good';
-							break;
-
-						default:
-							$msg = $error;
-							break;
-						}
-					break;
-
-				case 8:
-					$msg    = sprintf( $mysql_version, $version ) . " This is the latest version!";
-					$status = 'good';
-					break;
-
-				default:
-					$msg = $error;
-					break;
-			}
+		if ( ! is_array( $version_array ) || count( $version_array ) < 2 ) {
+			return $this->prepare_array( $error, 'bad', 'db_version', array() );
+		}
+		$db_version        = $version_array[0] . '.' . $version_array[1];
+		$values['version'] = $db_version;
+		if ( ! $mariadb && ! isset( $mysql_versions[ $db_version ] ) ) {
+			return $this->prepare_array( $error, 'bad', 'db_version', $values );
+		} elseif( $mariadb && ! isset( $mariadb_versions[ $db_version ] ) ) {
+			return $this->prepare_array( $error, 'bad', 'db_version', $values );
 		}
 
-		return $this->prepare_array( $msg, $status, 'mysql_version', $version );
+		/**
+		 * Sets up strings with translations.
+		 */
+		/* translators: %1$s: MySQL or MariaDB, %2$s Version of MySQL/MariaDB, %3$s: the date the version of MySQL/MariaDB stopped receiving security updates. */
+		$unsupported_version_message = sprintf( __( 'Your server is running %1$s version %2$s which has not been supported since %3$s.', 'my-wp-health-check' ), $mariadb ? 'MariaDB' : 'MySQL', $db_version, $mariadb ? $mariadb_versions[ $db_version ]['eol'] : $mysql_versions[ $db_version ]['eol'] );
+		/* translators: %1$s: MySQL or MariaDB, %2$s Version of MySQL/MariaDB, %3$s: the date the version of MySQL/MariaDB will stop receiving security updates. */
+		$supported_version_message = sprintf( __( 'Good job! Your server is running %1$s version %2$s which will receive security updates until %3$s.', 'my-wp-health-check' ), $mariadb ? 'MariaDB' : 'MySQL', $db_version, $mariadb ? $mariadb_versions[ $db_version ]['eol'] : $mysql_versions[ $db_version ]['eol'] );
+		$unsupported_message       = __( 'Using an unsupported version means that you are using a version that no longer receives important security updates and fixes. You must update or contact your host immediately!', 'my-wp-health-check' );
+		$security_ending_message   = __( 'Be sure to check with your host to make sure they have a plan to update before the security support ends.', 'my-wp-health-check' );
+		/* translators: %1$s: The recommended version of MySQL or MariaDB. */
+		$below_recommended         = sprintf( __( 'This is below the recommended %1$s.', 'my-wp-health-check' ), $mariadb ? $mariadb_recommended : $mysql_recommended );
+
+		$eol_time = $mariadb ? strtotime( $mariadb_versions[ $db_version ]['eol'] ) : strtotime( $mysql_versions[ $db_version ]['eol'] );
+		$today    = time();
+		if ( $eol_time <= $today ) {
+			// If EOL is passed, show unsupported message.
+			$msg = $unsupported_version_message . ' ' . $unsupported_message;
+		} elseif ( $eol_time - ( 120 * DAY_IN_SECONDS ) < $today ) {
+			// If EOL is coming up within the next 120 days, show expiring soon message.
+			$msg    = $supported_version_message . ' ' . $security_ending_message;
+			$status = 'okay';
+		} else {
+			// If EOL is farther than 120 days out, show good message.
+			$msg    = $supported_version_message;
+			$status = 'good';
+		}
+
+		if ( $mariadb && version_compare( $db_version, $mariadb_recommended, '<' ) ) {
+			$msg .= ' ' . $below_recommended;
+		} elseif ( ! $mariadb && version_compare( $db_version, $mysql_recommended, '<' ) ) {
+			$msg .= ' ' . $below_recommended;
+		}
+
+		return $this->prepare_array( $msg, $status, 'db_version', $values );
 	}
 
 	/**
@@ -620,6 +675,10 @@ class WPHC_Checks {
 				'release' => 'November 28, 2019',
 				'eol'     => 'November 28, 2022',
 			),
+			'8.0' => array(
+				'release' => 'November 26, 2020',
+				'eol'     => 'November 26, 2023',
+			),
 		);
 
 		/**
@@ -651,12 +710,12 @@ class WPHC_Checks {
 		if ( $eol_time <= $today ) {
 			// If EOL is passed, show unsupported message.
 			$msg = $unsupported_version_message . ' ' . $unsupported_message;
-		} elseif ( $eol_time - 15552000 < $today ) {
-			// If EOL is coming up within the next 180 days, show expiring soon message.
+		} elseif ( $eol_time - ( 120 * DAY_IN_SECONDS ) < $today ) {
+			// If EOL is coming up within the next 120 days, show expiring soon message.
 			$msg    = $supported_version_message . ' ' . $security_ending_message;
 			$status = 'okay';
 		} else {
-			// If EOL is farther than 180 days out, show good message.
+			// If EOL is farther than 120 days out, show good message.
 			$msg    = $supported_version_message;
 			$status = 'good';
 		}

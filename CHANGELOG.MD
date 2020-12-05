@@ -1,3 +1,12 @@
+# SiteAlert WordPress Plugin Changelog
+
+= 1.9.1 (December 7, 2020) =
+* Rewrite database version check to be easier to add new versions as they are released
+* Add the database app name (MySQL or MariaDB) to REST API endpoint
+* Add PHP 8.0 to PHP check
+* Add new continuous deployment for plugin readme
+* Increases spam comment threshold to 150 for check to fail
+
 = 1.9.0 (Nov 23, 2020) =
 * Adds a new endpoint for upcoming email deliverability monitor
 * Bump minimum WordPress version to 5.3, which is 12 months old
