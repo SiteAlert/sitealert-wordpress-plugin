@@ -8,7 +8,7 @@ Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Monitor the health and security of your WordPress site!
+Get alerts when something on your site breaks!
 
 == Description ==
 
