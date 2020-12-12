@@ -84,7 +84,7 @@ SiteAlert will monitor dozens of lists and alert you if your site is blacklisted
 **Accessibility Monitoring**
 SiteAlert will scan your site an alert you of potential accessibility concerns.
 
-** Email Deliverability Monitoring**
+**Email Deliverability Monitoring**
 SiteAlert will alert you if emails from your site are no longer being delivered.
 
 **Email Notifications**
