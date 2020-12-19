@@ -5,7 +5,6 @@
  * Version: 1.9.2
  * Author: SiteAlert
  * Author URI: https://sitealert.io
- * Plugin URI: https://sitealert.io
  * Text Domain: my-wp-health-check
  *
  * @author SiteAlert
