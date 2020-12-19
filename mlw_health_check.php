@@ -1,14 +1,13 @@
 <?php
 /**
  * Plugin Name: SiteAlert (Formerly WP Health)
- * Description: Keep your site healthy, secure, and performing well!
- * Version: 1.9.1
- * Author: Frank Corso
+ * Description: Keep your site secure and usable with our simple WordPress monitor!
+ * Version: 1.9.2
+ * Author: SiteAlert
  * Author URI: https://sitealert.io
- * Plugin URI: https://sitealert.io
  * Text Domain: my-wp-health-check
  *
- * @author Frank Corso
+ * @author SiteAlert
  * @package WPHC
  */
 
@@ -33,7 +32,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.9.1';
+	public $version = '1.9.2';
 
 	/**
 	 * Main construct

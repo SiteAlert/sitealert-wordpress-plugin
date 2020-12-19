@@ -1,9 +1,9 @@
 === SiteAlert (Formerly WP Health) ===
-Contributors: fpcorso
-Tags: php, uptime, plugin, version, security, update
+Contributors: sitealert, fpcorso
+Tags: email, uptime, blacklist, version, security, update
 Requires at least: 5.3
 Tested up to: 5.6
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -110,8 +110,13 @@ Instead, all of our broken link and broken image scanners run on our servers and
 == Screenshots ==
 
 1. Admin Page
+2. Page speed monitor (Premium version)
 
 == Changelog ==
+
+= 1.9.2 (December 21, 2020) =
+* Minor text changes
+* Adds second screenshot
 
 = 1.9.1 (December 7, 2020) =
 * Rewrite database version check to be easier to add new versions as they are released
@@ -133,5 +138,5 @@ For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/Site
 
 == Upgrade Notice ==
 
-= 1.9.1 =
+= 1.9.2 =
 Keep SiteAlert up to date to ensure all of your checks are running smoothly.

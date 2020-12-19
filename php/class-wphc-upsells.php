@@ -23,7 +23,7 @@ class WPHC_Upsells {
 	 */
     public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'check_upsell_notice_button_clicks' ) );
-        add_action( 'admin_notices', array( __CLASS__, 'three_week_upsell_notice' ) );
+        //add_action( 'admin_notices', array( __CLASS__, 'three_week_upsell_notice' ) );
     }
 
 	/**

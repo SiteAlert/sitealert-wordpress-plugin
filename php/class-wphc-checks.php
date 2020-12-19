@@ -607,7 +607,7 @@ class WPHC_Checks {
 	public function ssl_check() {
 		$learn_more = '<a href="https://sitealert.io/does-my-site-need-ssl/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=checks-page&utm_content=ssl-check" target="_blank">' . __( 'Learn more about what SSL is.', 'my-wp-health-check' ) . '</a>';
 		$success    = __( 'Great! You are using SSL on your site.', 'my-wp-health-check' );
-		$fail       = __( 'Your site is not using SSL. This is insecure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'my-wp-health-check' );
+		$fail       = __( 'Your site is not using SSL. This is not secure and is hurting your SEO ranking too. Certain browsers are starting to label sites without SSL as "Not Secure" which may cause users to not trust your site. Contact your host about SSL.', 'my-wp-health-check' );
 		if ( is_ssl() ) {
 			return $this->prepare_array( "$success $learn_more", 'good', 'ssl', true );
 		} else {
