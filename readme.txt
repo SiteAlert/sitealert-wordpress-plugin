@@ -110,6 +110,7 @@ Instead, all of our broken link and broken image scanners run on our servers and
 == Screenshots ==
 
 1. Admin Page
+2. Page speed monitor (Premium version)
 
 == Changelog ==
 
