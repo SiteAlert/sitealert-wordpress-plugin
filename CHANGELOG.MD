@@ -1,5 +1,10 @@
 # SiteAlert WordPress Plugin Changelog
 
+## 1.9.3 (March 14, 2021)
+
+* Bump tested to up to WordPress 5.7
+* Minor design tweaks
+
 ## 1.9.2 (December 21, 2020)
 
 * Minor text changes
