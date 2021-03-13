@@ -86,10 +86,10 @@ class WPHC_Review_Manager {
 		<div class="updated wphc-review-message">
 			<p>
 				<?php
-				echo sprintf( __('Greetings! I just noticed that you have been using the SiteAlert plugin for over a week now. That is
-		awesome! Could you please help me out by giving this plugin a 5-star rating on WordPress? This
-		will help me by helping other users discover this plugin. %s', 'my-wp-health-check'),
-					'<strong><em>~ Frank Corso</em></strong>'
+				echo sprintf( __('Greetings! We just noticed that you have been using the SiteAlert plugin for over a week now. That is
+		awesome! Could you please help us out by giving this plugin a 5-star rating on WordPress? This
+		will help us by helping other users discover this plugin. %s', 'my-wp-health-check'),
+					'<strong><em>~ The SiteAlert Team</em></strong>'
 				);
 				?>
 			</p>
