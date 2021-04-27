@@ -1,6 +1,6 @@
 === SiteAlert - Uptime, Speed, and Security Monitoring for WordPress ===
 Contributors: sitealert, fpcorso
-Tags: email, uptime, blacklist, version, security, update
+Tags: monitor, security, email, uptime, blacklist
 Requires at least: 5.4
 Tested up to: 5.7
 Stable tag: 1.9.3
