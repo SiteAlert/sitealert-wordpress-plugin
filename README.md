@@ -1,4 +1,4 @@
-# SiteAlert (Formerly WP Health)
+# SiteAlert
 
 This WordPress plugin monitors the health and security of your WordPress site! SiteAlert will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
 
