@@ -8,7 +8,7 @@ Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Get alerts when something on your site breaks!
+Get alerts when something on your site breaks! Get peace of mind that your site is healthy, up to date, secure, and running smoothly.
 
 == Description ==
 
@@ -51,20 +51,20 @@ Checks if your site has disabled the file editor.
 **Spam Comments**
 Checks to make sure you don't have too many spam comments.
 
-**Optional REST API**
-If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "SiteAlert" page in the tools menu.
-
 = Need more? =
-Check out our premium plans that includes:
+Check out our affordable [premium plan](https://sitealert.io) that includes:
 
-**Central Dashboard**
-See all of your checks from all of your sites in one place!
+**Email Notifications**
+Receive summaries for all your sites including any warnings, broken links, and more!
 
-**Moz Domain Authority Monitoring**
-Monitor changes in your site's Moz Domain Authority.
+**Uptime Monitoring**
+Get notified immediately via SMS or Email if your site goes down.
 
-**Alexa Rank Monitoring**
-Monitor changes in your site's Alexa Rank.
+**Page Speed Monitoring**
+Keep track of how fast your site is loading.
+
+**Email Deliverability Monitoring**
+SiteAlert will alert you if emails from your site are no longer being delivered.
 
 **Broken Link Monitoring**
 Discover any broken links on your site before your visitors do.
@@ -72,28 +72,25 @@ Discover any broken links on your site before your visitors do.
 **Broken Images Monitoring**
 Get notified if you have any broken images on your site.
 
-**Uptime Monitoring**
-Get notified immediately if your site goes down.
-
-**Page Speed Monitoring**
-Keep track of how fast your site is loading.
-
 **Blacklist Monitoring**
 SiteAlert will monitor dozens of lists and alert you if your site is blacklisted.
 
-**Accessibility Monitoring**
+**Moz Domain Authority Monitoring**
+Monitor changes in your site's Moz Domain Authority.
+
+**Alexa Rank Monitoring**
+Monitor changes in your site's Alexa Rank.
+
+**Accessibility Monitoring (Beta)**
 SiteAlert will scan your site an alert you of potential accessibility concerns.
-
-**Email Deliverability Monitoring**
-SiteAlert will alert you if emails from your site are no longer being delivered.
-
-**Email Notifications**
-Receive summaries for all your sites including any warnings, broken links, and more!
 
 [Learn more about our premium plan!](https://sitealert.io)
 
 = Make Suggestions Or Contribute =
 SiteAlert [is on GitHub](https://github.com/SiteAlert/sitealert-wordpress-plugin)!
+
+**Optional REST API**
+If you are a developer, this plugin integrates with the REST API. The endpoints can be enabled from the settings tab of the "SiteAlert" page in the tools menu.
 
 == Frequently Asked Questions ==
 
