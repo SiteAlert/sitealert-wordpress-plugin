@@ -2,7 +2,9 @@
 
 This WordPress plugin monitors the health and security of your WordPress site! SiteAlert will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
 
-Feel free to browse the code and make suggestions/requests. Thanks!
+Feel free to browse the code and make suggestions/requests.
+
+Check out our [premium features](https://sitealert.io/) to get instant alerts if you site goes down, speed test monitoring, and much more!
 
 ## Getting Started
 
