@@ -1,4 +1,4 @@
-=== SiteAlert (Formerly WP Health) ===
+=== SiteAlert - Uptime, Speed, and Security Monitoring for WordPress ===
 Contributors: sitealert, fpcorso
 Tags: email, uptime, blacklist, version, security, update
 Requires at least: 5.4
@@ -14,7 +14,7 @@ Get alerts when something on your site breaks!
 
 SiteAlert will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
 
-Once installed, there will be a new **SiteAlert** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention.
+Once installed, there will be a new **SiteAlert** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention. [Get instant alerts with our premium plan!](https://sitealert.io/pricing)
 
 = Currently Checks =
 
