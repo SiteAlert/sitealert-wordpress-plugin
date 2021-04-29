@@ -1,6 +1,6 @@
 === SiteAlert - Uptime, Speed, and Security Monitoring for WordPress ===
 Contributors: sitealert, fpcorso
-Tags: monitor, security, email, uptime, blacklist
+Tags: monitor, uptime, security, email, blacklist
 Requires at least: 5.4
 Tested up to: 5.7
 Stable tag: 1.9.3
@@ -14,7 +14,9 @@ Get alerts when something on your site breaks! Get peace of mind that your site 
 
 SiteAlert will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
 
-Once installed, there will be a new **SiteAlert** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention. [Get instant alerts with our premium plan!](https://sitealert.io/pricing)
+Once installed, there will be a new **SiteAlert** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention.
+
+[Get instant alerts via SMS by using our premium plan!](https://sitealert.io/pricing)
 
 = Currently Checks =
 
