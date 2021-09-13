@@ -8,7 +8,7 @@ Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Get alerts when something on your site breaks! Get peace of mind that your site is healthy, up to date, secure, and running smoothly.
+Peace of mind that your site is secure and running smoothly. Performance monitoring, security checks, and instant alerts if your site goes down.
 
 == Description ==
 
@@ -16,7 +16,9 @@ SiteAlert will check your WordPress installation to ensure that it is healthy, u
 
 Once installed, there will be a new **SiteAlert** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention.
 
-[Get instant alerts via SMS by using our premium plan!](https://sitealert.io/pricing)
+Over 10,000 active installations and 280+ five star reviews!
+
+[Get instant alerts, premium performance monitoring, and more with our premium plan!](https://sitealert.io/pricing)
 
 = Currently Checks =
 
