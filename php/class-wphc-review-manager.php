@@ -88,7 +88,7 @@ class WPHC_Review_Manager {
 				<?php
 				echo sprintf( __('Greetings! We just noticed that you have been using the SiteAlert plugin for over a week now. That is
 		awesome! Could you please help us out by giving this plugin a 5-star rating on WordPress? This
-		will help us by helping other users discover this plugin. %s', 'my-wp-health-check'),
+		will help us by helping other users discover this plugin. And if you want to try our premium features, we would be happy to send you a coupon code. Message us through https://sitealert.io/contact/ %s', 'my-wp-health-check'),
 					'<strong><em>~ The SiteAlert Team</em></strong>'
 				);
 				?>
