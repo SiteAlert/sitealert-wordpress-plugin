@@ -37,7 +37,7 @@ class WPHC_Upsells {
 			$screenparent = $screen->parent_file;
 			$screen_id    = $screen->id;
 			if ( $screenparent == 'plugins.php' && $screen_id == 'plugins' && current_user_can( 'install_plugins' ) ) {
-				$upsell_url = 'https://sitealert.io/upgrade/?utm_source=upsell-three-weeks-notice&utm_medium=plugin&utm_campaign=health-plugin';
+				$upsell_url = 'https://sitealert.io/?utm_source=upsell-three-weeks-notice&utm_medium=plugin&utm_campaign=health-plugin';
 				$nope_url   = esc_url( add_query_arg( 'wphc_three_week_upsell_notice_check', 'remove_message' ) );;
 				?>
                 <style>
@@ -72,7 +72,7 @@ class WPHC_Upsells {
                         <li><?php esc_html_e( 'Uptime Monitor', 'my-wp-health-check' ); ?></li>
                         <li><?php esc_html_e( 'Accessibility Monitor', 'my-wp-health-check' ); ?></li>
                     </ul>
-                    <p><?php esc_html_e( 'Since you have already been using the free version, you can use coupon code THREEWEEKS to get 75% off your first month!', 'my-wp-health-check' ); ?></p>
+                    <p><?php esc_html_e( 'Since you have already been using the free version, you can use coupon code THREEWEEKS to get 50% off your first three months!', 'my-wp-health-check' ); ?></p>
                     <p><?php esc_html_e( 'We truly believe SiteAlert makes a difference for people maintaining their WordPress sites. We hope you utilize this coupon code. Feel free to reach out if we can ever assist with anything.', 'my-wp-health-check' ); ?><strong><em>~ The SiteAlert Team</em></strong></p>
                     <p class="wphc-upsell-message-action-links">
                         <a target="_blank" href="<?php echo esc_url( $upsell_url ); ?>" class="button-primary"><?php esc_html_e( 'Yeah, I want to upgrade!', 'my-wp-health-check' ); ?></a>

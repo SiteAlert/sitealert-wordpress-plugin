@@ -2,8 +2,8 @@
 Contributors: sitealert, fpcorso
 Tags: monitor, uptime, security, email, blacklist
 Requires at least: 5.4
-Tested up to: 5.7
-Stable tag: 1.9.3
+Tested up to: 5.8
+Stable tag: 1.9.4
 Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,9 @@ Instead, all of our broken link and broken image scanners run on our servers and
 
 == Changelog ==
 
+= 1.9.3 (October 19, 2021) =
+* Bump tested to up to WordPress 5.8
+
 = 1.9.3 (March 14, 2021) =
 * Bump tested to up to WordPress 5.7
 * Minor design tweaks
@@ -130,18 +133,18 @@ Instead, all of our broken link and broken image scanners run on our servers and
 * Add new continuous deployment for plugin readme
 * Increases spam comment threshold to 150 for check to fail
 
-= 1.9.0 (Nov 30, 2020) =
+= 1.9.0 (November 30, 2020) =
 * Adds a new endpoint for upcoming email deliverability monitor
 * Bump minimum WordPress version to 5.3, which is 12 months old
 * Bump tested to up to WordPress 5.6
 * Bump minimum PHP version to 5.6 to match WordPress
 
-= 1.8.17 (Oct 16, 2020) =
+= 1.8.17 (October 16, 2020) =
 * Changes name to SiteAlert
 
 For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/SiteAlert/sitealert-wordpress-plugin/blob/master/CHANGELOG.MD)!
 
 == Upgrade Notice ==
 
-= 1.9.3 =
+= 1.9.4 =
 Keep SiteAlert up to date to ensure all of your checks are running smoothly.
