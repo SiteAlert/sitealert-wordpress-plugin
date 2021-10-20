@@ -1,6 +1,6 @@
 # SiteAlert
 
-This WordPress plugin monitors the health and security of your WordPress site! SiteAlert will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
+This plugin monitors the health and security of your WordPress site! It check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
 
 Feel free to browse the code and make suggestions/requests.
 
@@ -44,7 +44,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Developers
 
-* Frank Corso - Lead Developer
+* SiteAlert team
 
 See also [the list of contributors](https://github.com/fpcorso/wordpress-health-check/graphs/contributors) who participated in this project.
 
