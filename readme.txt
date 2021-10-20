@@ -12,7 +12,7 @@ Peace of mind that your site is secure and running smoothly. Performance monitor
 
 == Description ==
 
-SiteAlert checks your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of the checks using the simple color-coded sections.
+SiteAlert will check your WordPress installation to ensure that it is healthy, up to date, and secure. Use the SiteAlert page to quickly see the results of these checks using the simple color-coded sections.
 
 Once installed, there will be a new **SiteAlert** page added to the Tools menu and heart icon to your admin bar if the results of these checks need attention.
 
