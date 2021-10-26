@@ -29,7 +29,7 @@
 	display: block;
 	text-align: center;
 	background: #fff;
-	border: 3px solid #173F9C;
+	border: 3px solid #385bd6;
 	border-radius: 10px;
 	padding: 10px 25px;
 	margin: 8px;
@@ -39,7 +39,7 @@
 }
 
 .wphc-ad a {
-	color: #173F9C;
+	color: #385bd6;
 	display: inline-block;
 	transition-duration: 0.2s;
 }
@@ -52,14 +52,14 @@
 .wphc-alert-box {
 	color:#111;
 	border-radius: 10px;
-	padding: 12px 36px;
+	padding: 15px;
 	margin: 10px;
 	font-size: 15px;
 	border: 1px solid #111;
 }
 
 .wphc-alert-box a {
-	color: #173F9C;
+	color: #385bd6;
 	display: inline-block;
 	transition-duration: 0.2s;
 }
@@ -97,32 +97,36 @@
 #wphc-subscribe input {
 	display: block;
 	width: 100%;
-	border: 3px solid #173F9C;
-	border-radius: 10px;
+	border: 2px solid #385bd6;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.wp-core-ui .button-primary {
+	background: #385bd6;
+	border-color: #385bd6;
 }
 
 .wphc-info-section {
-	background-color: #412D3C;
+	background-color: #DDD;
 	padding-bottom: 1px;
-	min-width: 150px;
+	min-width: 300px;
 }
 
 .wphc-info-section-title {
 	text-align: center;
-	border-bottom: 5px solid #173F9C;
 	margin: 0;
 	padding: 10px 0;
 	background-color: #fff;
-	color: #173F9C;
+	color: #385bd6;
 	font-weight: bold;
 }
 
 .wphc-info-box {
 	text-align: center;
-	border: 5px solid #173F9C;
-	margin: 10px 5px;
+	border: 5px solid #385bd6;
 	background: #fff;
-	padding: 10px 5px;
+	padding: 10px;
 	transition-duration: 0.5s;
 }
 
