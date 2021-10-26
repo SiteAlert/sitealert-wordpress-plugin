@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SiteAlert (Formerly WP Health)
  * Description: Keep your site secure and usable with our simple WordPress monitor!
- * Version: 1.9.4
+ * Version: 1.9.5
  * Author: SiteAlert
  * Author URI: https://sitealert.io
  * Text Domain: my-wp-health-check
@@ -32,7 +32,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.9.4';
+	public $version = '1.9.5';
 
 	/**
 	 * Main construct
