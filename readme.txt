@@ -3,7 +3,7 @@ Contributors: sitealert, fpcorso
 Tags: monitor, uptime, security, email, blacklist
 Requires at least: 5.4
 Tested up to: 5.8
-Stable tag: 1.9.4
+Stable tag: 1.9.5
 Requires PHP: 5.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -115,7 +115,10 @@ Instead, all of our broken link and broken image scanners run on our servers and
 
 == Changelog ==
 
-= 1.9.3 (October 19, 2021) =
+= 1.9.5 (October 26, 2021) =
+* Minor design tweaks
+
+= 1.9.4 (October 19, 2021) =
 * Bump tested to up to WordPress 5.8
 
 = 1.9.3 (March 14, 2021) =
@@ -146,5 +149,5 @@ For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/Site
 
 == Upgrade Notice ==
 
-= 1.9.4 =
+= 1.9.5 =
 Keep SiteAlert up to date to ensure all of your checks are running smoothly.
