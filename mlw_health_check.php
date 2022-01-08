@@ -32,7 +32,7 @@ class My_WP_Health_Check {
 	 * @var string
 	 * @since 1.6.0
 	 */
-	public $version = '1.9.5';
+	public $version = '1.9.6';
 
 	/**
 	 * Main construct
