@@ -153,5 +153,5 @@ For the rest of the changelog, [review our CHANGELOG.MD](https://github.com/Site
 
 == Upgrade Notice ==
 
-= 1.9.5 =
+= 1.9.6 =
 Keep SiteAlert up to date to ensure all of your checks are running smoothly.
