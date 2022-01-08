@@ -126,26 +126,10 @@ function wphc_generate_checks_page() {
 				<table class="form-table">
 					<tbody>
 						<tr>
-							<th scope="row">
-								<label for="tracking_allowed"><?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?></label>
-								<p><?php esc_html_e( "Allows SiteAlert to collect data about this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
-								<p><a href="https://sitealert.io/what-the-plugin-tracks/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=tracking-notice" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
-							</th>
-							<td>
-								<?php
-								$tracking_allowed = '0';
-								if ( isset( $settings['tracking_allowed'] ) ) {
-									$tracking_allowed = esc_attr( $settings['tracking_allowed'] );
-								}
-								?>
-								<input type='checkbox' name='tracking_allowed' id='tracking_allowed' value='2' <?php checked( '2', $tracking_allowed, true ); ?>>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">
+							<th scope="row" class="checks-settings-th">
 								<label for="api_key"><?php esc_html_e( 'Your SiteAlert Premium API Key', 'my-wp-health-check' ); ?></label>
 								<p><?php esc_html_e( 'Enter your API Key to add this site to your SiteAlert Premium account.', 'my-wp-health-check' ); ?></p>
-								<p><?php esc_html_e( 'If you are a developer wanting to use the REST API: By default the REST API is disabled for this plugin. You can add your own custom API Key to enable it so you can build custom scripts around the REST API.', 'my-wp-health-check' ); ?></p>
+								<p class="settings-explainers"><?php esc_html_e( 'If you are a developer wanting to use the REST API: By default the REST API is disabled for this plugin. You can add your own custom API Key to enable it so you can build custom scripts around the REST API.', 'my-wp-health-check' ); ?></p>
 							</th>
 							<td>
 								<?php
@@ -155,6 +139,22 @@ function wphc_generate_checks_page() {
 								}
 								?>
 								<input type='text' name='api_key' id='api_key' value='<?php echo esc_attr( $api_key ); ?>' />
+							</td>
+						</tr>
+						<tr>
+							<th scope="row" class="checks-settings-th">
+								<label for="tracking_allowed"><?php esc_html_e( 'Allow Usage Tracking?', 'my-wp-health-check' ); ?></label>
+								<p class="settings-explainers"><?php esc_html_e( "Allows SiteAlert to collect data about this plugin's usage and help us make this plugin better.", 'my-wp-health-check' ); ?></p>
+								<p class="settings-explainers"><a href="https://sitealert.io/what-the-plugin-tracks/?utm_campaign=health-plugin&utm_medium=plugin&utm_source=tracking-notice" target="_blank"><?php esc_html_e( 'Click here to learn more', 'my-wp-health-check' ); ?></a></p>
+							</th>
+							<td>
+								<?php
+								$tracking_allowed = '0';
+								if ( isset( $settings['tracking_allowed'] ) ) {
+									$tracking_allowed = esc_attr( $settings['tracking_allowed'] );
+								}
+								?>
+								<input type='checkbox' name='tracking_allowed' id='tracking_allowed' value='2' <?php checked( '2', $tracking_allowed, true ); ?>>
 							</td>
 						</tr>
 					</tbody>

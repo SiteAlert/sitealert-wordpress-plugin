@@ -53,7 +53,7 @@
 	color:#111;
 	border-radius: 10px;
 	padding: 15px;
-	margin: 10px;
+	margin: 10px 0;
 	font-size: 15px;
 	border: 1px solid #111;
 }
@@ -66,7 +66,6 @@
 
 .wphc-alert-box a:hover {
 	color: #082360;
-	transform: skewX(-10deg);
 }
 
 .wphc-good-box {
@@ -134,13 +133,30 @@
 	transform: scale(1.1);
 }
 
+.server-checks, .WordPress-checks, .plugin-checks {
+	margin-bottom: 40px;
+}
+
+.wphc-flex-item h3 {
+	font-size: 20px;
+}
+
+th.checks-settings-th {
+	min-width: 300px;
+}
+
+.settings-explainers {
+	font-size: 80%;
+	font-weight: normal.
+}
+
 @media screen and (min-width: 1200px) {
 	.wphc-flex {
 		flex-direction: row;
 	}
 
 	.wphc-flex-item:first-child {
-		margin-right: 10px;
+		margin-right: 20px;
 	}
 
 	.wphc-flex-item:last-child {
