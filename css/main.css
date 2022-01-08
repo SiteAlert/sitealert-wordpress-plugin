@@ -141,6 +141,19 @@
 	font-size: 20px;
 }
 
+th.checks-settings-th {
+	width: 300px;
+}
+
+.settings-explainers {
+	font-size: 80%;
+	font-weight: normal.
+}
+
+@media screen and (max-width: 780px) {
+	width: 100%;
+}
+
 @media screen and (min-width: 1200px) {
 	.wphc-flex {
 		flex-direction: row;
