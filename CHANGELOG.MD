@@ -1,5 +1,9 @@
 # SiteAlert WordPress Plugin Changelog
 
+## 1.9.7 (Feb 20, 2022)
+
+* Tested on WordPress 5.9
+
 ## 1.9.6 (Jan 8, 2022)
 
 * Design improvements to checks and settings tabs
