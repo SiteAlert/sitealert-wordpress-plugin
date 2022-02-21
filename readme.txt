@@ -2,7 +2,7 @@
 Contributors: sitealert, fpcorso
 Tags: monitor, uptime, security, email, blacklist
 Requires at least: 5.4
-Tested up to: 5.8
+Tested up to: 5.9
 Stable tag: 1.9.7
 Requires PHP: 5.6
 License: GPLv2
