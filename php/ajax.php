@@ -56,6 +56,9 @@ add_action( 'wp_ajax_nopriv_wphc_save_plugin_settings', 'wphc_save_settings' );
  * Saves the settings from the "Settings" tab of the plugin
  */
 function wphc_save_settings() {
+	if (!current_user_can('manage_options') || !wp_verify_nonce('action', 'action')) {
+        	exit;
+    	}
 	$tracking = sanitize_text_field( $_POST['tracking_allowed'] );
 	$api_key  = sanitize_text_field( $_POST['api_key'] );
 	$settings = array(
