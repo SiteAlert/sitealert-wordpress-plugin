@@ -32,7 +32,8 @@ var WPHCAdmin;
 			var data = {
 				action: 'wphc_save_plugin_settings',
 				tracking_allowed: tracking_allowed,
-				api_key: $( '#api_key' ).val(),
+				api_key: $('#api_key').val(),
+				nonce: wphc.ajax_nonce, // our nonce
 			};
 			$.post( ajaxurl, data, function( response ) {
 				response =  JSON.parse( response );
